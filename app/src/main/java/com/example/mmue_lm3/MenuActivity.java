@@ -20,12 +20,22 @@ public class MenuActivity extends AppCompatActivity {
     }
 
     /**
-     * This Method handles clicking on startGameButton
+     * This Method handles clicking on buttonStartGame
      *
-     * @param view view of startGameButton
+     * @param view view of buttonStartGame
      */
     public void startButtonClicked(View view) {
         Intent intent = new Intent(this, GameActivity.class);
+        startActivity(intent);
+    }
+
+    /**
+     * This Method handles clicking on buttonSeeHighscore
+     *
+     * @param view view of buttonSeeHighscores
+     */
+    public void highscoreButtonClicked(View view) {
+        Intent intent = new Intent(this, HighscoreActivity.class);
         startActivity(intent);
     }
 }

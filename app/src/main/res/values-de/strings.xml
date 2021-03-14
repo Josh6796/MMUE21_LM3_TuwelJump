@@ -3,4 +3,5 @@
     <string name="loading">Laden…</string>
     <string name="skip_video">Video überspringen</string>
     <string name="start_game">Spiel starten</string>
+    <string name="see_highscores">Highscores ansehen</string>
 </resources>
