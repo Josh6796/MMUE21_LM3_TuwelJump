@@ -4,12 +4,20 @@ import android.graphics.Rect;
 
 import com.example.mmue_lm3.interfaces.Collidable;
 import com.example.mmue_lm3.interfaces.Drawable;
+import com.example.mmue_lm3.interfaces.Updatable;
 
-public abstract class GameObject implements Drawable, Collidable {
+public abstract class GameObject implements Drawable, Collidable, Updatable {
     int x;
     int y;
     int width;
     int height;
+
+    protected GameObject(int x, int y, int width, int height) {
+        this.x = x;
+        this.y = y;
+        this.width = width;
+        this.height = height;
+    }
 
     public void setX(int x) {
         this.x = x;
@@ -17,6 +25,14 @@ public abstract class GameObject implements Drawable, Collidable {
 
     public void setY(int y) {
         this.y = y;
+    }
+
+    public void setWidth(int width) {
+        this.width = width;
+    }
+
+    public void setHeight(int height) {
+        this.height = height;
     }
 
     public int getX() {

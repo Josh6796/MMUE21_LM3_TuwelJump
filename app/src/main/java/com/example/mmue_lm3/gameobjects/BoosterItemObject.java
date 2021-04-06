@@ -7,7 +7,8 @@ public class BoosterItemObject extends ItemObject {
 
     private final Booster booster;
 
-    public BoosterItemObject(Booster booster) {
+    public BoosterItemObject(Booster booster, int x, int y) {
+        super(x, y, 10, 20);
         this.booster = booster;
     }
 
@@ -27,5 +28,10 @@ public class BoosterItemObject extends ItemObject {
 
     public Booster getBooster() {
         return booster;
+    }
+
+    @Override
+    public void update(float deltaTime) {
+
     }
 }

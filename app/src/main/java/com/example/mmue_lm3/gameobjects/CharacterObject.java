@@ -9,13 +9,19 @@ public class CharacterObject extends GameObject {
     private int health;
     private int ects;
 
-    public CharacterObject(int health, int ects) {
+    public CharacterObject(int health, int ects, int x, int y) {
+        super(x, y, 10, 20);
         this.health = health;
         this.ects = ects;
     }
 
     @Override
     public void draw(Canvas canvas) {
+
+    }
+
+    @Override
+    public void update(float deltaTime) {
 
     }
 

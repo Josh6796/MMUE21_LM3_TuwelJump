@@ -3,12 +3,14 @@
  *
  * @author Mathias Schwengerer
  */
-package com.example.mmue_lm3;
+package com.example.mmue_lm3.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+
+import com.example.mmue_lm3.R;
 
 public class VideoActivity extends AppCompatActivity {
     @Override

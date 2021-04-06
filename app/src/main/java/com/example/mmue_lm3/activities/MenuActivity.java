@@ -3,13 +3,15 @@
  *
  * @author Joshua Oblong
  */
-package com.example.mmue_lm3;
+package com.example.mmue_lm3.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.mmue_lm3.R;
 
 public class MenuActivity extends AppCompatActivity {
     @Override

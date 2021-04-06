@@ -9,11 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MMUELM3">
-        <activity android:name=".HighscoreActivity"/>
-        <activity android:name=".GameActivity"
+        <activity android:name=".activities.HighscoreActivity"/>
+        <activity android:name=".activities.GameActivity"
             android:noHistory="true" />
-        <activity android:name=".MenuActivity"/>
-        <activity android:name=".VideoActivity"
+        <activity android:name=".activities.MenuActivity"/>
+        <activity android:name=".activities.VideoActivity"
                 android:noHistory="true" >
         <intent-filter>
             <action android:name="android.intent.action.MAIN" />

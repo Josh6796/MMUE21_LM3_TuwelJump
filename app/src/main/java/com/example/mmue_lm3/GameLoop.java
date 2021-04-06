@@ -6,9 +6,14 @@ import android.graphics.Canvas;
 import android.util.Log;
 import android.view.SurfaceHolder;
 
+import com.example.mmue_lm3.GameSurfaceView;
+import com.example.mmue_lm3.Scene;
+import com.example.mmue_lm3.gameobjects.EctsItemObject;
+
 public class GameLoop implements Runnable {
 
     public float deltaTime;
+    private long lastTime;
 
     private SurfaceHolder surfaceHolder;
     private GameSurfaceView gameSurfaceView;
@@ -46,13 +51,15 @@ public class GameLoop implements Runnable {
     }
 
     private void start() {
-        //todo: calculate the time delta between the last frame and the current frame
+        this.lastTime = System.nanoTime();
+        EctsItemObject test = new EctsItemObject(20, 100, 500);
+        gameScene.add(test);
     }
 
     private void update() {
-        //todo: calculate the time delta between the last frame and the current frame
         //Calculate time delta for frame independence
         calculateDeltaTime();
+        gameScene.update(deltaTime);
     }
 
     //@SuppressLint("WrongCall")
@@ -73,7 +80,8 @@ public class GameLoop implements Runnable {
     }
 
     private void calculateDeltaTime() {
-        //todo: calculate the time delta between the last frame and the current frame
+        long time = System.nanoTime();
+        this.deltaTime = ((time - this.lastTime) / 1000000.0f);
+        lastTime = time;
     }
-
 }
