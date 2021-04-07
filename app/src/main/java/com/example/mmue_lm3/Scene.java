@@ -18,6 +18,7 @@ public class Scene {
 
     public void draw(Canvas canvas) {
 
+        // background
         canvas.drawColor(Color.rgb(165, 200, 255));
 
         for (GameObject gameObject : gameObjects) {
