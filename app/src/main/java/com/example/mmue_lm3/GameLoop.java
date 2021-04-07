@@ -2,9 +2,11 @@ package com.example.mmue_lm3;
 
 
 import android.graphics.Canvas;
+import android.graphics.Rect;
 import android.util.Log;
 import android.view.SurfaceHolder;
 
+import com.example.mmue_lm3.events.CollisionEvent;
 import com.example.mmue_lm3.events.PauseEvent;
 import com.example.mmue_lm3.interfaces.Event;
 import com.example.mmue_lm3.interfaces.EventListener;
@@ -67,14 +69,13 @@ public class GameLoop implements Runnable, EventListener {
 
     private void start() {
         this.lastTime = System.nanoTime();
-        GameObject test1 = new EctsItemObject(20, 50, 500);
-        GameObject test2 = new CharacterObject(20, 29, 100, 500);
-        GameObject test3 = new CharacterObject(20, 29, 200, 500);
-        GameObject test4 = new EctsItemObject(20, 50, 550);
+
+        CharacterObject test1 = new CharacterObject(3, 0, 50, 800);
+        GameObject test2 = new EctsItemObject(20, 50, 500);
+        GameObject test3 = new EctsItemObject(20, 50, 600);
         gameScene.add(test1);
         gameScene.add(test2);
         gameScene.add(test3);
-        gameScene.add(test4);
     }
 
     private void events() {
@@ -88,6 +89,8 @@ public class GameLoop implements Runnable, EventListener {
             return processEvent((TouchEvent) e);
         if (e.getClass() == PauseEvent.class)
             return processEvent((PauseEvent) e);
+        if (e.getClass() == CollisionEvent.class)
+            return processEvent((CollisionEvent) e);
 
         return false;
     }
@@ -95,11 +98,18 @@ public class GameLoop implements Runnable, EventListener {
     private boolean processEvent(TouchEvent e) {
         EctsItemObject test = new EctsItemObject(20, e.getX(), e.getY());
         gameScene.add(test);
+        Log.d(TAG, "PAUSE!!");
+
         return true;
     }
 
     private boolean processEvent(PauseEvent e) {
         Log.d(TAG, "PAUSE!!");
+        return true;
+    }
+
+    private boolean processEvent(CollisionEvent e) {
+        Log.d(TAG, "Es ist collided!");
         return true;
     }
 

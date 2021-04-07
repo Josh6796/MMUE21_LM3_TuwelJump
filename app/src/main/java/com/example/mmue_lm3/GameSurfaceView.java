@@ -8,8 +8,10 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.widget.Toast;
 
 import com.example.mmue_lm3.events.TouchEvent;
+import com.example.mmue_lm3.gameobjects.GameObject;
 
 public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callback {
 
@@ -17,6 +19,7 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
 
     private GameLoop gameLoop;
     private Thread gameMainThread;
+    private GameObject character;
 
     public GameSurfaceView(Context context, AttributeSet attrs) {
         super(context, attrs);
