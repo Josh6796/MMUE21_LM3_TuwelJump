@@ -6,17 +6,24 @@ import com.example.mmue_lm3.interfaces.Collidable;
 import com.example.mmue_lm3.interfaces.Drawable;
 import com.example.mmue_lm3.interfaces.Updatable;
 
-public abstract class GameObject implements Drawable, Collidable, Updatable {
+public abstract class GameObject implements Drawable, Collidable, Updatable, Comparable<GameObject> {
     int x;
     int y;
     int width;
     int height;
+    int priority;
 
-    protected GameObject(int x, int y, int width, int height) {
+    protected GameObject(int x, int y, int width, int height, int priority) {
         this.x = x;
         this.y = y;
         this.width = width;
         this.height = height;
+        this.priority = priority;
+    }
+
+    @Override
+    public int compareTo(GameObject o) {
+        return o.priority < this.priority ? 1 : -1;
     }
 
     public void setX(int x) {

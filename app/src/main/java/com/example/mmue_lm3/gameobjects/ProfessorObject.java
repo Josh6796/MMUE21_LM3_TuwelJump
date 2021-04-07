@@ -4,11 +4,13 @@ import android.graphics.Canvas;
 
 public class ProfessorObject extends GameObject {
 
+    private static final int PRIORITY = 2;
+
     private int health;
     private final int ects;
 
     public ProfessorObject(int health, int ects, int x, int y) {
-        super(x, y, 10 , 20);
+        super(x, y, 10, 20, PRIORITY);
         this.health = health;
         this.ects = ects;
     }

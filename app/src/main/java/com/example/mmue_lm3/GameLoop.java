@@ -8,7 +8,9 @@ import android.view.SurfaceHolder;
 
 import com.example.mmue_lm3.GameSurfaceView;
 import com.example.mmue_lm3.Scene;
+import com.example.mmue_lm3.gameobjects.CharacterObject;
 import com.example.mmue_lm3.gameobjects.EctsItemObject;
+import com.example.mmue_lm3.gameobjects.GameObject;
 
 public class GameLoop implements Runnable {
 
@@ -52,8 +54,14 @@ public class GameLoop implements Runnable {
 
     private void start() {
         this.lastTime = System.nanoTime();
-        EctsItemObject test = new EctsItemObject(20, 100, 500);
-        gameScene.add(test);
+        GameObject test1 = new EctsItemObject(20, 50, 500);
+        GameObject test2 = new CharacterObject(20, 29, 100, 500);
+        GameObject test3 = new CharacterObject(20, 29, 200, 500);
+        GameObject test4 = new EctsItemObject(20, 50, 550);
+        gameScene.add(test1);
+        gameScene.add(test2);
+        gameScene.add(test3);
+        gameScene.add(test4);
     }
 
     private void update() {

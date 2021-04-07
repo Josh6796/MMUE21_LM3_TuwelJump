@@ -4,8 +4,10 @@ import android.graphics.Canvas;
 
 public class PlatformObject extends GameObject {
 
+    private static final int PRIORITY = 1;
+
     protected PlatformObject(int x, int y, int width, int height) {
-        super(x, y, width, height);
+        super(x, y, width, height, PRIORITY);
     }
 
     @Override

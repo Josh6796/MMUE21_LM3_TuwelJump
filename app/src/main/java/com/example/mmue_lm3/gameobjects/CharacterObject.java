@@ -1,23 +1,29 @@
 package com.example.mmue_lm3.gameobjects;
 
 import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 
 public class CharacterObject extends GameObject {
 
     private static final int MAX_HEALTH = 3;
+    private static final int PRIORITY = 3;
 
     private int health;
     private int ects;
 
     public CharacterObject(int health, int ects, int x, int y) {
-        super(x, y, 10, 20);
+        super(x, y, 100, 20, PRIORITY);
         this.health = health;
         this.ects = ects;
     }
 
     @Override
     public void draw(Canvas canvas) {
-
+        Paint paint = new Paint();
+        paint.setColor(Color.rgb(0, 255, 0));
+        paint.setStyle(Paint.Style.FILL);
+        canvas.drawCircle(x, y, width / 2.0f, paint);
     }
 
     @Override

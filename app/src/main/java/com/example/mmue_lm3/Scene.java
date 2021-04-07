@@ -3,18 +3,17 @@ package com.example.mmue_lm3;
 import android.graphics.Canvas;
 import android.graphics.Color;
 
-import com.example.mmue_lm3.gameobjects.EctsItemObject;
 import com.example.mmue_lm3.gameobjects.GameObject;
 
-import java.util.HashSet;
 import java.util.Set;
+import java.util.TreeSet;
 
 public class Scene {
 
-    private Set<GameObject> gameObjects;
+    private final Set<GameObject> gameObjects;
 
     public Scene() {
-         gameObjects = new HashSet<>();
+         gameObjects = new TreeSet<>();
     }
 
     public void draw(Canvas canvas) {
