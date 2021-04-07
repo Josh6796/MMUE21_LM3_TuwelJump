@@ -3,9 +3,9 @@ package com.example.mmue_lm3;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Rect;
-import android.util.Log;
 
 import com.example.mmue_lm3.events.CollisionEvent;
+import com.example.mmue_lm3.events.EventSystem;
 import com.example.mmue_lm3.gameobjects.CharacterObject;
 import com.example.mmue_lm3.gameobjects.GameObject;
 
@@ -51,8 +51,7 @@ public class Scene {
             gameObject.update(deltaTime);
 
             if (!gameObject.equals(character) && Rect.intersects(character.getRectangle(), gameObject.getRectangle())) {
-                // TODO: Event Sytem anpassen
-                Log.d(TAG, "Collided");
+                EventSystem.onEvent(new CollisionEvent(character, gameObject));
             }
         }
     }

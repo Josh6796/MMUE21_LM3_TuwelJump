@@ -10,6 +10,7 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.widget.Toast;
 
+import com.example.mmue_lm3.events.EventSystem;
 import com.example.mmue_lm3.events.TouchEvent;
 import com.example.mmue_lm3.gameobjects.GameObject;
 
@@ -71,7 +72,7 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
     public boolean onTouchEvent(MotionEvent e) {
 
         if (e.getAction() == MotionEvent.ACTION_DOWN) {
-            gameLoop.onEvent(new TouchEvent((int) e.getX(), (int) e.getY()));
+            EventSystem.onEvent(new TouchEvent((int) e.getX(), (int) e.getY()));
         }
         return true;
     }

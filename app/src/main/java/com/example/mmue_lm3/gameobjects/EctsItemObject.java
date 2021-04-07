@@ -9,7 +9,7 @@ public class EctsItemObject extends ItemObject {
     private final int ects;
 
     public EctsItemObject(int ects, int x, int y) {
-        super(x, y, 100, 20);
+        super(x, y, 50, 50);
 
         this.ects = ects;
     }
@@ -20,7 +20,7 @@ public class EctsItemObject extends ItemObject {
         Paint paint = new Paint();
         paint.setColor(Color.rgb(255, 0, 0));
         paint.setStyle(Paint.Style.FILL);
-        canvas.drawCircle(x, y, width / 2.0f, paint);
+        canvas.drawRect(this.getRectangle(), paint);
     }
 
     @Override

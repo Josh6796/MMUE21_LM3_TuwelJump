@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.SurfaceHolder;
 
 import com.example.mmue_lm3.events.CollisionEvent;
+import com.example.mmue_lm3.events.EventSystem;
 import com.example.mmue_lm3.events.PauseEvent;
 import com.example.mmue_lm3.interfaces.Event;
 import com.example.mmue_lm3.interfaces.EventListener;
@@ -35,6 +36,7 @@ public class GameLoop implements Runnable, EventListener {
 
 
     public GameLoop(SurfaceHolder surfaceHolder, GameSurfaceView gameSurfaceView) {
+        EventSystem.subscribe(this);
         this.surfaceHolder = surfaceHolder;
         this.gameSurfaceView = gameSurfaceView;
 
@@ -65,17 +67,23 @@ public class GameLoop implements Runnable, EventListener {
             //Render assets
             render();
         }
+
+        shutdown();
     }
 
     private void start() {
         this.lastTime = System.nanoTime();
 
-        CharacterObject test1 = new CharacterObject(3, 0, 50, 800);
+        CharacterObject test1 = new CharacterObject(3, 0, 500, 1300);
         GameObject test2 = new EctsItemObject(20, 50, 500);
         GameObject test3 = new EctsItemObject(20, 50, 600);
         gameScene.add(test1);
         gameScene.add(test2);
         gameScene.add(test3);
+    }
+
+    private void shutdown() {
+        EventSystem.unsubscribe(this);
     }
 
     private void events() {
@@ -98,7 +106,7 @@ public class GameLoop implements Runnable, EventListener {
     private boolean processEvent(TouchEvent e) {
         EctsItemObject test = new EctsItemObject(20, e.getX(), e.getY());
         gameScene.add(test);
-        Log.d(TAG, "PAUSE!!");
+        Log.d(TAG, "TouchEvent!");
 
         return true;
     }
@@ -109,7 +117,17 @@ public class GameLoop implements Runnable, EventListener {
     }
 
     private boolean processEvent(CollisionEvent e) {
-        Log.d(TAG, "Es ist collided!");
+        Log.d(TAG, "Collided!");
+
+        // TODO: implement collision
+        if(e.getCharacter().getClass() == CharacterObject.class && e.getOther() instanceof GameObject)
+        {
+            CharacterObject character = (CharacterObject) e.getCharacter();
+            GameObject other = (GameObject) e.getOther();
+
+            character.setY( other.getY() - character.getHeight());
+        }
+
         return true;
     }
 
