@@ -3,7 +3,6 @@ package com.example.mmue_lm3;
 import android.graphics.Canvas;
 import android.graphics.Color;
 
-import com.example.mmue_lm3.gameobjects.EctsItemObject;
 import com.example.mmue_lm3.gameobjects.GameObject;
 
 import java.util.HashSet;
@@ -11,7 +10,7 @@ import java.util.Set;
 
 public class Scene {
 
-    private Set<GameObject> gameObjects;
+    private final Set<GameObject> gameObjects;
 
     public Scene() {
          gameObjects = new HashSet<>();
@@ -19,6 +18,7 @@ public class Scene {
 
     public void draw(Canvas canvas) {
 
+        // background
         canvas.drawColor(Color.rgb(165, 200, 255));
 
         for (GameObject gameObject : gameObjects) {

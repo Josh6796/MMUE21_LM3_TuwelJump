@@ -8,7 +8,7 @@ public class EctsItemObject extends ItemObject {
     private final int ects;
 
     public EctsItemObject(int ects, int x, int y) {
-        super(x, y, 10, 20);
+        super(x, y, 50, 50);
 
         this.ects = ects;
     }
@@ -23,7 +23,7 @@ public class EctsItemObject extends ItemObject {
 
     @Override
     public void update(float deltaTime) {
-        x += 1*deltaTime;
+        y += 150 * deltaTime;
     }
 
     public int getEcts() {
