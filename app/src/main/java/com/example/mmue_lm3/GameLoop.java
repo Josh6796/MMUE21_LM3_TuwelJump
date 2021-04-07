@@ -2,13 +2,13 @@ package com.example.mmue_lm3;
 
 
 import android.graphics.Canvas;
+import android.util.Log;
 import android.view.SurfaceHolder;
 
+import com.example.mmue_lm3.events.PauseEvent;
 import com.example.mmue_lm3.interfaces.Event;
 import com.example.mmue_lm3.interfaces.EventListener;
 import com.example.mmue_lm3.events.TouchEvent;
-import com.example.mmue_lm3.GameSurfaceView;
-import com.example.mmue_lm3.Scene;
 import com.example.mmue_lm3.gameobjects.CharacterObject;
 import com.example.mmue_lm3.gameobjects.EctsItemObject;
 import com.example.mmue_lm3.gameobjects.GameObject;
@@ -86,6 +86,8 @@ public class GameLoop implements Runnable, EventListener {
     private boolean processEvent(Event e) {
         if (e.getClass() == TouchEvent.class)
             return processEvent((TouchEvent) e);
+        if (e.getClass() == PauseEvent.class)
+            return processEvent((PauseEvent) e);
 
         return false;
     }
@@ -93,6 +95,11 @@ public class GameLoop implements Runnable, EventListener {
     private boolean processEvent(TouchEvent e) {
         EctsItemObject test = new EctsItemObject(20, e.getX(), e.getY());
         gameScene.add(test);
+        return true;
+    }
+
+    private boolean processEvent(PauseEvent e) {
+        Log.d(TAG, "PAUSE!!");
         return true;
     }
 
