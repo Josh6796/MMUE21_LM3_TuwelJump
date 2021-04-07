@@ -2,6 +2,8 @@ package com.example.mmue_lm3.gameobjects;
 
 import android.graphics.Canvas;
 
+import com.example.mmue_lm3.Camera;
+
 public class ProfessorObject extends GameObject {
 
     private static final int PRIORITY = 2;
@@ -9,19 +11,19 @@ public class ProfessorObject extends GameObject {
     private int health;
     private final int ects;
 
-    public ProfessorObject(int health, int ects, int x, int y) {
+    public ProfessorObject(int health, int ects, double x, double y) {
         super(x, y, 10, 20, PRIORITY);
         this.health = health;
         this.ects = ects;
     }
 
     @Override
-    public void draw(Canvas canvas) {
+    public void draw(Camera camera, Canvas canvas) {
 
     }
 
     @Override
-    public void update(float deltaTime) {
+    public void update(double deltaTime) {
 
     }
 

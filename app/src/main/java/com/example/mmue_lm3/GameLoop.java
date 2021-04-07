@@ -10,6 +10,7 @@ import com.example.mmue_lm3.events.CollisionEvent;
 import com.example.mmue_lm3.events.EventSystem;
 import com.example.mmue_lm3.events.PauseEvent;
 import com.example.mmue_lm3.events.VelocityEvent;
+import com.example.mmue_lm3.gameobjects.PlatformObject;
 import com.example.mmue_lm3.interfaces.Event;
 import com.example.mmue_lm3.interfaces.EventListener;
 import com.example.mmue_lm3.events.TouchEvent;
@@ -24,7 +25,7 @@ public class GameLoop implements Runnable, EventListener {
 
     private static final String TAG = GameLoop.class.getSimpleName();
 
-    public float deltaTime;
+    public double deltaTime;
     private long lastTime;
 
     private boolean running;
@@ -74,13 +75,7 @@ public class GameLoop implements Runnable, EventListener {
 
     private void start() {
         this.lastTime = System.nanoTime();
-
-        CharacterObject test1 = new CharacterObject(3, 0, 500, 1300);
-        GameObject test2 = new EctsItemObject(20, 50, 500);
-        GameObject test3 = new EctsItemObject(20, 50, 600);
-        gameScene.add(test1);
-        gameScene.add(test2);
-        gameScene.add(test3);
+        initScene(gameScene);
     }
 
     private void shutdown() {
@@ -110,8 +105,6 @@ public class GameLoop implements Runnable, EventListener {
     }
 
     private boolean processEvent(TouchEvent e) {
-        EctsItemObject test = new EctsItemObject(20, e.getX(), e.getY());
-        gameScene.add(test);
         Log.d(TAG, "TouchEvent!");
 
         return true;
@@ -126,19 +119,19 @@ public class GameLoop implements Runnable, EventListener {
         Log.d(TAG, "Collided!");
 
         // TODO: implement collision
-        if(e.getCharacter().getClass() == CharacterObject.class && e.getOther() instanceof GameObject)
-        {
+        if (e.getCharacter().getClass() == CharacterObject.class && e.getOther() instanceof GameObject) {
             CharacterObject character = (CharacterObject) e.getCharacter();
             GameObject other = (GameObject) e.getOther();
 
-            character.setY( other.getY() - character.getHeight());
+            //character.setY(other.getY() - character.getHeight());
+            character.jump();
         }
 
         return true;
     }
 
     private boolean processEvent(VelocityEvent e) {
-        gameScene.moveCamera(e.getX(), e.getY());
+        gameScene.moveCamera((int) e.getX(), (int) e.getY());
         return true;
     }
 
@@ -173,5 +166,31 @@ public class GameLoop implements Runnable, EventListener {
     @Override
     public void onEvent(Event event) {
         eventQueue.add(event);
+    }
+
+    // TODO: remove (just for testing)
+    static void initScene(Scene scene) {
+        // Character
+        CharacterObject character = new CharacterObject(3, 0, 500, 1300);
+        scene.add(character);
+
+        // Items
+        GameObject ects_1 = new EctsItemObject(20, 50, 500);
+        GameObject ects_2 = new EctsItemObject(20, 50, 600);
+        scene.add(ects_1);
+        scene.add(ects_2);
+
+        // Platforms
+        GameObject platform_1 = new PlatformObject(50, 200, 100);
+        GameObject platform_2 = new PlatformObject(1000, 400, 200);
+        GameObject platform_3 = new PlatformObject(500, 500, 100);
+        GameObject platform_4 = new PlatformObject(800, 900, 150);
+        GameObject platform_5 = new PlatformObject(300, 1450, 500);
+        scene.add(platform_1);
+        scene.add(platform_2);
+        scene.add(platform_3);
+        scene.add(platform_4);
+        scene.add(platform_5);
+
     }
 }

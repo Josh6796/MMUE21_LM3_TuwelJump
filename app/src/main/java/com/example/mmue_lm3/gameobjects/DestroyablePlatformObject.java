@@ -2,19 +2,21 @@ package com.example.mmue_lm3.gameobjects;
 
 import android.graphics.Canvas;
 
+import com.example.mmue_lm3.Camera;
+
 public class DestroyablePlatformObject extends PlatformObject {
 
-    protected DestroyablePlatformObject(int x, int y, int width, int height) {
-        super(x, y, width, height);
+    protected DestroyablePlatformObject(double x, double y, int width) {
+        super(x, y, width);
     }
 
     @Override
-    public void draw(Canvas canvas) {
+    public void draw(Camera camera, Canvas canvas) {
 
     }
 
     @Override
-    public void update(float deltaTime) {
+    public void update(double deltaTime) {
 
     }
 }

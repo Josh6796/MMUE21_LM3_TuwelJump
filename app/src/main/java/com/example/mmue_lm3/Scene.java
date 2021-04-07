@@ -17,10 +17,11 @@ public class Scene {
     private static final String TAG = Scene.class.getSimpleName();
     private final Set<GameObject> gameObjects;
     private CharacterObject character;
+    private final Camera camera;
 
     public Scene() {
         gameObjects = new TreeSet<>();
-
+        camera = new Camera(0, 0);
     }
 
     public void draw(Canvas canvas) {
@@ -29,13 +30,14 @@ public class Scene {
         canvas.drawColor(Color.rgb(165, 200, 255));
 
         for (GameObject gameObject : gameObjects) {
-            gameObject.draw(canvas);
+            gameObject.draw(camera, canvas);
         }
     }
 
-    public void moveCamera(float x, float y) {
+    public void moveCamera(int x, int y) {
         // TODO: move camera
-        character.setX(character.getX() + (int) x);
+        camera.move(x,0);
+        character.setX(character.getX() - x);
     }
 
     public void add(GameObject object) {
@@ -51,7 +53,7 @@ public class Scene {
         gameObjects.remove(object);
     }
 
-    public void update(float deltaTime) {
+    public void update(double deltaTime) {
         for (GameObject gameObject : gameObjects) {
             gameObject.update(deltaTime);
 

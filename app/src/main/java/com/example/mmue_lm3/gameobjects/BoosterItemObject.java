@@ -1,19 +1,21 @@
 package com.example.mmue_lm3.gameobjects;
 
 import android.graphics.Canvas;
+
+import com.example.mmue_lm3.Camera;
 import com.example.mmue_lm3.enums.Booster;
 
 public class BoosterItemObject extends ItemObject {
 
     private final Booster booster;
 
-    public BoosterItemObject(Booster booster, int x, int y) {
+    public BoosterItemObject(Booster booster, double x, double y) {
         super(x, y, 10, 20);
         this.booster = booster;
     }
 
     @Override
-    public void draw(Canvas canvas) {
+    public void draw(Camera camera, Canvas canvas) {
         switch (booster) {
             case Speed:
                 break;
@@ -31,7 +33,7 @@ public class BoosterItemObject extends ItemObject {
     }
 
     @Override
-    public void update(float deltaTime) {
+    public void update(double deltaTime) {
 
     }
 }

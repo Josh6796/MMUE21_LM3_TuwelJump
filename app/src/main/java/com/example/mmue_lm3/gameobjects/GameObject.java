@@ -7,13 +7,13 @@ import com.example.mmue_lm3.interfaces.Drawable;
 import com.example.mmue_lm3.interfaces.Updatable;
 
 public abstract class GameObject implements Drawable, Collidable, Updatable, Comparable<GameObject> {
-    int x;
-    int y;
+    double x;
+    double y;
     int width;
     int height;
     int priority;
 
-    protected GameObject(int x, int y, int width, int height, int priority) {
+    protected GameObject(double x, double y, int width, int height, int priority) {
         this.x = x;
         this.y = y;
         this.width = width;
@@ -21,16 +21,11 @@ public abstract class GameObject implements Drawable, Collidable, Updatable, Com
         this.priority = priority;
     }
 
-    @Override
-    public int compareTo(GameObject o) {
-        return o.priority < this.priority ? 1 : -1;
-    }
-
-    public void setX(int x) {
+    public void setX(double x) {
         this.x = x;
     }
 
-    public void setY(int y) {
+    public void setY(double y) {
         this.y = y;
     }
 
@@ -42,11 +37,11 @@ public abstract class GameObject implements Drawable, Collidable, Updatable, Com
         this.height = height;
     }
 
-    public int getX() {
+    public double getX() {
         return x;
     }
 
-    public int getY() {
+    public double getY() {
         return y;
     }
 
@@ -60,6 +55,15 @@ public abstract class GameObject implements Drawable, Collidable, Updatable, Com
 
     // Returns a rectangle matching the size of the object for collision detection.
     public Rect getRectangle() {
+        int x = (int)this.x;
+        int y = (int)this.y;
         return new Rect(x, y, x + width, y + height);
+    }
+
+    //  public Ract getRectangle(float)
+
+    @Override
+    public int compareTo(GameObject o) {
+        return o.priority < this.priority ? 1 : -1;
     }
 }
