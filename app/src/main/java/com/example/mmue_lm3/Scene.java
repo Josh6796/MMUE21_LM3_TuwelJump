@@ -19,7 +19,7 @@ public class Scene {
     private CharacterObject character;
 
     public Scene() {
-         gameObjects = new TreeSet<>();
+        gameObjects = new TreeSet<>();
 
     }
 
@@ -31,6 +31,11 @@ public class Scene {
         for (GameObject gameObject : gameObjects) {
             gameObject.draw(canvas);
         }
+    }
+
+    public void moveCamera(float x, float y) {
+        // TODO: move camera
+        character.setX(character.getX() + (int) x);
     }
 
     public void add(GameObject object) {

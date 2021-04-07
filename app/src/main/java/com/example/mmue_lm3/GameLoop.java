@@ -9,6 +9,7 @@ import android.view.SurfaceHolder;
 import com.example.mmue_lm3.events.CollisionEvent;
 import com.example.mmue_lm3.events.EventSystem;
 import com.example.mmue_lm3.events.PauseEvent;
+import com.example.mmue_lm3.events.VelocityEvent;
 import com.example.mmue_lm3.interfaces.Event;
 import com.example.mmue_lm3.interfaces.EventListener;
 import com.example.mmue_lm3.events.TouchEvent;
@@ -95,10 +96,15 @@ public class GameLoop implements Runnable, EventListener {
     private boolean processEvent(Event e) {
         if (e.getClass() == TouchEvent.class)
             return processEvent((TouchEvent) e);
+
         if (e.getClass() == PauseEvent.class)
             return processEvent((PauseEvent) e);
+
         if (e.getClass() == CollisionEvent.class)
             return processEvent((CollisionEvent) e);
+
+        if (e.getClass() == VelocityEvent.class)
+            return processEvent((VelocityEvent) e);
 
         return false;
     }
@@ -128,6 +134,11 @@ public class GameLoop implements Runnable, EventListener {
             character.setY( other.getY() - character.getHeight());
         }
 
+        return true;
+    }
+
+    private boolean processEvent(VelocityEvent e) {
+        gameScene.moveCamera(e.getX(), e.getY());
         return true;
     }
 
