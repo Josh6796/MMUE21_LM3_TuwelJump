@@ -1,3 +1,9 @@
+/**
+ * Class for the GameSurfaceView
+ *
+ * @author Joshua Oblong
+ */
+
 package com.example.mmue_lm3;
 
 import android.annotation.SuppressLint;

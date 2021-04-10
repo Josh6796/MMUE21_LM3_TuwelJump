@@ -1,3 +1,9 @@
+/**
+ * Class for the GameLoop
+ *
+ * @author Joshua Oblong
+ */
+
 package com.example.mmue_lm3;
 
 

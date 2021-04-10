@@ -1,3 +1,9 @@
+/**
+ * Event for handling Collision
+ *
+ * @author Joshua Oblong
+ */
+
 package com.example.mmue_lm3.events;
 
 import com.example.mmue_lm3.interfaces.Collidable;

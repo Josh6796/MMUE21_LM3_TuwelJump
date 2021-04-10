@@ -1,3 +1,9 @@
+/**
+ * Main GameObject
+ *
+ * @author Joshua Oblong
+ */
+
 package com.example.mmue_lm3.gameobjects;
 
 import android.graphics.Rect;
