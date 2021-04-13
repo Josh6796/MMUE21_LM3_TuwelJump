@@ -1,3 +1,9 @@
+/**
+ * System for handling Events
+ *
+ * @author Mathias Schwengerer
+ */
+
 package com.example.mmue_lm3.events;
 
 import com.example.mmue_lm3.interfaces.Event;

@@ -1,6 +1,10 @@
-package com.example.mmue_lm3;
+/**
+ * Class for the Camera
+ *
+ * @author Mathias Schwengerer
+ */
 
-import com.example.mmue_lm3.gameobjects.GameObject;
+package com.example.mmue_lm3;
 
 public class Camera {
 

@@ -1,3 +1,9 @@
+/**
+ * Event for handling Touchscreen Usage
+ *
+ * @author Mathias Schwengerer
+ */
+
 package com.example.mmue_lm3.events;
 
 import com.example.mmue_lm3.interfaces.Event;

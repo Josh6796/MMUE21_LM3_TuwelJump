@@ -1,3 +1,9 @@
+/**
+ * Class that implements the Scene
+ *
+ * @author Joshua Oblong
+ */
+
 package com.example.mmue_lm3;
 
 import android.graphics.Canvas;
