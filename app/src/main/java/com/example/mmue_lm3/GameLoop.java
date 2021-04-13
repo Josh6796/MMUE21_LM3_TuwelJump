@@ -2,7 +2,6 @@ package com.example.mmue_lm3;
 
 
 import android.graphics.Canvas;
-import android.graphics.Rect;
 import android.util.Log;
 import android.view.SurfaceHolder;
 
@@ -42,7 +41,7 @@ public class GameLoop implements Runnable, EventListener {
         this.surfaceHolder = surfaceHolder;
         this.gameSurfaceView = gameSurfaceView;
 
-        this.gameScene = new Scene();
+        this.gameScene = new Scene(gameSurfaceView.getWidth(), gameSurfaceView.getHeight());
         this.eventQueue = new ConcurrentLinkedDeque<>();
     }
 
@@ -131,7 +130,7 @@ public class GameLoop implements Runnable, EventListener {
     }
 
     private boolean processEvent(VelocityEvent e) {
-        gameScene.moveCamera((int) e.getX(), (int) e.getY());
+        gameScene.moveCamera(-(int) e.getX(), -(int) e.getY());
         return true;
     }
 
@@ -186,11 +185,13 @@ public class GameLoop implements Runnable, EventListener {
         GameObject platform_3 = new PlatformObject(500, 500, 100);
         GameObject platform_4 = new PlatformObject(800, 900, 150);
         GameObject platform_5 = new PlatformObject(300, 1450, 500);
+        GameObject platform_6 = new PlatformObject(0, 1650, 1000);
         scene.add(platform_1);
         scene.add(platform_2);
         scene.add(platform_3);
         scene.add(platform_4);
         scene.add(platform_5);
+        scene.add(platform_6);
 
     }
 }

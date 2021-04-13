@@ -5,10 +5,13 @@ import com.example.mmue_lm3.gameobjects.GameObject;
 public class Camera {
 
     private int x, y;
+    private int width, height;
 
-    public Camera(int x, int y) {
+    public Camera(int x, int y, int width, int height) {
         this.x = x;
         this.y = y;
+        this.width = width;
+        this.height = height;
     }
 
     public void move(int x, int y) {
@@ -22,5 +25,9 @@ public class Camera {
 
     public int getY() {
         return y;
+    }
+
+    public int getCenterX() {
+        return x + width / 2;
     }
 }

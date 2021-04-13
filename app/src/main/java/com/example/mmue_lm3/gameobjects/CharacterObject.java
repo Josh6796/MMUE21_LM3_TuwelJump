@@ -1,7 +1,5 @@
 package com.example.mmue_lm3.gameobjects;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -20,6 +18,7 @@ public class CharacterObject extends GameObject {
     private int ects;
 
     private double verticalVelocity;
+    private double horizontalCenter;
 
     public CharacterObject(int health, int ects, int x, int y) {
         super(x, y, 50, 100, PRIORITY);
@@ -35,12 +34,17 @@ public class CharacterObject extends GameObject {
         paint.setStyle(Paint.Style.FILL);
 
         Rect rect = this.getRectangle();
-        rect.offset(camera.getX(), camera.getY());
+        rect.offset(-camera.getX(), -camera.getY());
         canvas.drawRect(rect, paint);
     }
 
     @Override
     public void update(double deltaTime) {
+        // horizontal velocity
+        double deltaX = horizontalCenter - (x + width / 2.0);
+        this.x += deltaX * 0.8 * deltaTime;
+
+        // vertical velocity
         // TODO: improve (update verticalVelocity, ...)
         y -= verticalVelocity * deltaTime;
         verticalVelocity -= 600.0 * deltaTime;
@@ -50,6 +54,10 @@ public class CharacterObject extends GameObject {
     public void jump() {
         // TODO: improve
         verticalVelocity = 500;
+    }
+
+    public void setHorizontalCenter(double center) {
+        this.horizontalCenter = center;
     }
 
     public int getHealth() {

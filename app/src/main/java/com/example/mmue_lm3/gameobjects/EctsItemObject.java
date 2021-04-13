@@ -25,7 +25,7 @@ public class EctsItemObject extends ItemObject {
         paint.setStyle(Paint.Style.FILL);
 
         Rect rect = this.getRectangle();
-        rect.offset(camera.getX(), camera.getY());
+        rect.offset(-camera.getX(), -camera.getY());
         canvas.drawRect(rect, paint);
     }
 

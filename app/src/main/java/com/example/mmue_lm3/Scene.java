@@ -19,9 +19,9 @@ public class Scene {
     private CharacterObject character;
     private final Camera camera;
 
-    public Scene() {
+    public Scene(int width, int height) {
         gameObjects = new TreeSet<>();
-        camera = new Camera(0, 0);
+        camera = new Camera(0, 0, width, height);
     }
 
     public void draw(Canvas canvas) {
@@ -37,7 +37,7 @@ public class Scene {
     public void moveCamera(int x, int y) {
         // TODO: move camera
         camera.move(x,0);
-        character.setX(character.getX() - x);
+        character.setHorizontalCenter(camera.getCenterX());
     }
 
     public void add(GameObject object) {
