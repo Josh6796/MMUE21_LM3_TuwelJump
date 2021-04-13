@@ -9,6 +9,7 @@ package com.example.mmue_lm3;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Rect;
+import android.util.Log;
 
 import com.example.mmue_lm3.events.CollisionEvent;
 import com.example.mmue_lm3.events.EventSystem;
@@ -41,8 +42,7 @@ public class Scene {
     }
 
     public void moveCamera(int x, int y) {
-        // TODO: move camera
-        camera.move(x,0);
+        camera.moveHorizontal(x);
         character.setHorizontalCenter(camera.getCenterX());
     }
 
@@ -53,6 +53,7 @@ public class Scene {
     public void add(CharacterObject object) {
         character = object;
         gameObjects.add(character);
+        character.setHorizontalCenter(camera.getCenterX());
     }
 
     public void remove(GameObject object) {

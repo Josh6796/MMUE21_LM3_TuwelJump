@@ -11,10 +11,13 @@ import android.graphics.Canvas;
 import android.util.Log;
 import android.view.SurfaceHolder;
 
+import com.example.mmue_lm3.enums.Booster;
 import com.example.mmue_lm3.events.CollisionEvent;
 import com.example.mmue_lm3.events.EventSystem;
 import com.example.mmue_lm3.events.PauseEvent;
 import com.example.mmue_lm3.events.VelocityEvent;
+import com.example.mmue_lm3.gameobjects.BoosterItemObject;
+import com.example.mmue_lm3.gameobjects.ItemObject;
 import com.example.mmue_lm3.gameobjects.PlatformObject;
 import com.example.mmue_lm3.interfaces.Event;
 import com.example.mmue_lm3.interfaces.EventListener;
@@ -124,12 +127,20 @@ public class GameLoop implements Runnable, EventListener {
         Log.d(TAG, "Collided!");
 
         // TODO: implement collision
-        if (e.getCharacter().getClass() == CharacterObject.class && e.getOther() instanceof GameObject) {
+        if (e.getCharacter().getClass() == CharacterObject.class) {
             CharacterObject character = (CharacterObject) e.getCharacter();
-            GameObject other = (GameObject) e.getOther();
 
-            //character.setY(other.getY() - character.getHeight());
-            character.jump();
+            if (e.getOther() instanceof PlatformObject) {
+                PlatformObject platform = (PlatformObject) e.getOther();
+
+                // TODO: check if character jumped on platform
+                character.jump();
+            } else if (e.getOther() instanceof ItemObject) {
+                ItemObject item = (ItemObject) e.getOther();
+                item.consumedBy(character);
+                gameScene.remove(item);
+            }
+
         }
 
         return true;
@@ -179,8 +190,14 @@ public class GameLoop implements Runnable, EventListener {
         CharacterObject character = new CharacterObject(3, 0, 500, 1300);
         scene.add(character);
 
+        // Booster
+        GameObject booster_1 = new BoosterItemObject(Booster.Speed, 300, 1350);
+        GameObject booster_2 = new BoosterItemObject(Booster.SlowMotion, 900, 1350);
+        scene.add(booster_1);
+        scene.add(booster_2);
+
         // Items
-        GameObject ects_1 = new EctsItemObject(20, 50, 500);
+        GameObject ects_1 = new EctsItemObject(20, 50, 1200);
         GameObject ects_2 = new EctsItemObject(20, 50, 600);
         scene.add(ects_1);
         scene.add(ects_2);

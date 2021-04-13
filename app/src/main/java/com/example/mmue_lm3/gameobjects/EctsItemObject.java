@@ -43,4 +43,9 @@ public class EctsItemObject extends ItemObject {
     public int getEcts() {
         return ects;
     }
+
+    @Override
+    public void consumedBy(CharacterObject character) {
+        character.consume(this);
+    }
 }

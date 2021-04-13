@@ -23,6 +23,14 @@ public class Camera {
         this.y += y;
     }
 
+    public void moveVertical(int y) {
+        this.y = y;
+    }
+
+    public void moveHorizontal(int x) {
+        this.x += x;
+    }
+
     public int getX() {
         return x;
     }

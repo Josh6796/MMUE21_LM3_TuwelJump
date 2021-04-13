@@ -13,4 +13,6 @@ public abstract class ItemObject extends GameObject {
     protected ItemObject(double x, double y, int width, int height) {
         super(x, y, width, height, PRIORITY);
     }
+
+    abstract public void consumedBy(CharacterObject character);
 }

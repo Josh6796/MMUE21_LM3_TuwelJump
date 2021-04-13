@@ -10,12 +10,20 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.nfc.Tag;
+import android.util.Log;
 
 import com.example.mmue_lm3.Camera;
+import com.example.mmue_lm3.GameLoop;
+import com.example.mmue_lm3.events.BoosterEvent;
+import com.example.mmue_lm3.events.ECTSEvent;
+import com.example.mmue_lm3.events.EventSystem;
 
 import static java.lang.Math.max;
 
 public class CharacterObject extends GameObject {
+
+    private static final String TAG = CharacterObject.class.getSimpleName();
 
     private static final int MAX_HEALTH = 3;
     private static final int PRIORITY = 3;
@@ -60,6 +68,17 @@ public class CharacterObject extends GameObject {
     public void jump() {
         // TODO: improve
         verticalVelocity = 500;
+    }
+
+    public void consume(EctsItemObject ectsItem) {
+        this.ects += ectsItem.getEcts();
+        EventSystem.onEvent(new ECTSEvent(this.ects));
+    }
+
+    public void consume(BoosterItemObject boosterItem) {
+        Log.w(TAG, "Booster Item consumed!!!"); // TODO: do something (useful)...
+        EventSystem.onEvent(new BoosterEvent(boosterItem.getBooster()));
+
     }
 
     public void setHorizontalCenter(double center) {
