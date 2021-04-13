@@ -1,9 +1,3 @@
-/**
- * Booster Item GameObject
- *
- * @author Joshua Oblong
- */
-
 package com.example.mmue_lm3.gameobjects;
 
 import android.graphics.Canvas;
@@ -14,6 +8,11 @@ import android.graphics.Rect;
 import com.example.mmue_lm3.Camera;
 import com.example.mmue_lm3.enums.Booster;
 
+/**
+ * Booster Item GameObject
+ *
+ * @author Joshua Oblong
+ */
 public class BoosterItemObject extends ItemObject {
 
     private final Booster booster;

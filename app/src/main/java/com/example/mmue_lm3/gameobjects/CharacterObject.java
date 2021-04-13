@@ -1,9 +1,3 @@
-/**
- * Character GameObject
- *
- * @author Joshua Oblong
- */
-
 package com.example.mmue_lm3.gameobjects;
 
 import android.graphics.Canvas;
@@ -21,6 +15,11 @@ import com.example.mmue_lm3.events.EventSystem;
 
 import static java.lang.Math.max;
 
+/**
+ * Character GameObject
+ *
+ * @author Joshua Oblong
+ */
 public class CharacterObject extends GameObject {
 
     private static final String TAG = CharacterObject.class.getSimpleName();
@@ -56,7 +55,8 @@ public class CharacterObject extends GameObject {
     public void update(double deltaTime) {
         // horizontal velocity
         double deltaX = horizontalCenter - (x + width / 2.0);
-        this.x += deltaX * 0.8 * deltaTime;
+        //this.x += deltaX * 0.8 * deltaTime;
+        this.x += deltaX;
 
         // vertical velocity
         // TODO: improve (update verticalVelocity, ...)

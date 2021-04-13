@@ -1,15 +1,14 @@
-/**
- * Interface for Drawable GameObjects
- *
- * @author Joshua Oblong
- */
-
 package com.example.mmue_lm3.interfaces;
 
 import android.graphics.Canvas;
 
 import com.example.mmue_lm3.Camera;
 
+/**
+ * Interface for Drawable GameObjects
+ *
+ * @author Joshua Oblong
+ */
 public interface Drawable {
 
     /**

@@ -1,9 +1,3 @@
-/**
- * Class that implements the Scene
- *
- * @author Joshua Oblong
- */
-
 package com.example.mmue_lm3;
 
 import android.graphics.Canvas;
@@ -19,6 +13,11 @@ import com.example.mmue_lm3.gameobjects.GameObject;
 import java.util.Set;
 import java.util.TreeSet;
 
+/**
+ * Class that implements the Scene
+ *
+ * @author Joshua Oblong
+ */
 public class Scene {
 
     private static final String TAG = Scene.class.getSimpleName();

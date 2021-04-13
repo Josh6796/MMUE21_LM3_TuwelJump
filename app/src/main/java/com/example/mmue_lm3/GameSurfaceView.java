@@ -1,8 +1,4 @@
-/**
- * Class for the GameSurfaceView
- *
- * @author Joshua Oblong
- */
+
 
 package com.example.mmue_lm3;
 
@@ -23,6 +19,11 @@ import com.example.mmue_lm3.events.TouchEvent;
 import com.example.mmue_lm3.events.VelocityEvent;
 import com.example.mmue_lm3.gameobjects.GameObject;
 
+/**
+ * Class for the GameSurfaceView
+ *
+ * @author Joshua Oblong
+ */
 public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callback {
 
     private static final String TAG = GameSurfaceView.class.getSimpleName();

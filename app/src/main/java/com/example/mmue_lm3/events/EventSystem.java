@@ -1,8 +1,4 @@
-/**
- * System for handling Events
- *
- * @author Mathias Schwengerer
- */
+
 
 package com.example.mmue_lm3.events;
 
@@ -11,6 +7,11 @@ import com.example.mmue_lm3.interfaces.EventListener;
 
 import java.util.Stack;
 
+/**
+ * System for handling Events
+ *
+ * @author Mathias Schwengerer
+ */
 public class EventSystem {
 
     private static final EventSystem eventSystem = new EventSystem();

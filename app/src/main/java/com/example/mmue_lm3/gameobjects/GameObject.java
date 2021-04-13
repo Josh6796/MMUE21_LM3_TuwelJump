@@ -6,6 +6,11 @@ import com.example.mmue_lm3.interfaces.Collidable;
 import com.example.mmue_lm3.interfaces.Drawable;
 import com.example.mmue_lm3.interfaces.Updatable;
 
+/**
+ * Main GameObject
+ *
+ * @author Joshua Oblong
+ */
 public abstract class GameObject implements Drawable, Collidable, Updatable, Comparable<GameObject> {
     double x;
     double y;

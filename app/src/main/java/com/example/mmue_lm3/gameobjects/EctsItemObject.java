@@ -1,8 +1,4 @@
-/**
- * ECTS Item GameObject
- *
- * @author Joshua Oblong
- */
+
 
 package com.example.mmue_lm3.gameobjects;
 
@@ -13,6 +9,11 @@ import android.graphics.Rect;
 
 import com.example.mmue_lm3.Camera;
 
+/**
+ * ECTS Item GameObject
+ *
+ * @author Joshua Oblong
+ */
 public class EctsItemObject extends ItemObject {
 
     private final int ects;

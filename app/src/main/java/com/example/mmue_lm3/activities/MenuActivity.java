@@ -1,8 +1,3 @@
-/**
- * Activity for the Game's Menu
- *
- * @author Joshua Oblong
- */
 package com.example.mmue_lm3.activities;
 
 import android.content.Intent;
@@ -13,6 +8,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.mmue_lm3.R;
 
+/**
+ * Activity for the Game's Menu
+ *
+ * @author Joshua Oblong
+ */
 public class MenuActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {

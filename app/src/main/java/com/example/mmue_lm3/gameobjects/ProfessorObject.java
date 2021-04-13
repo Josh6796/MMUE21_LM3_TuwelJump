@@ -1,15 +1,14 @@
-/**
- * Professor GameObject
- *
- * @author Joshua Oblong
- */
-
 package com.example.mmue_lm3.gameobjects;
 
 import android.graphics.Canvas;
 
 import com.example.mmue_lm3.Camera;
 
+/**
+ * Professor GameObject
+ *
+ * @author Joshua Oblong
+ */
 public class ProfessorObject extends GameObject {
 
     private static final int PRIORITY = 2;

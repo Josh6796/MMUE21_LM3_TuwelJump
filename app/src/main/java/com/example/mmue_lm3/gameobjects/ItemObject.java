@@ -1,11 +1,10 @@
+package com.example.mmue_lm3.gameobjects;
+
 /**
  * Item GameObject
  *
  * @author Joshua Oblong
  */
-
-package com.example.mmue_lm3.gameobjects;
-
 public abstract class ItemObject extends GameObject {
 
     private static final int PRIORITY = 1;

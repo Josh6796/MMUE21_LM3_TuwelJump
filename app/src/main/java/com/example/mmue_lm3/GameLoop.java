@@ -1,9 +1,3 @@
-/**
- * Class for the GameLoop
- *
- * @author Joshua Oblong
- */
-
 package com.example.mmue_lm3;
 
 
@@ -29,6 +23,11 @@ import com.example.mmue_lm3.gameobjects.GameObject;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedDeque;
 
+/**
+ * Class for the GameLoop
+ *
+ * @author Joshua Oblong
+ */
 public class GameLoop implements Runnable, EventListener {
 
     private static final String TAG = GameLoop.class.getSimpleName();

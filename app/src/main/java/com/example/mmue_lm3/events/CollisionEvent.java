@@ -1,14 +1,13 @@
-/**
- * Event for handling Collision
- *
- * @author Joshua Oblong
- */
-
 package com.example.mmue_lm3.events;
 
 import com.example.mmue_lm3.interfaces.Collidable;
 import com.example.mmue_lm3.interfaces.Event;
 
+/**
+ * Event for handling Collision
+ *
+ * @author Joshua Oblong
+ */
 public class CollisionEvent implements Event {
 
     private final Collidable character;

@@ -1,8 +1,3 @@
-/**
- * Activity for the Video you see when the Game starts
- *
- * @author Mathias Schwengerer
- */
 package com.example.mmue_lm3.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,6 +7,11 @@ import android.view.View;
 
 import com.example.mmue_lm3.R;
 
+/**
+ * Activity for the Video you see when the Game starts
+ *
+ * @author Mathias Schwengerer
+ */
 public class VideoActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {

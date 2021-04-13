@@ -1,15 +1,14 @@
-/**
- * Destroyable Platform GameObject
- *
- * @author Joshua Oblong
- */
-
 package com.example.mmue_lm3.gameobjects;
 
 import android.graphics.Canvas;
 
 import com.example.mmue_lm3.Camera;
 
+/**
+ * Destroyable Platform GameObject
+ *
+ * @author Joshua Oblong
+ */
 public class DestroyablePlatformObject extends PlatformObject {
 
     protected DestroyablePlatformObject(double x, double y, int width) {

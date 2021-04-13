@@ -1,11 +1,10 @@
+package com.example.mmue_lm3;
+
 /**
  * Class for the Camera
  *
  * @author Mathias Schwengerer
  */
-
-package com.example.mmue_lm3;
-
 public class Camera {
 
     private int x, y;

@@ -1,12 +1,10 @@
+package com.example.mmue_lm3.interfaces;
+
 /**
  * Interface for handling Events
  *
  * @author Joshua Oblong
  */
-
-
-package com.example.mmue_lm3.interfaces;
-
 public interface EventListener {
 
 

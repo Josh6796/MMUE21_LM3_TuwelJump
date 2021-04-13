@@ -1,13 +1,12 @@
-/**
- * Event for making Objects move
- *
- * @author Mathias Schwengerer
- */
-
 package com.example.mmue_lm3.events;
 
 import com.example.mmue_lm3.interfaces.Event;
 
+/**
+ * Event for tracking the velocity of touch events.
+ *
+ * @author Mathias Schwengerer
+ */
 public class VelocityEvent implements Event {
 
     private final float x;
