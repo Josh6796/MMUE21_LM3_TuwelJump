@@ -42,8 +42,12 @@ public class PlatformObject extends GameObject implements Collidable {
     }
 
     @Override
-    public void collide(Scene scene, CharacterObject character) {
+    public boolean collide(Scene scene, CharacterObject character) {
         if (character.getLastY() + character.getHeight() - 1 <= this.y && character.getY() + character.getHeight() >= this.y)
+        {
             character.jump();
+            return true;
+        }
+        return false;
     }
 }

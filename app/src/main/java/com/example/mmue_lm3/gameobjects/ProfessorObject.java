@@ -51,7 +51,8 @@ public class ProfessorObject extends GameObject implements Collidable {
     }
 
     @Override
-    public void collide(Scene scene, CharacterObject character) {
+    public boolean collide(Scene scene, CharacterObject character) {
         // TODO: do something...
+        return false;
     }
 }

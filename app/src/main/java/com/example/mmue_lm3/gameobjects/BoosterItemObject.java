@@ -92,8 +92,9 @@ public class BoosterItemObject extends ItemObject {
     }
 
     @Override
-    public void collide(Scene scene, CharacterObject character) {
+    public boolean collide(Scene scene, CharacterObject character) {
         character.consume(this);
         scene.remove(this);
+        return true;
     }
 }

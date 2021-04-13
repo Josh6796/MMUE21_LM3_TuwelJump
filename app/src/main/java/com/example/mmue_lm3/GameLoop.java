@@ -10,6 +10,7 @@ import com.example.mmue_lm3.events.EventSystem;
 import com.example.mmue_lm3.events.PauseEvent;
 import com.example.mmue_lm3.events.VelocityEvent;
 import com.example.mmue_lm3.gameobjects.BoosterItemObject;
+import com.example.mmue_lm3.gameobjects.DestroyablePlatformObject;
 import com.example.mmue_lm3.gameobjects.PlatformObject;
 import com.example.mmue_lm3.interfaces.Event;
 import com.example.mmue_lm3.interfaces.EventListener;
@@ -180,12 +181,18 @@ public class GameLoop implements Runnable, EventListener {
         GameObject platform_4 = new PlatformObject(800, 900, 150);
         GameObject platform_5 = new PlatformObject(300, 1450, 500);
         GameObject platform_6 = new PlatformObject(0, 1650, 1000);
+        GameObject platform_7 = new DestroyablePlatformObject(700, 1300, 200, 2);
+        GameObject platform_8 = new DestroyablePlatformObject(550, 1120, 200, 1);
+        GameObject platform_9 = new DestroyablePlatformObject(150, 1050, 250, 1);
         scene.add(platform_1);
         scene.add(platform_2);
         scene.add(platform_3);
         scene.add(platform_4);
         scene.add(platform_5);
         scene.add(platform_6);
+        scene.add(platform_7);
+        scene.add(platform_8);
+        scene.add(platform_9);
 
     }
 }

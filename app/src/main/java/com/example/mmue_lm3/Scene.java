@@ -63,6 +63,7 @@ public class Scene {
 
     public void update(double deltaTime) {
         gameObjects.removeAll(trash);
+        trash.clear();
 
         for (GameObject gameObject : gameObjects) {
             gameObject.update(deltaTime);

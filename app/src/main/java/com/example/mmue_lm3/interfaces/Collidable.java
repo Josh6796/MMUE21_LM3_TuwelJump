@@ -17,6 +17,7 @@ public interface Collidable {
      *
      * @param scene in which the collision happened
      * @param character of the collision
+     * @return true if the object collided with the character
      */
-    void collide(Scene scene, CharacterObject character);
+    boolean collide(Scene scene, CharacterObject character);
 }
