@@ -1,9 +1,3 @@
-/**
- * Main GameObject
- *
- * @author Joshua Oblong
- */
-
 package com.example.mmue_lm3.gameobjects;
 
 import android.graphics.Rect;
@@ -61,8 +55,8 @@ public abstract class GameObject implements Drawable, Collidable, Updatable, Com
 
     // Returns a rectangle matching the size of the object for collision detection.
     public Rect getRectangle() {
-        int x = (int)this.x;
-        int y = (int)this.y;
+        int x = (int) this.x;
+        int y = (int) this.y;
         return new Rect(x, y, x + width, y + height);
     }
 
@@ -70,6 +64,15 @@ public abstract class GameObject implements Drawable, Collidable, Updatable, Com
 
     @Override
     public int compareTo(GameObject o) {
-        return o.priority < this.priority ? 1 : -1;
+        if (o.priority < this.priority)
+            return 1;
+        else if (o.priority > this.priority)
+            return -1;
+        else if(o.hashCode() < this.hashCode())
+            return 1;
+        else if(o.hashCode() > this.hashCode())
+            return -1;
+        else
+            return 0;
     }
 }
