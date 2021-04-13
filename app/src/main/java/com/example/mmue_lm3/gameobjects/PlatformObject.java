@@ -6,15 +6,18 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.util.Log;
 
 import com.example.mmue_lm3.Camera;
+import com.example.mmue_lm3.Scene;
+import com.example.mmue_lm3.interfaces.Collidable;
 
 /**
  * Platform GameObject
  *
  * @author Joshua Oblong
  */
-public class PlatformObject extends GameObject {
+public class PlatformObject extends GameObject implements Collidable {
 
     private static final int PRIORITY = 1;
 
@@ -36,5 +39,11 @@ public class PlatformObject extends GameObject {
     @Override
     public void update(double deltaTime) {
 
+    }
+
+    @Override
+    public void collide(Scene scene, CharacterObject character) {
+        if (character.getLastY() + character.getHeight() - 1 <= this.y && character.getY() + character.getHeight() >= this.y)
+            character.jump();
     }
 }

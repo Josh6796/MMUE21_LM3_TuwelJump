@@ -32,12 +32,16 @@ public class CharacterObject extends GameObject {
 
     private double verticalVelocity;
     private double horizontalCenter;
+    private double lastY;
+    private double highestPlatform;
 
     public CharacterObject(int health, int ects, int x, int y) {
         super(x, y, 50, 100, PRIORITY);
+        this.lastY = y;
         this.health = health;
         this.ects = ects;
         this.verticalVelocity = -150;
+        this.highestPlatform = y;
     }
 
     @Override
@@ -60,6 +64,7 @@ public class CharacterObject extends GameObject {
 
         // vertical velocity
         // TODO: improve (update verticalVelocity, ...)
+        lastY = y;
         y -= verticalVelocity * deltaTime;
         verticalVelocity -= 600.0 * deltaTime;
         verticalVelocity = max(verticalVelocity, -250);
@@ -67,6 +72,9 @@ public class CharacterObject extends GameObject {
 
     public void jump() {
         // TODO: improve
+        if (highestPlatform > y)
+            highestPlatform = y;
+
         verticalVelocity = 500;
     }
 
@@ -78,11 +86,14 @@ public class CharacterObject extends GameObject {
     public void consume(BoosterItemObject boosterItem) {
         Log.w(TAG, "Booster Item consumed!!!"); // TODO: do something (useful)...
         EventSystem.onEvent(new BoosterEvent(boosterItem.getBooster()));
-
     }
 
     public void setHorizontalCenter(double center) {
         this.horizontalCenter = center;
+    }
+
+    public double getLastY() {
+        return lastY;
     }
 
     public int getHealth() {

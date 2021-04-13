@@ -6,12 +6,10 @@ import android.util.Log;
 import android.view.SurfaceHolder;
 
 import com.example.mmue_lm3.enums.Booster;
-import com.example.mmue_lm3.events.CollisionEvent;
 import com.example.mmue_lm3.events.EventSystem;
 import com.example.mmue_lm3.events.PauseEvent;
 import com.example.mmue_lm3.events.VelocityEvent;
 import com.example.mmue_lm3.gameobjects.BoosterItemObject;
-import com.example.mmue_lm3.gameobjects.ItemObject;
 import com.example.mmue_lm3.gameobjects.PlatformObject;
 import com.example.mmue_lm3.interfaces.Event;
 import com.example.mmue_lm3.interfaces.EventListener;
@@ -102,9 +100,6 @@ public class GameLoop implements Runnable, EventListener {
         if (e.getClass() == PauseEvent.class)
             return processEvent((PauseEvent) e);
 
-        if (e.getClass() == CollisionEvent.class)
-            return processEvent((CollisionEvent) e);
-
         if (e.getClass() == VelocityEvent.class)
             return processEvent((VelocityEvent) e);
 
@@ -119,29 +114,6 @@ public class GameLoop implements Runnable, EventListener {
 
     private boolean processEvent(PauseEvent e) {
         Log.d(TAG, "PAUSE!!");
-        return true;
-    }
-
-    private boolean processEvent(CollisionEvent e) {
-        Log.d(TAG, "Collided!");
-
-        // TODO: implement collision
-        if (e.getCharacter().getClass() == CharacterObject.class) {
-            CharacterObject character = (CharacterObject) e.getCharacter();
-
-            if (e.getOther() instanceof PlatformObject) {
-                PlatformObject platform = (PlatformObject) e.getOther();
-
-                // TODO: check if character jumped on platform
-                character.jump();
-            } else if (e.getOther() instanceof ItemObject) {
-                ItemObject item = (ItemObject) e.getOther();
-                item.consumedBy(character);
-                gameScene.remove(item);
-            }
-
-        }
-
         return true;
     }
 

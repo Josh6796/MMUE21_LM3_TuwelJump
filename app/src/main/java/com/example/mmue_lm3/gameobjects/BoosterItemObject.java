@@ -6,7 +6,9 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 
 import com.example.mmue_lm3.Camera;
+import com.example.mmue_lm3.Scene;
 import com.example.mmue_lm3.enums.Booster;
+import com.example.mmue_lm3.interfaces.Collidable;
 
 /**
  * Booster Item GameObject
@@ -90,7 +92,8 @@ public class BoosterItemObject extends ItemObject {
     }
 
     @Override
-    public void consumedBy(CharacterObject character) {
+    public void collide(Scene scene, CharacterObject character) {
         character.consume(this);
+        scene.remove(this);
     }
 }

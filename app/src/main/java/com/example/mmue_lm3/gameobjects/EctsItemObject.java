@@ -8,6 +8,7 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 
 import com.example.mmue_lm3.Camera;
+import com.example.mmue_lm3.Scene;
 
 /**
  * ECTS Item GameObject
@@ -46,7 +47,8 @@ public class EctsItemObject extends ItemObject {
     }
 
     @Override
-    public void consumedBy(CharacterObject character) {
+    public void collide(Scene scene, CharacterObject character) {
         character.consume(this);
+        scene.remove(this);
     }
 }

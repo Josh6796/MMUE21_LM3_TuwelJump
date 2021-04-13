@@ -1,11 +1,13 @@
 package com.example.mmue_lm3.gameobjects;
 
+import com.example.mmue_lm3.interfaces.Collidable;
+
 /**
  * Item GameObject
  *
  * @author Joshua Oblong
  */
-public abstract class ItemObject extends GameObject {
+public abstract class ItemObject extends GameObject implements Collidable {
 
     private static final int PRIORITY = 1;
 
@@ -13,5 +15,4 @@ public abstract class ItemObject extends GameObject {
         super(x, y, width, height, PRIORITY);
     }
 
-    abstract public void consumedBy(CharacterObject character);
 }

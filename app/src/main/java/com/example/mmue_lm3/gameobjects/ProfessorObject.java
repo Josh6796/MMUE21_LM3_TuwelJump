@@ -3,13 +3,15 @@ package com.example.mmue_lm3.gameobjects;
 import android.graphics.Canvas;
 
 import com.example.mmue_lm3.Camera;
+import com.example.mmue_lm3.Scene;
+import com.example.mmue_lm3.interfaces.Collidable;
 
 /**
  * Professor GameObject
  *
  * @author Joshua Oblong
  */
-public class ProfessorObject extends GameObject {
+public class ProfessorObject extends GameObject implements Collidable {
 
     private static final int PRIORITY = 2;
 
@@ -46,5 +48,10 @@ public class ProfessorObject extends GameObject {
         } else {
             this.health = 0;
         }
+    }
+
+    @Override
+    public void collide(Scene scene, CharacterObject character) {
+        // TODO: do something...
     }
 }

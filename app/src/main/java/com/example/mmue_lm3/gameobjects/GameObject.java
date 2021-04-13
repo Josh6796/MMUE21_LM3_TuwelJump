@@ -11,7 +11,7 @@ import com.example.mmue_lm3.interfaces.Updatable;
  *
  * @author Joshua Oblong
  */
-public abstract class GameObject implements Drawable, Collidable, Updatable, Comparable<GameObject> {
+public abstract class GameObject implements Drawable, Updatable, Comparable<GameObject> {
     double x;
     double y;
     int width;
