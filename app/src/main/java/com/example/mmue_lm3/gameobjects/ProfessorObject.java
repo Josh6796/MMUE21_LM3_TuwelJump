@@ -34,7 +34,7 @@ public class ProfessorObject extends GameObject implements Collidable {
         paint.setStyle(Paint.Style.FILL);
 
         Rect rect = this.getRectangle();
-        rect.offset(-camera.getX(), -camera.getY());
+        rect.offset(-(int) camera.getX(), -(int) camera.getY());
         canvas.drawRect(rect, paint);
     }
 
@@ -62,7 +62,7 @@ public class ProfessorObject extends GameObject implements Collidable {
     @Override
     public boolean collide(Scene scene, CharacterObject character) {
         if (character.lastBottom() - 1 <= this.top() && character.bottom() >= this.top()) {
-            character.jump();
+            character.jump(scene);
             health--;
             if (health <= 0) {
                 character.addEcts(ects);
@@ -73,20 +73,21 @@ public class ProfessorObject extends GameObject implements Collidable {
 
         if (character.lastRight() - 1 <= this.left() && character.right() >= this.left()) {
             character.addHealth(-1);
-            character.move(-10, 0);
+            scene.moveCamera(-200, 0);
             return true;
         }
 
         if (character.lastLeft() + 1 >= this.right() && character.left() <= this.right()) {
             character.addHealth(-1);
-            character.move(10, 0);
+            scene.moveCamera(200, 0);
+
             return true;
         }
 
         if (character.lastTop() + 1 >= this.bottom() && character.top() <= this.bottom()) {
             character.addHealth(-1);
             character.move(0, 1);
-            character.setVerticalVelocity(0);
+            character.setVerticalVelocity(-CharacterObject.MAX_VELOCITY);
             return true;
         }
 

@@ -42,9 +42,8 @@ public class Scene {
         }
     }
 
-    public void moveCamera(int x, int y) {
-        camera.moveHorizontal(x);
-        character.setHorizontalCenter(camera.getCenterX());
+    public void moveCamera(double x, double y) {
+        camera.move(x, y);
     }
 
     public void add(GameObject object) {
@@ -65,11 +64,14 @@ public class Scene {
         gameObjects.removeAll(trash);
         trash.clear();
 
+        camera.update(deltaTime);
+        character.setHorizontalCenter(camera.getCenterX());
+
         for (GameObject gameObject : gameObjects) {
             gameObject.update(deltaTime);
 
             if (!gameObject.equals(character) && gameObject instanceof Collidable && Rect.intersects(character.getRectangle(), gameObject.getRectangle())) {
-                Collidable collidable = (Collidable)gameObject;
+                Collidable collidable = (Collidable) gameObject;
                 collidable.collide(this, character);
             }
         }

@@ -9,6 +9,7 @@ import android.util.Log;
 
 import com.example.mmue_lm3.Camera;
 import com.example.mmue_lm3.GameLoop;
+import com.example.mmue_lm3.Scene;
 import com.example.mmue_lm3.events.BoosterEvent;
 import com.example.mmue_lm3.events.ECTSEvent;
 import com.example.mmue_lm3.events.EventSystem;
@@ -26,6 +27,7 @@ public class CharacterObject extends GameObject {
 
     private static final int MAX_HEALTH = 3;
     private static final int PRIORITY = 3;
+    public static final double MAX_VELOCITY = 500;
 
     private int health;
     private int ects;
@@ -56,7 +58,7 @@ public class CharacterObject extends GameObject {
         paint.setStyle(Paint.Style.FILL);
 
         Rect rect = this.getRectangle();
-        rect.offset(-camera.getX(), -camera.getY());
+        rect.offset(-(int)camera.getX(), -(int)camera.getY());
         canvas.drawRect(rect, paint);
     }
 
@@ -77,12 +79,14 @@ public class CharacterObject extends GameObject {
         verticalVelocity = max(verticalVelocity, -250);
     }
 
-    public void jump() {
+    public void jump(Scene scene) {
         // TODO: improve
-        if (highestPlatform > y)
+        if (highestPlatform > y) {
+            scene.moveCamera(0, - (highestPlatform - y));
             highestPlatform = y;
+        }
 
-        verticalVelocity = 500;
+        verticalVelocity = MAX_VELOCITY;
     }
 
     public void setVerticalVelocity(double velocity) {
@@ -124,7 +128,7 @@ public class CharacterObject extends GameObject {
     }
 
     public double lastRight() {
-        return lastY + width;
+        return lastX + width;
     }
 
     public int getHealth() {

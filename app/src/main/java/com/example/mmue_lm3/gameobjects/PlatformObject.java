@@ -30,7 +30,7 @@ public class PlatformObject extends GameObject implements Collidable {
         paint.setStyle(Paint.Style.FILL);
 
         Rect rect = this.getRectangle();
-        rect.offset(-camera.getX(), -camera.getY());
+        rect.offset(-(int)camera.getX(), -(int)camera.getY());
         canvas.drawRect(rect, paint);
     }
 
@@ -42,7 +42,7 @@ public class PlatformObject extends GameObject implements Collidable {
     @Override
     public boolean collide(Scene scene, CharacterObject character) {
         if (character.lastBottom() - 1 <= this.top() && character.bottom() >= this.top()) {
-            character.jump();
+            character.jump(scene);
             return true;
         }
         return false;

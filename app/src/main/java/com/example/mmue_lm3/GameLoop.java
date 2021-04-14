@@ -120,7 +120,7 @@ public class GameLoop implements Runnable, EventListener {
     }
 
     private boolean processEvent(VelocityEvent e) {
-        gameScene.moveCamera(-(int) e.getX(), -(int) e.getY());
+        gameScene.moveCamera(-(int) e.getX(), 0);
         return true;
     }
 
