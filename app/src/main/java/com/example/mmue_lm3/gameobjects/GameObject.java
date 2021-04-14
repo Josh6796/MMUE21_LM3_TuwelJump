@@ -58,6 +58,22 @@ public abstract class GameObject implements Drawable, Updatable, Comparable<Game
         return width;
     }
 
+    public double bottom() {
+        return y + height;
+    }
+
+    public double top() {
+        return y;
+    }
+
+    public double left() {
+        return x;
+    }
+
+    public double right() {
+        return x + width;
+    }
+
     // Returns a rectangle matching the size of the object for collision detection.
     public Rect getRectangle() {
         int x = (int) this.x;
@@ -73,9 +89,9 @@ public abstract class GameObject implements Drawable, Updatable, Comparable<Game
             return 1;
         else if (o.priority > this.priority)
             return -1;
-        else if(o.hashCode() < this.hashCode())
+        else if (o.hashCode() < this.hashCode())
             return 1;
-        else if(o.hashCode() > this.hashCode())
+        else if (o.hashCode() > this.hashCode())
             return -1;
         else
             return 0;

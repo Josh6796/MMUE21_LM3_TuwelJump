@@ -1,5 +1,3 @@
-
-
 package com.example.mmue_lm3.gameobjects;
 
 import android.graphics.Canvas;
@@ -43,8 +41,7 @@ public class PlatformObject extends GameObject implements Collidable {
 
     @Override
     public boolean collide(Scene scene, CharacterObject character) {
-        if (character.getLastY() + character.getHeight() - 1 <= this.y && character.getY() + character.getHeight() >= this.y)
-        {
+        if (character.lastBottom() - 1 <= this.top() && character.bottom() >= this.top()) {
             character.jump();
             return true;
         }

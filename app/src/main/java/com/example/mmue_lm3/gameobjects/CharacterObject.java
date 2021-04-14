@@ -33,6 +33,7 @@ public class CharacterObject extends GameObject {
     private double verticalVelocity;
     private double horizontalCenter;
     private double lastY;
+    private double lastX;
     private double highestPlatform;
 
     public CharacterObject(int health, int ects, int x, int y) {
@@ -47,7 +48,11 @@ public class CharacterObject extends GameObject {
     @Override
     public void draw(Camera camera, Canvas canvas) {
         Paint paint = new Paint();
-        paint.setColor(Color.rgb(0, 255, 0));
+
+        if (health > 0)
+            paint.setColor(Color.rgb(0, 255, 0));
+        else
+            paint.setColor(Color.rgb(0, 155, 0));
         paint.setStyle(Paint.Style.FILL);
 
         Rect rect = this.getRectangle();
@@ -57,6 +62,9 @@ public class CharacterObject extends GameObject {
 
     @Override
     public void update(double deltaTime) {
+        lastY = y;
+        lastX = x;
+
         // horizontal velocity
         double deltaX = horizontalCenter - (x + width / 2.0);
         //this.x += deltaX * 0.8 * deltaTime;
@@ -64,7 +72,6 @@ public class CharacterObject extends GameObject {
 
         // vertical velocity
         // TODO: improve (update verticalVelocity, ...)
-        lastY = y;
         y -= verticalVelocity * deltaTime;
         verticalVelocity -= 600.0 * deltaTime;
         verticalVelocity = max(verticalVelocity, -250);
@@ -76,6 +83,10 @@ public class CharacterObject extends GameObject {
             highestPlatform = y;
 
         verticalVelocity = 500;
+    }
+
+    public void setVerticalVelocity(double velocity) {
+        this.verticalVelocity = velocity;
     }
 
     public void consume(EctsItemObject ectsItem) {
@@ -92,8 +103,28 @@ public class CharacterObject extends GameObject {
         this.horizontalCenter = center;
     }
 
-    public double getLastY() {
+    public void move(double x, double y) {
+        lastY = y;
+        lastX = x;
+
+        this.x += x;
+        this.y += y;
+    }
+
+    public double lastBottom() {
+        return lastY + height;
+    }
+
+    public double lastTop() {
         return lastY;
+    }
+
+    public double lastLeft() {
+        return lastX;
+    }
+
+    public double lastRight() {
+        return lastY + width;
     }
 
     public int getHealth() {

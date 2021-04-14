@@ -1,6 +1,9 @@
 package com.example.mmue_lm3.gameobjects;
 
 import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Rect;
 
 import com.example.mmue_lm3.Camera;
 import com.example.mmue_lm3.Scene;
@@ -19,14 +22,20 @@ public class ProfessorObject extends GameObject implements Collidable {
     private final int ects;
 
     public ProfessorObject(int health, int ects, double x, double y) {
-        super(x, y, 10, 20, PRIORITY);
+        super(x, y, 80, 100, PRIORITY);
         this.health = health;
         this.ects = ects;
     }
 
     @Override
     public void draw(Camera camera, Canvas canvas) {
+        Paint paint = new Paint();
+        paint.setColor(Color.rgb(0, 168, 107));
+        paint.setStyle(Paint.Style.FILL);
 
+        Rect rect = this.getRectangle();
+        rect.offset(-camera.getX(), -camera.getY());
+        canvas.drawRect(rect, paint);
     }
 
     @Override
@@ -52,7 +61,36 @@ public class ProfessorObject extends GameObject implements Collidable {
 
     @Override
     public boolean collide(Scene scene, CharacterObject character) {
-        // TODO: do something...
+        if (character.lastBottom() - 1 <= this.top() && character.bottom() >= this.top()) {
+            character.jump();
+            health--;
+            if (health <= 0) {
+                character.addEcts(ects);
+                scene.remove(this);
+            }
+            return true;
+        }
+
+        if (character.lastRight() - 1 <= this.left() && character.right() >= this.left()) {
+            character.addHealth(-1);
+            character.move(-10, 0);
+            return true;
+        }
+
+        if (character.lastLeft() + 1 >= this.right() && character.left() <= this.right()) {
+            character.addHealth(-1);
+            character.move(10, 0);
+            return true;
+        }
+
+        if (character.lastTop() + 1 >= this.bottom() && character.top() <= this.bottom()) {
+            character.addHealth(-1);
+            character.move(0, 1);
+            character.setVerticalVelocity(0);
+            return true;
+        }
+
+
         return false;
     }
 }

@@ -12,6 +12,7 @@ import com.example.mmue_lm3.events.VelocityEvent;
 import com.example.mmue_lm3.gameobjects.BoosterItemObject;
 import com.example.mmue_lm3.gameobjects.DestroyablePlatformObject;
 import com.example.mmue_lm3.gameobjects.PlatformObject;
+import com.example.mmue_lm3.gameobjects.ProfessorObject;
 import com.example.mmue_lm3.interfaces.Event;
 import com.example.mmue_lm3.interfaces.EventListener;
 import com.example.mmue_lm3.events.TouchEvent;
@@ -193,6 +194,12 @@ public class GameLoop implements Runnable, EventListener {
         scene.add(platform_7);
         scene.add(platform_8);
         scene.add(platform_9);
+
+        // Professor
+        ProfessorObject prof_1 = new ProfessorObject(5, 6, 920, 720);
+        ProfessorObject prof_2 = new ProfessorObject(5, 6, 700, 590);
+        scene.add(prof_1);
+        scene.add(prof_2);
 
     }
 }
