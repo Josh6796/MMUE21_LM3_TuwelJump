@@ -62,7 +62,18 @@ public class CharacterObject extends GameObject {
     @Override
     public void draw(Camera camera, Canvas canvas) {
         Paint paint = new Paint();
+        /*
+        if (health > 0)
+            paint.setColor(Color.rgb(0, 255, 0));
+        else
+            paint.setColor(Color.rgb(0, 155, 0));
+        paint.setStyle(Paint.Style.FILL);
 
+        Rect rect = this.getRectangle();
+        rect.offset(-(int)camera.getX(), -(int)camera.getY());
+        canvas.drawRect(rect, paint);
+
+        */
         this.sprite.draw(camera, canvas);
     }
 
