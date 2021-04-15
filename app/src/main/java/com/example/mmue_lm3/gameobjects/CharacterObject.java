@@ -1,5 +1,8 @@
 package com.example.mmue_lm3.gameobjects;
 
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -9,6 +12,7 @@ import android.util.Log;
 
 import com.example.mmue_lm3.Camera;
 import com.example.mmue_lm3.GameLoop;
+import com.example.mmue_lm3.R;
 import com.example.mmue_lm3.Scene;
 import com.example.mmue_lm3.events.BoosterEvent;
 import com.example.mmue_lm3.events.ECTSEvent;
@@ -29,6 +33,9 @@ public class CharacterObject extends GameObject {
     private static final int PRIORITY = 3;
     public static final double MAX_VELOCITY = 500;
 
+    private Sprite sprite;
+    private Context context;
+
     private int health;
     private int ects;
 
@@ -38,13 +45,17 @@ public class CharacterObject extends GameObject {
     private double lastX;
     private double highestPlatform;
 
-    public CharacterObject(int health, int ects, int x, int y) {
+    public CharacterObject(Context context, int health, int ects, int x, int y) {
         super(x, y, 50, 100, PRIORITY);
+        this.context = context;
         this.lastY = y;
         this.health = health;
         this.ects = ects;
         this.verticalVelocity = -150;
         this.highestPlatform = y;
+
+        Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.sprite);
+        this.sprite = new Sprite(bitmap, x, y);
     }
 
     @Override
@@ -60,10 +71,14 @@ public class CharacterObject extends GameObject {
         Rect rect = this.getRectangle();
         rect.offset(-(int)camera.getX(), -(int)camera.getY());
         canvas.drawRect(rect, paint);
+        this.sprite.draw(canvas);
     }
 
     @Override
     public void update(double deltaTime) {
+
+        sprite.update(System.currentTimeMillis());
+
         lastY = y;
         lastX = x;
 
@@ -71,10 +86,12 @@ public class CharacterObject extends GameObject {
         double deltaX = horizontalCenter - (x + width / 2.0);
         //this.x += deltaX * 0.8 * deltaTime;
         this.x += deltaX;
+        this.sprite.setX(this.x);
 
         // vertical velocity
         // TODO: improve (update verticalVelocity, ...)
-        y -= verticalVelocity * deltaTime;
+        this.y -= verticalVelocity * deltaTime;
+        this.sprite.setY(this.y);
         verticalVelocity -= 600.0 * deltaTime;
         verticalVelocity = max(verticalVelocity, -250);
     }
@@ -113,6 +130,9 @@ public class CharacterObject extends GameObject {
 
         this.x += x;
         this.y += y;
+
+        this.sprite.setX(this.x);
+        this.sprite.setY(this.y);
     }
 
     public double lastBottom() {

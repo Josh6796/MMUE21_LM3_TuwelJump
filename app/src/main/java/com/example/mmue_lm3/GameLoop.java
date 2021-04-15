@@ -1,6 +1,7 @@
 package com.example.mmue_lm3;
 
 
+import android.content.Context;
 import android.graphics.Canvas;
 import android.util.Log;
 import android.view.SurfaceHolder;
@@ -82,7 +83,7 @@ public class GameLoop implements Runnable, EventListener {
 
     private void start() {
         this.lastTime = System.nanoTime();
-        initScene(gameScene);
+        this.initScene(gameScene);
     }
 
     private void shutdown() {
@@ -158,9 +159,11 @@ public class GameLoop implements Runnable, EventListener {
     }
 
     // TODO: remove (just for testing)
-    static void initScene(Scene scene) {
+    void initScene(Scene scene) {
+        Context context = this.gameSurfaceView.getContext();
+
         // Character
-        CharacterObject character = new CharacterObject(3, 0, 500, 1300);
+        CharacterObject character = new CharacterObject(context,3, 0, 500, 1300);
         scene.add(character);
 
         // Booster
