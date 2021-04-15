@@ -45,7 +45,7 @@ public class CharacterObject extends GameObject {
     private double highestPlatform;
 
     public CharacterObject(Context context, int health, int ects, int x, int y) {
-        super(x, y, 50, 100, PRIORITY);
+        super(x, y, 0, 0, PRIORITY);
         this.lastY = y;
         this.health = health;
         this.ects = ects;
@@ -53,23 +53,17 @@ public class CharacterObject extends GameObject {
         this.highestPlatform = y;
 
         Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.character);
-        this.sprite = new Sprite(bitmap, x, y, 2, 300);
+        this.sprite = new Sprite(bitmap, x, y, 2, 600);
+
+        super.setWidth(sprite.getFrameWidth());
+        super.setHeight(sprite.getFrameHeight());
     }
 
     @Override
     public void draw(Camera camera, Canvas canvas) {
         Paint paint = new Paint();
 
-        if (health > 0)
-            paint.setColor(Color.rgb(0, 255, 0));
-        else
-            paint.setColor(Color.rgb(0, 155, 0));
-        paint.setStyle(Paint.Style.FILL);
-
-        Rect rect = this.getRectangle();
-        rect.offset(-(int)camera.getX(), -(int)camera.getY());
-        canvas.drawRect(rect, paint);
-        this.sprite.draw(canvas);
+        this.sprite.draw(camera, canvas);
     }
 
     @Override

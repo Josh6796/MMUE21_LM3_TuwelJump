@@ -4,6 +4,8 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Rect;
 
+import com.example.mmue_lm3.Camera;
+
 /**
  * Class for Sprite Creation
  *
@@ -13,8 +15,8 @@ public class Sprite {
     private final Bitmap sprite;
     private double x;
     private double y;
-    private final int frameWidth;
-    private final int frameHeight;
+    private int frameWidth;
+    private int frameHeight;
     private final int totalFrames;
     private int currentFrame;
 
@@ -43,10 +45,13 @@ public class Sprite {
     }
 
     // Zeichnen des aktuellen Frames auf das Canvas
-    public void draw(Canvas canvas) {
+    public void draw(Camera camera, Canvas canvas) {
         if (canvas != null) {
             Rect targetRect = new Rect((int)x, (int)y, (int)x + frameWidth, (int)y + frameHeight);
-            Rect sourceRect = new Rect(currentFrame * frameWidth + 2, 0, (currentFrame + 1) * frameWidth, frameHeight);
+            Rect sourceRect = new Rect(currentFrame * frameWidth, 0, (currentFrame + 1) * frameWidth, frameHeight);
+
+            targetRect.offset(-(int)camera.getX(), -(int)camera.getY());
+
             canvas.drawBitmap(sprite, sourceRect, targetRect, null);
         }
     }
@@ -55,15 +60,31 @@ public class Sprite {
         return x;
     }
 
-    public double getY() {
-        return y;
-    }
-
     public void setX(double x) {
         this.x = x;
     }
 
+    public double getY() {
+        return y;
+    }
+
     public void setY(double y) {
         this.y = y;
+    }
+
+    public int getFrameWidth() {
+        return frameWidth;
+    }
+
+    public void setFrameWidth(int frameWidth) {
+        this.frameWidth = frameWidth;
+    }
+
+    public int getFrameHeight() {
+        return frameHeight;
+    }
+
+    public void setFrameHeight(int frameHeight) {
+        this.frameHeight = frameHeight;
     }
 }
