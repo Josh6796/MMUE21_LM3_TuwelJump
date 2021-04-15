@@ -33,8 +33,7 @@ public class CharacterObject extends GameObject {
     private static final int PRIORITY = 3;
     public static final double MAX_VELOCITY = 500;
 
-    private Sprite sprite;
-    private Context context;
+    private final Sprite sprite;
 
     private int health;
     private int ects;
@@ -47,15 +46,14 @@ public class CharacterObject extends GameObject {
 
     public CharacterObject(Context context, int health, int ects, int x, int y) {
         super(x, y, 50, 100, PRIORITY);
-        this.context = context;
         this.lastY = y;
         this.health = health;
         this.ects = ects;
         this.verticalVelocity = -150;
         this.highestPlatform = y;
 
-        Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.sprite);
-        this.sprite = new Sprite(bitmap, x, y);
+        Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.character);
+        this.sprite = new Sprite(bitmap, x, y, 2, 300);
     }
 
     @Override
@@ -77,8 +75,6 @@ public class CharacterObject extends GameObject {
     @Override
     public void update(double deltaTime) {
 
-        sprite.update(System.currentTimeMillis());
-
         lastY = y;
         lastX = x;
 
@@ -94,6 +90,8 @@ public class CharacterObject extends GameObject {
         this.sprite.setY(this.y);
         verticalVelocity -= 600.0 * deltaTime;
         verticalVelocity = max(verticalVelocity, -250);
+
+        sprite.update(System.currentTimeMillis());
     }
 
     public void jump(Scene scene) {

@@ -15,21 +15,21 @@ public class Sprite {
     private double y;
     private final int frameWidth;
     private final int frameHeight;
-    private int totalFrames;
+    private final int totalFrames;
     private int currentFrame;
 
-    long pastTime = 0;
-    int frameTime;
+    private long pastTime = 0;
+    private final int frameTime;
 
-    public Sprite(Bitmap sprite, int x, int y) {
+    public Sprite(Bitmap sprite, int x, int y, int totalFrames, int frameTime) {
         this.sprite = sprite;
-        this.totalFrames = 6;
+        this.totalFrames = totalFrames;
         this.currentFrame = 0;
         this.frameWidth = sprite.getWidth() / totalFrames;
         this.frameHeight = sprite.getHeight();
         this.x = x;
         this.y = y;
-        frameTime = 150;
+        this.frameTime = frameTime;
 
     }
 
@@ -38,7 +38,7 @@ public class Sprite {
         if (currentTime > pastTime + frameTime) {
             pastTime = currentTime;
             currentFrame++;
-            currentFrame %= 6;
+            currentFrame %= totalFrames;
         }
     }
 
