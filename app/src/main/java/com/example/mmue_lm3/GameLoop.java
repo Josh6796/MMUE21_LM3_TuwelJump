@@ -199,8 +199,8 @@ public class GameLoop implements Runnable, EventListener {
         scene.add(platform_9);
 
         // Professor
-        ProfessorObject prof_1 = new ProfessorObject(5, 6, 920, 720);
-        ProfessorObject prof_2 = new ProfessorObject(5, 6, 700, 590);
+        ProfessorObject prof_1 = new ProfessorObject(context,5, 6, 920, 720);
+        ProfessorObject prof_2 = new ProfessorObject(context,5, 6, 700, 590);
         scene.add(prof_1);
         scene.add(prof_2);
 

@@ -1,11 +1,15 @@
 package com.example.mmue_lm3.gameobjects;
 
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 
 import com.example.mmue_lm3.Camera;
+import com.example.mmue_lm3.R;
 import com.example.mmue_lm3.Scene;
 import com.example.mmue_lm3.interfaces.Collidable;
 
@@ -18,29 +22,31 @@ public class ProfessorObject extends GameObject implements Collidable {
 
     private static final int PRIORITY = 2;
 
+    private final Sprite sprite;
+
     private int health;
     private final int ects;
 
-    public ProfessorObject(int health, int ects, double x, double y) {
-        super(x, y, 80, 100, PRIORITY);
+    public ProfessorObject(Context context, int health, int ects, int x, int y) {
+        super(x, y, 0, 0, PRIORITY);
         this.health = health;
         this.ects = ects;
+
+        Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.professor);
+        this.sprite = new Sprite(bitmap, x, y, 8, 50);
+
+        super.setWidth(sprite.getFrameWidth());
+        super.setHeight(sprite.getFrameHeight());
     }
 
     @Override
     public void draw(Camera camera, Canvas canvas) {
-        Paint paint = new Paint();
-        paint.setColor(Color.rgb(0, 168, 107));
-        paint.setStyle(Paint.Style.FILL);
-
-        Rect rect = this.getRectangle();
-        rect.offset(-(int) camera.getX(), -(int) camera.getY());
-        canvas.drawRect(rect, paint);
+        sprite.draw(camera, canvas);
     }
 
     @Override
     public void update(double deltaTime) {
-
+        sprite.update(System.currentTimeMillis());
     }
 
     public int getHealth() {
