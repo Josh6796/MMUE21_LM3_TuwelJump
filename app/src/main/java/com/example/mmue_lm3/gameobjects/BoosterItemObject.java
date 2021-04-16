@@ -34,7 +34,7 @@ public class BoosterItemObject extends ItemObject {
 
         switch (booster) {
             case Speed:
-                bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.clubmate);
+                bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.coffee);
                 sprite = new Sprite(bitmap, x, y, 4, 150);
                 break;
             case Invisibility:
@@ -98,13 +98,7 @@ public class BoosterItemObject extends ItemObject {
     }
 
     private void drawDamage(Camera camera, Canvas canvas) {
-        Paint paint = new Paint();
-        paint.setColor(Color.rgb(255, 123, 64));
-        paint.setStyle(Paint.Style.FILL);
-
-        Rect rect = this.getRectangle();
-        rect.offset(-(int)camera.getX(), -(int)camera.getY());
-        canvas.drawRect(rect, paint);
+        sprite.draw(camera, canvas);
     }
 
     public Booster getBooster() {

@@ -168,13 +168,13 @@ public class GameLoop implements Runnable, EventListener {
 
         // Booster
         GameObject booster_1 = new BoosterItemObject(context, Booster.Speed, 300, 1300);
-        GameObject booster_2 = new BoosterItemObject(context, Booster.SlowMotion, 900, 1300);
+        GameObject booster_2 = new BoosterItemObject(context, Booster.Damage, 600, 1300);
         scene.add(booster_1);
         scene.add(booster_2);
 
         // Items
-        GameObject ects_1 = new EctsItemObject(20, 50, 1200);
-        GameObject ects_2 = new EctsItemObject(20, 50, 600);
+        GameObject ects_1 = new EctsItemObject(context, 20, 50, 1200);
+        GameObject ects_2 = new EctsItemObject(context, 20, 50, 600);
         scene.add(ects_1);
         scene.add(ects_2);
 
