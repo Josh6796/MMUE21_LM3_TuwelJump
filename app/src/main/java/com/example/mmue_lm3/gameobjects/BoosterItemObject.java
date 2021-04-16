@@ -38,15 +38,15 @@ public class BoosterItemObject extends ItemObject {
                 sprite = new Sprite(bitmap, x, y, 4, 150);
                 break;
             case Invisibility:
-                bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.clubmate);
+                bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.klubnate);
                 sprite = new Sprite(bitmap, x, y, 4, 150);;
                 break;
             case SlowMotion:
-                bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.clubmate);
+                bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.klubnate);
                 sprite = new Sprite(bitmap, x, y, 4, 150);
                 break;
             case Damage:
-                bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.clubmate);
+                bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.klubnate);
                 sprite = new Sprite(bitmap, x, y, 4, 150);
                 break;
         }
