@@ -9,7 +9,7 @@ import com.example.mmue_lm3.R;
 /**
  * Activity for the Game itself
  *
- * @author Joshua Oblong
+ * @author Joshua Oblong (Demo as Template)
  */
 public class GameActivity extends AppCompatActivity {
     @Override

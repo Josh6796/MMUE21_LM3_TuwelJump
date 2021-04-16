@@ -1,18 +1,11 @@
 package com.example.mmue_lm3.gameobjects;
 
-import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.Rect;
-import android.nfc.Tag;
 import android.util.Log;
 
 import com.example.mmue_lm3.Camera;
-import com.example.mmue_lm3.GameLoop;
-import com.example.mmue_lm3.R;
 import com.example.mmue_lm3.Scene;
 import com.example.mmue_lm3.events.BoosterEvent;
 import com.example.mmue_lm3.events.ECTSEvent;
@@ -44,7 +37,7 @@ public class CharacterObject extends GameObject {
     private double lastX;
     private double highestPlatform;
 
-    public CharacterObject(Context context, int health, int ects, int x, int y) {
+    public CharacterObject(Bitmap bitmap, int health, int ects, int x, int y) {
         super(x, y, 0, 0, PRIORITY);
         this.lastY = y;
         this.health = health;
@@ -52,7 +45,6 @@ public class CharacterObject extends GameObject {
         this.verticalVelocity = -150;
         this.highestPlatform = y;
 
-        Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.character);
         this.sprite = new Sprite(bitmap, x, y, 2, 600);
 
         super.setWidth(sprite.getFrameWidth());

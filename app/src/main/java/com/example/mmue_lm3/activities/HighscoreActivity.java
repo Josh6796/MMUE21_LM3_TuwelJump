@@ -9,7 +9,7 @@ import com.example.mmue_lm3.R;
 /**
  * Activity for the List of Highscores you reached in the Game
  *
- * @author Joshua Oblong
+ * @author Joshua Oblong (Demo as Template)
  */
 public class HighscoreActivity extends AppCompatActivity {
     @Override

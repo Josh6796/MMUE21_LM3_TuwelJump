@@ -5,14 +5,12 @@ package com.example.mmue_lm3;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Canvas;
-import android.graphics.Rect;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.VelocityTracker;
-import android.widget.Toast;
 
 import com.example.mmue_lm3.events.EventSystem;
 import com.example.mmue_lm3.events.TouchEvent;
@@ -22,7 +20,7 @@ import com.example.mmue_lm3.gameobjects.GameObject;
 /**
  * Class for the GameSurfaceView
  *
- * @author Joshua Oblong
+ * @author Joshua Oblong (Demo as Template)
  */
 public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callback {
 

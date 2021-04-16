@@ -1,16 +1,17 @@
 package com.example.mmue_lm3.activities;
 
-import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.mmue_lm3.R;
 
 /**
  * Activity for the Video you see when the Game starts
  *
- * @author Mathias Schwengerer
+ * @author Mathias Schwengerer (Demo as Template)
  */
 public class VideoActivity extends AppCompatActivity {
     @Override

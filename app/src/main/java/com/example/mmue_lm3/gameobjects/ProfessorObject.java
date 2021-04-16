@@ -1,15 +1,9 @@
 package com.example.mmue_lm3.gameobjects;
 
-import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.Rect;
 
 import com.example.mmue_lm3.Camera;
-import com.example.mmue_lm3.R;
 import com.example.mmue_lm3.Scene;
 import com.example.mmue_lm3.interfaces.Collidable;
 
@@ -27,12 +21,11 @@ public class ProfessorObject extends GameObject implements Collidable {
     private int health;
     private final int ects;
 
-    public ProfessorObject(Context context, int health, int ects, int x, int y) {
+    public ProfessorObject(Bitmap bitmap, int health, int ects, int x, int y) {
         super(x, y, 0, 0, PRIORITY);
         this.health = health;
         this.ects = ects;
 
-        Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.professor);
         this.sprite = new Sprite(bitmap, x, y, 8, 50);
 
         super.setWidth(sprite.getFrameWidth());

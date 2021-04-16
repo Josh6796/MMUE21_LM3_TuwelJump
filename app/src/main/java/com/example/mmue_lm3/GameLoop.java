@@ -2,6 +2,8 @@ package com.example.mmue_lm3;
 
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.util.Log;
 import android.view.SurfaceHolder;
@@ -27,7 +29,7 @@ import java.util.concurrent.ConcurrentLinkedDeque;
 /**
  * Class for the GameLoop
  *
- * @author Joshua Oblong
+ * @author Joshua Oblong (Demo as Template)
  */
 public class GameLoop implements Runnable, EventListener {
 
@@ -43,6 +45,13 @@ public class GameLoop implements Runnable, EventListener {
 
     private final Queue<Event> eventQueue;
     private final Scene gameScene;
+
+    // Bitmaps
+    private Bitmap characterBitmap;
+    private Bitmap professorBitmap;
+    private Bitmap coffeeBitmap;
+    private Bitmap klubnateBitmap;
+    private Bitmap ectsBitmap;
 
 
     public GameLoop(SurfaceHolder surfaceHolder, GameSurfaceView gameSurfaceView) {
@@ -83,6 +92,15 @@ public class GameLoop implements Runnable, EventListener {
 
     private void start() {
         this.lastTime = System.nanoTime();
+
+        Context context = this.gameSurfaceView.getContext();
+
+        characterBitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.character);
+        professorBitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.professor);
+        coffeeBitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.coffee);
+        klubnateBitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.klubnate);
+        ectsBitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.ects);
+
         this.initScene(gameScene);
     }
 
@@ -160,21 +178,21 @@ public class GameLoop implements Runnable, EventListener {
 
     // TODO: remove (just for testing)
     void initScene(Scene scene) {
-        Context context = this.gameSurfaceView.getContext();
+
 
         // Character
-        CharacterObject character = new CharacterObject(context,3, 0, 500, 1300);
+        CharacterObject character = new CharacterObject(characterBitmap,3, 0, 500, 1300);
         scene.add(character);
 
         // Booster
-        GameObject booster_1 = new BoosterItemObject(context, Booster.Speed, 300, 1300);
-        GameObject booster_2 = new BoosterItemObject(context, Booster.Damage, 600, 1300);
+        GameObject booster_1 = new BoosterItemObject(klubnateBitmap, Booster.Speed, 300, 1300);
+        GameObject booster_2 = new BoosterItemObject(coffeeBitmap, Booster.Damage, 600, 1300);
         scene.add(booster_1);
         scene.add(booster_2);
 
         // Items
-        GameObject ects_1 = new EctsItemObject(context, 20, 50, 1200);
-        GameObject ects_2 = new EctsItemObject(context, 20, 50, 600);
+        GameObject ects_1 = new EctsItemObject(ectsBitmap, 20, 50, 1200);
+        GameObject ects_2 = new EctsItemObject(ectsBitmap, 20, 50, 600);
         scene.add(ects_1);
         scene.add(ects_2);
 
@@ -199,8 +217,8 @@ public class GameLoop implements Runnable, EventListener {
         scene.add(platform_9);
 
         // Professor
-        ProfessorObject prof_1 = new ProfessorObject(context,5, 6, 920, 720);
-        ProfessorObject prof_2 = new ProfessorObject(context,5, 6, 700, 590);
+        ProfessorObject prof_1 = new ProfessorObject(professorBitmap,5, 6, 920, 720);
+        ProfessorObject prof_2 = new ProfessorObject(professorBitmap,5, 6, 700, 590);
         scene.add(prof_1);
         scene.add(prof_2);
 

@@ -2,14 +2,13 @@ package com.example.mmue_lm3.gameobjects;
 
 import android.graphics.Rect;
 
-import com.example.mmue_lm3.interfaces.Collidable;
 import com.example.mmue_lm3.interfaces.Drawable;
 import com.example.mmue_lm3.interfaces.Updatable;
 
 /**
  * Main GameObject
  *
- * @author Joshua Oblong
+ * @author Joshua Oblong (Demo as Template)
  */
 public abstract class GameObject implements Drawable, Updatable, Comparable<GameObject> {
     double x;
