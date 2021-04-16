@@ -167,8 +167,8 @@ public class GameLoop implements Runnable, EventListener {
         scene.add(character);
 
         // Booster
-        GameObject booster_1 = new BoosterItemObject(Booster.Speed, 300, 1350);
-        GameObject booster_2 = new BoosterItemObject(Booster.SlowMotion, 900, 1350);
+        GameObject booster_1 = new BoosterItemObject(context, Booster.Speed, 300, 1300);
+        GameObject booster_2 = new BoosterItemObject(context, Booster.SlowMotion, 900, 1300);
         scene.add(booster_1);
         scene.add(booster_2);
 

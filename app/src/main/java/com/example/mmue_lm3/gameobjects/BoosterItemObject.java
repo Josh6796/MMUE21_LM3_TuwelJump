@@ -1,11 +1,15 @@
 package com.example.mmue_lm3.gameobjects;
 
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 
 import com.example.mmue_lm3.Camera;
+import com.example.mmue_lm3.R;
 import com.example.mmue_lm3.Scene;
 import com.example.mmue_lm3.enums.Booster;
 import com.example.mmue_lm3.interfaces.Collidable;
@@ -18,10 +22,37 @@ import com.example.mmue_lm3.interfaces.Collidable;
 public class BoosterItemObject extends ItemObject {
 
     private final Booster booster;
+    private final Context context;
+    private Sprite sprite;
 
-    public BoosterItemObject(Booster booster, double x, double y) {
-        super(x, y, 50, 50);
+    public BoosterItemObject(Context context, Booster booster, double x, double y) {
+        super(x, y, 0, 0);
+        this.context = context;
         this.booster = booster;
+
+        Bitmap bitmap;
+
+        switch (booster) {
+            case Speed:
+                bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.clubmate);
+                sprite = new Sprite(bitmap, x, y, 4, 150);
+                break;
+            case Invisibility:
+                bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.clubmate);
+                sprite = new Sprite(bitmap, x, y, 4, 150);;
+                break;
+            case SlowMotion:
+                bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.clubmate);
+                sprite = new Sprite(bitmap, x, y, 4, 150);
+                break;
+            case Damage:
+                bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.clubmate);
+                sprite = new Sprite(bitmap, x, y, 4, 150);
+                break;
+        }
+
+        super.setHeight(sprite.getFrameHeight());
+        super.setWidth(sprite.getFrameWidth());
     }
 
     @Override
@@ -43,13 +74,7 @@ public class BoosterItemObject extends ItemObject {
     }
 
     private void drawSpeed(Camera camera, Canvas canvas) {
-        Paint paint = new Paint();
-        paint.setColor(Color.rgb(102, 22, 153));
-        paint.setStyle(Paint.Style.FILL);
-
-        Rect rect = this.getRectangle();
-        rect.offset(-(int)camera.getX(), -(int)camera.getY());
-        canvas.drawRect(rect, paint);
+        sprite.draw(camera, canvas);
     }
 
     private void drawInvisibility(Camera camera, Canvas canvas) {
@@ -88,7 +113,7 @@ public class BoosterItemObject extends ItemObject {
 
     @Override
     public void update(double deltaTime) {
-
+        sprite.update(System.currentTimeMillis());
     }
 
     @Override

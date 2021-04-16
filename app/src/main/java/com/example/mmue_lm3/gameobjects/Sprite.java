@@ -23,7 +23,7 @@ public class Sprite {
     private long pastTime = 0;
     private final int frameTime;
 
-    public Sprite(Bitmap sprite, int x, int y, int totalFrames, int frameTime) {
+    public Sprite(Bitmap sprite, double x, double y, int totalFrames, int frameTime) {
         this.sprite = sprite;
         this.totalFrames = totalFrames;
         this.currentFrame = 0;
