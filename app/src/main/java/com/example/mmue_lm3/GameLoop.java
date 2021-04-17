@@ -52,6 +52,8 @@ public class GameLoop implements Runnable, EventListener {
     private Bitmap professorBitmap;
     private Bitmap coffeeBitmap;
     private Bitmap klubnateBitmap;
+    private Bitmap clockBitmap;
+    private Bitmap mathbookBitmap;
     private Bitmap ectsBitmap;
     private Bitmap heartBitmap;
 
@@ -101,6 +103,8 @@ public class GameLoop implements Runnable, EventListener {
         professorBitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.professor);
         coffeeBitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.coffee);
         klubnateBitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.klubnate);
+        clockBitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.clock);
+        mathbookBitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.mathbook);
         ectsBitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.ects);
         heartBitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.heart);
 
@@ -196,8 +200,12 @@ public class GameLoop implements Runnable, EventListener {
         // Booster
         GameObject booster_1 = new BoosterItemObject(klubnateBitmap, Booster.Speed, 300, 1300);
         GameObject booster_2 = new BoosterItemObject(coffeeBitmap, Booster.Damage, 600, 1300);
+        GameObject booster_3 = new BoosterItemObject(clockBitmap, Booster.SlowMotion, 200, 1500);
+        GameObject booster_4 = new BoosterItemObject(mathbookBitmap, Booster.Invincibility, 700, 1500);
         scene.add(booster_1);
         scene.add(booster_2);
+        scene.add(booster_3);
+        scene.add(booster_4);
 
         // Items
         GameObject ects_1 = new EctsItemObject(ectsBitmap, 20, 50, 1200);
