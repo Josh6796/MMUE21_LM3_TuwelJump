@@ -14,6 +14,7 @@ import com.example.mmue_lm3.events.PauseEvent;
 import com.example.mmue_lm3.events.VelocityEvent;
 import com.example.mmue_lm3.gameobjects.BoosterItemObject;
 import com.example.mmue_lm3.gameobjects.DestroyablePlatformObject;
+import com.example.mmue_lm3.gameobjects.LifeHudObject;
 import com.example.mmue_lm3.gameobjects.PlatformObject;
 import com.example.mmue_lm3.gameobjects.ProfessorObject;
 import com.example.mmue_lm3.interfaces.Event;
@@ -52,6 +53,7 @@ public class GameLoop implements Runnable, EventListener {
     private Bitmap coffeeBitmap;
     private Bitmap klubnateBitmap;
     private Bitmap ectsBitmap;
+    private Bitmap heartBitmap;
 
 
     public GameLoop(SurfaceHolder surfaceHolder, GameSurfaceView gameSurfaceView) {
@@ -100,6 +102,7 @@ public class GameLoop implements Runnable, EventListener {
         coffeeBitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.coffee);
         klubnateBitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.klubnate);
         ectsBitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.ects);
+        heartBitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.heart);
 
         this.initScene(gameScene);
     }
@@ -183,6 +186,12 @@ public class GameLoop implements Runnable, EventListener {
         // Character
         CharacterObject character = new CharacterObject(characterBitmap,3, 0, 500, 1300);
         scene.add(character);
+
+        // Lives
+        for (int i = 0; i < character.getHealth(); i++) {
+            LifeHudObject life = new LifeHudObject(heartBitmap, 50 + 100*i, 50);
+            scene.add(life);
+        }
 
         // Booster
         GameObject booster_1 = new BoosterItemObject(klubnateBitmap, Booster.Speed, 300, 1300);
