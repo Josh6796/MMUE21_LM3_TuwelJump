@@ -2,7 +2,9 @@ package com.example.mmue_lm3.gameobjects;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Typeface;
 import android.util.Log;
 
 import com.example.mmue_lm3.Camera;
@@ -53,20 +55,15 @@ public class CharacterObject extends GameObject {
 
     @Override
     public void draw(Camera camera, Canvas canvas) {
-        Paint paint = new Paint();
-        /*
-        if (health > 0)
-            paint.setColor(Color.rgb(0, 255, 0));
-        else
-            paint.setColor(Color.rgb(0, 155, 0));
-        paint.setStyle(Paint.Style.FILL);
-
-        Rect rect = this.getRectangle();
-        rect.offset(-(int)camera.getX(), -(int)camera.getY());
-        canvas.drawRect(rect, paint);
-
-        */
         this.sprite.draw(camera, canvas);
+
+        // ECTS HUD
+        Paint paint = new Paint();
+        paint.setColor(Color.BLACK);
+        paint.setTextSize(70);
+        paint.setTypeface(Typeface.DEFAULT_BOLD);
+
+        canvas.drawText("" + ects, 150, 275, paint);
     }
 
     @Override

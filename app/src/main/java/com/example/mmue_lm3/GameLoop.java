@@ -14,6 +14,7 @@ import com.example.mmue_lm3.events.PauseEvent;
 import com.example.mmue_lm3.events.VelocityEvent;
 import com.example.mmue_lm3.gameobjects.BoosterItemObject;
 import com.example.mmue_lm3.gameobjects.DestroyablePlatformObject;
+import com.example.mmue_lm3.gameobjects.EctsHudObject;
 import com.example.mmue_lm3.gameobjects.LifeHudObject;
 import com.example.mmue_lm3.gameobjects.PlatformObject;
 import com.example.mmue_lm3.gameobjects.ProfessorObject;
@@ -196,6 +197,10 @@ public class GameLoop implements Runnable, EventListener {
             LifeHudObject life = new LifeHudObject(heartBitmap, 50 + 100*i, 50);
             scene.add(life);
         }
+
+        // ECTS HUD
+        GameObject ectsHud = new EctsHudObject(ectsBitmap,50, 200);
+        scene.add(ectsHud);
 
         // Booster
         GameObject booster_1 = new BoosterItemObject(klubnateBitmap, Booster.Speed, 300, 1300);
