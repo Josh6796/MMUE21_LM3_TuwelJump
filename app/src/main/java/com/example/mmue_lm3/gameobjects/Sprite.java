@@ -35,7 +35,6 @@ public class Sprite {
 
     }
 
-    // Prüfen ob es Zeit für den nächsten Frame ist
     public void update(long currentTime) {
         if (currentTime > pastTime + frameTime) {
             pastTime = currentTime;
@@ -44,7 +43,6 @@ public class Sprite {
         }
     }
 
-    // Zeichnen des aktuellen Frames auf das Canvas
     public void draw(Camera camera, Canvas canvas) {
         if (canvas != null) {
             Rect targetRect = new Rect((int)x, (int)y, (int)x + frameWidth, (int)y + frameHeight);
