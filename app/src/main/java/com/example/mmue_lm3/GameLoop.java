@@ -9,8 +9,11 @@ import android.util.Log;
 import android.view.SurfaceHolder;
 
 import com.example.mmue_lm3.enums.Booster;
+import com.example.mmue_lm3.events.ECTSEvent;
 import com.example.mmue_lm3.events.EventSystem;
+import com.example.mmue_lm3.events.HealthEvent;
 import com.example.mmue_lm3.events.PauseEvent;
+import com.example.mmue_lm3.events.ResumeEvent;
 import com.example.mmue_lm3.events.VelocityEvent;
 import com.example.mmue_lm3.gameobjects.BoosterItemObject;
 import com.example.mmue_lm3.gameobjects.DestroyablePlatformObject;
@@ -18,6 +21,7 @@ import com.example.mmue_lm3.gameobjects.EctsHudObject;
 import com.example.mmue_lm3.gameobjects.LifeHudObject;
 import com.example.mmue_lm3.gameobjects.PlatformObject;
 import com.example.mmue_lm3.gameobjects.ProfessorObject;
+import com.example.mmue_lm3.hud.EctsElement;
 import com.example.mmue_lm3.interfaces.Event;
 import com.example.mmue_lm3.interfaces.EventListener;
 import com.example.mmue_lm3.events.TouchEvent;
@@ -41,12 +45,14 @@ public class GameLoop implements Runnable, EventListener {
     private long lastTime;
 
     private boolean running;
+    private boolean pause;
 
     private final SurfaceHolder surfaceHolder;
     private final GameSurfaceView gameSurfaceView;
 
     private final Queue<Event> eventQueue;
     private final Scene gameScene;
+    private final Hud hud;
 
     // Bitmaps
     private Bitmap characterBitmap;
@@ -64,7 +70,10 @@ public class GameLoop implements Runnable, EventListener {
         this.surfaceHolder = surfaceHolder;
         this.gameSurfaceView = gameSurfaceView;
 
+        this.pause = false;
+
         this.gameScene = new Scene(gameSurfaceView.getWidth(), gameSurfaceView.getHeight());
+        this.hud = new Hud(gameSurfaceView.getWidth(), gameSurfaceView.getHeight());
         this.eventQueue = new ConcurrentLinkedDeque<>();
     }
 
@@ -87,7 +96,8 @@ public class GameLoop implements Runnable, EventListener {
             // process events
             events();
             //Update game logic
-            update();
+            if (!pause)
+                update();
             //Render assets
             render();
         }
@@ -109,6 +119,9 @@ public class GameLoop implements Runnable, EventListener {
         ectsBitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.ects);
         heartBitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.heart);
 
+        hud.setLife(heartBitmap, 50, 50);
+        hud.setEcts(ectsBitmap, 45, 50);
+
         this.initScene(gameScene);
     }
 
@@ -129,25 +142,57 @@ public class GameLoop implements Runnable, EventListener {
         if (e.getClass() == PauseEvent.class)
             return processEvent((PauseEvent) e);
 
+        if (e.getClass() == ResumeEvent.class)
+            return processEvent((ResumeEvent) e);
+
         if (e.getClass() == VelocityEvent.class)
             return processEvent((VelocityEvent) e);
+
+        if (e.getClass() == HealthEvent.class)
+            return processEvent((HealthEvent) e);
+
+        if (e.getClass() == ECTSEvent.class)
+            return processEvent((ECTSEvent) e);
+
 
         return false;
     }
 
     private boolean processEvent(TouchEvent e) {
-        Log.d(TAG, "TouchEvent!");
-
+        // TouchEvent!
         return true;
     }
 
     private boolean processEvent(PauseEvent e) {
-        Log.d(TAG, "PAUSE!!");
+        Log.d(TAG, "pause event!");
+        pause = true;
+        return true;
+    }
+
+    private boolean processEvent(ResumeEvent e) {
+        Log.d(TAG, "resume event!");
+        this.lastTime = System.nanoTime();
+        pause = false;
         return true;
     }
 
     private boolean processEvent(VelocityEvent e) {
         gameScene.moveCamera(-(int) e.getX(), 0);
+        return true;
+    }
+
+    private boolean processEvent(HealthEvent e) {
+        if (e.add()) {
+            hud.addLife();
+        } else {
+            hud.removeLife();
+        }
+
+        return true;
+    }
+
+    private boolean processEvent(ECTSEvent e) {
+        hud.addEcts(e.getEcts());
         return true;
     }
 
@@ -166,6 +211,7 @@ public class GameLoop implements Runnable, EventListener {
 
                 gameSurfaceView.draw(canvas);
                 gameScene.draw(canvas);
+                hud.draw(canvas);
             }
         } finally {
             if (canvas != null) surfaceHolder.unlockCanvasAndPost(canvas);
@@ -184,23 +230,22 @@ public class GameLoop implements Runnable, EventListener {
         eventQueue.add(event);
     }
 
+    @Override
+    public String toString() {
+        return "GameLoop";
+    }
+
     // TODO: remove (just for testing)
     void initScene(Scene scene) {
 
 
         // Character
-        CharacterObject character = new CharacterObject(characterBitmap,3, 0, 500, 1300);
+        CharacterObject character = new CharacterObject(characterBitmap, 3, 0, 500, 1300);
         scene.add(character);
 
-        // Lives
-        for (int i = 0; i < character.getHealth(); i++) {
-            LifeHudObject life = new LifeHudObject(heartBitmap, 50 + 100*i, 50);
-            scene.add(life);
-        }
-
-        // ECTS HUD
-        GameObject ectsHud = new EctsHudObject(ectsBitmap,50, 200);
-        scene.add(ectsHud);
+        hud.addLife();
+        hud.addLife();
+        hud.addLife();
 
         // Booster
         GameObject booster_1 = new BoosterItemObject(klubnateBitmap, Booster.Speed, 300, 1300);
@@ -226,8 +271,8 @@ public class GameLoop implements Runnable, EventListener {
         GameObject platform_5 = new PlatformObject(300, 1450, 500);
         GameObject platform_6 = new PlatformObject(0, 1650, 1000);
         GameObject platform_7 = new DestroyablePlatformObject(700, 1300, 200, 2);
-        GameObject platform_8 = new DestroyablePlatformObject(550, 1120, 200, 1);
-        GameObject platform_9 = new DestroyablePlatformObject(150, 1050, 250, 1);
+        GameObject platform_8 = new DestroyablePlatformObject(550, 1120, 200, 2);
+        GameObject platform_9 = new DestroyablePlatformObject(150, 1050, 250, 2);
         scene.add(platform_1);
         scene.add(platform_2);
         scene.add(platform_3);
@@ -239,10 +284,10 @@ public class GameLoop implements Runnable, EventListener {
         scene.add(platform_9);
 
         // Professor
-        ProfessorObject prof_1 = new ProfessorObject(professorBitmap,5, 6, 920, 720);
-        ProfessorObject prof_2 = new ProfessorObject(professorBitmap,5, 6, 700, 590);
+        ProfessorObject prof_1 = new ProfessorObject(professorBitmap, 5, 6, 920, 720);
+        ProfessorObject prof_2 = new ProfessorObject(professorBitmap, 5, 6, 700, 590);
         scene.add(prof_1);
         scene.add(prof_2);
-
     }
+
 }

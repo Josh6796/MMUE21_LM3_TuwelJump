@@ -2,6 +2,9 @@
 
 package com.example.mmue_lm3.events;
 
+import android.util.Log;
+
+import com.example.mmue_lm3.GameSurfaceView;
 import com.example.mmue_lm3.interfaces.Event;
 import com.example.mmue_lm3.interfaces.EventListener;
 
@@ -13,14 +16,17 @@ import java.util.Stack;
  * @author Mathias Schwengerer
  */
 public class EventSystem {
+    private static final String TAG = EventSystem.class.getSimpleName();
 
     private static final EventSystem eventSystem = new EventSystem();
 
     public static void subscribe(EventListener listener) {
+        Log.d(TAG, String.format("%s subscribed", listener));
         eventSystem.addListener(listener);
     }
 
     public static void unsubscribe(EventListener listener) {
+        Log.d(TAG, String.format("%s unsubscribed", listener));
         eventSystem.removeListener(listener);
     }
 

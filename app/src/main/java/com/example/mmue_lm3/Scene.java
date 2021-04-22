@@ -24,20 +24,16 @@ public class Scene {
     private final Set<GameObject> gameObjects;
     private final Stack<GameObject> trash;
 
-
-    private final Stack<LifeHudObject> lives;
     private CharacterObject character;
     private final Camera camera;
 
     public Scene(int width, int height) {
         gameObjects = new TreeSet<>();
         trash = new Stack<>();
-        lives = new Stack<>();
         camera = new Camera(0, 0, width, height);
     }
 
     public void draw(Canvas canvas) {
-
         // background
         canvas.drawColor(Color.rgb(165, 200, 255));
 
@@ -60,11 +56,6 @@ public class Scene {
         character.setHorizontalCenter(camera.getCenterX());
     }
 
-    public void add(LifeHudObject object) {
-        lives.add(object);
-        gameObjects.add(object);
-    }
-
     public void remove(GameObject object) {
         trash.add(object);
     }
@@ -82,13 +73,8 @@ public class Scene {
             if (!gameObject.equals(character) && gameObject instanceof Collidable && Rect.intersects(character.getRectangle(), gameObject.getRectangle())) {
                 Collidable collidable = (Collidable) gameObject;
                 collidable.collide(this, character);
-                if (character.getHealth() < lives.size())
-                    this.remove(lives.pop());
             }
         }
     }
 
-    public Set<GameObject> getGameObjects() {
-        return gameObjects;
-    }
 }

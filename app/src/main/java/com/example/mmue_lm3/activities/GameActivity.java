@@ -6,6 +6,9 @@ import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.mmue_lm3.R;
+import com.example.mmue_lm3.events.EventSystem;
+import com.example.mmue_lm3.events.PauseEvent;
+import com.example.mmue_lm3.events.ResumeEvent;
 
 /**
  * Activity for the Game itself
@@ -36,12 +39,15 @@ public class GameActivity extends AppCompatActivity {
 
     public void pauseButtonClicked(View view) {
         if (isPaused) {
-            this.onResume();
+            EventSystem.onEvent(new ResumeEvent());
+            isPaused = false;
+            //this.onResume();
         } else {
-            this.onPause();
+            isPaused = true;
+            EventSystem.onEvent(new PauseEvent());
+            //this.onPause();
         }
     }
-
 
     public void muteButtonClicked(View view) {
         // TODO: Mute Button Action

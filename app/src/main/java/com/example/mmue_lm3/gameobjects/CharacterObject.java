@@ -12,6 +12,7 @@ import com.example.mmue_lm3.Scene;
 import com.example.mmue_lm3.events.BoosterEvent;
 import com.example.mmue_lm3.events.ECTSEvent;
 import com.example.mmue_lm3.events.EventSystem;
+import com.example.mmue_lm3.events.HealthEvent;
 
 import static java.lang.Math.max;
 
@@ -91,7 +92,7 @@ public class CharacterObject extends GameObject {
     public void jump(Scene scene) {
         // TODO: improve
         if (highestPlatform > y) {
-            scene.moveCamera(0, - (highestPlatform - y));
+            scene.moveCamera(0, -(highestPlatform - y));
             highestPlatform = y;
         }
 
@@ -103,8 +104,9 @@ public class CharacterObject extends GameObject {
     }
 
     public void consume(EctsItemObject ectsItem) {
-        this.ects += ectsItem.getEcts();
-        EventSystem.onEvent(new ECTSEvent(this.ects));
+        int ects = ectsItem.getEcts();
+        this.ects += ects;
+        EventSystem.onEvent(new ECTSEvent(ects));
     }
 
     public void consume(BoosterItemObject boosterItem) {
@@ -155,15 +157,18 @@ public class CharacterObject extends GameObject {
         this.ects += ects;
     }
 
-    public void addHealth(int health) {
-        if (this.health + health <= MAX_HEALTH) {
-            if (this.health + health >= 0) {
-                this.health += health;
-            } else {
-                this.health = 0;
+    public void addHealth(boolean add) {
+        if (add) {
+            if (health < MAX_HEALTH) {
+                health++;
+                EventSystem.onEvent(new HealthEvent(add));
             }
         } else {
-            this.health = MAX_HEALTH;
+            if(health > 0)
+            {
+                health--;
+                EventSystem.onEvent(new HealthEvent(add));
+            }
         }
     }
 }

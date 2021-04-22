@@ -71,20 +71,20 @@ public class ProfessorObject extends GameObject implements Collidable {
         }
 
         if (character.lastRight() - 1 <= this.left() && character.right() >= this.left()) {
-            character.addHealth(-1);
+            character.addHealth(false);
             scene.moveCamera(-200, 0);
             return true;
         }
 
         if (character.lastLeft() + 1 >= this.right() && character.left() <= this.right()) {
-            character.addHealth(-1);
+            character.addHealth(false);
             scene.moveCamera(200, 0);
 
             return true;
         }
 
         if (character.lastTop() + 1 >= this.bottom() && character.top() <= this.bottom()) {
-            character.addHealth(-1);
+            character.addHealth(false);
             character.move(0, 1);
             character.setVerticalVelocity(-CharacterObject.MAX_VELOCITY);
             return true;
