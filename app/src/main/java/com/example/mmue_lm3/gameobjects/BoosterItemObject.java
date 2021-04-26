@@ -15,21 +15,21 @@ import com.example.mmue_lm3.enums.Booster;
 public class BoosterItemObject extends ItemObject {
 
     private final Booster booster;
-    private final Sprite sprite;
+    private final TimeAnimatedSprite timeAnimatedSprite;
 
     public BoosterItemObject(Bitmap bitmap, Booster booster, double x, double y) {
         super(x, y, 0, 0);
         this.booster = booster;
 
-        sprite = new Sprite(bitmap, 4, 0.15, x, y);
+        timeAnimatedSprite = new TimeAnimatedSprite(bitmap, 4, 0.15);
 
-        super.setHeight(sprite.getFrameHeight());
-        super.setWidth(sprite.getFrameWidth());
+        super.setHeight(timeAnimatedSprite.getHeight());
+        super.setWidth(timeAnimatedSprite.getWidth());
     }
 
     @Override
     public void draw(Camera camera, Canvas canvas) {
-        sprite.draw(camera, canvas);
+        timeAnimatedSprite.draw(canvas, getScreenX(camera), getScreenY(camera), width, height);
     }
 
     public Booster getBooster() {
@@ -38,7 +38,7 @@ public class BoosterItemObject extends ItemObject {
 
     @Override
     public void update(double deltaTime) {
-        sprite.update(deltaTime);
+        timeAnimatedSprite.update(deltaTime);
     }
 
     @Override

@@ -21,6 +21,7 @@ import com.example.mmue_lm3.gameobjects.EctsHudObject;
 import com.example.mmue_lm3.gameobjects.LifeHudObject;
 import com.example.mmue_lm3.gameobjects.PlatformObject;
 import com.example.mmue_lm3.gameobjects.ProfessorObject;
+import com.example.mmue_lm3.gameobjects.Sprite;
 import com.example.mmue_lm3.hud.EctsElement;
 import com.example.mmue_lm3.interfaces.Event;
 import com.example.mmue_lm3.interfaces.EventListener;
@@ -119,8 +120,11 @@ public class GameLoop implements Runnable, EventListener {
         ectsBitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.ects);
         heartBitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.heart);
 
-        hud.setLife(heartBitmap, 50, 50);
-        hud.setEcts(ectsBitmap, 45, 50);
+        Sprite lifeSprite = new Sprite(heartBitmap, 1, heartBitmap.getWidth(), heartBitmap.getHeight(), 0);
+        Sprite ectsSprite = new Sprite(ectsBitmap, 6, ectsBitmap.getWidth() / 6, ectsBitmap.getHeight(), 0);
+
+        hud.setLife(lifeSprite);
+        hud.setEcts(ectsSprite);
 
         this.initScene(gameScene);
     }

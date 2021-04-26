@@ -2,9 +2,6 @@ package com.example.mmue_lm3.gameobjects;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.Typeface;
 import android.util.Log;
 
 import com.example.mmue_lm3.Camera;
@@ -29,7 +26,7 @@ public class CharacterObject extends GameObject {
     private static final int PRIORITY = 3;
     public static final double MAX_VELOCITY = 500;
 
-    private final Sprite sprite;
+    private final EventAnimatedSprite sprite;
 
     private int health;
     private int ects;
@@ -48,45 +45,45 @@ public class CharacterObject extends GameObject {
         this.verticalVelocity = -150;
         this.highestPlatform = y;
 
-        this.sprite = new Sprite(bitmap, 2, .5, x, y);
+        this.sprite = new EventAnimatedSprite(bitmap, 2, 0, 1, false);
 
-        super.setWidth(sprite.getFrameWidth());
-        super.setHeight(sprite.getFrameHeight());
+        super.setWidth(sprite.getWidth());
+        super.setHeight(sprite.getHeight());
     }
 
     @Override
     public void draw(Camera camera, Canvas canvas) {
-        this.sprite.draw(camera, canvas);
+        sprite.draw(canvas, getScreenX(camera), getScreenY(camera), width, height);
+
     }
 
     @Override
     public void update(double deltaTime) {
 
-        lastY = y;
-        lastX = x;
+        lastY = worldY;
+        lastX = worldX;
 
         // horizontal velocity
-        double deltaX = horizontalCenter - (x + width / 2.0);
+        double deltaX = horizontalCenter - (worldX + width / 2.0);
         //this.x += deltaX * 0.8 * deltaTime;
-        this.x += deltaX;
+        this.worldX += deltaX;
 
         // vertical velocity
-        // TODO: improve (update verticalVelocity, ...)
-        this.y -= verticalVelocity * deltaTime;
+        this.worldY -= verticalVelocity * deltaTime;
         verticalVelocity -= 600.0 * deltaTime;
         verticalVelocity = max(verticalVelocity, -250);
 
-        sprite.setWorldPos(x, y);
-        sprite.update(deltaTime);
+        if (verticalVelocity < 0)
+            sprite.reset();
     }
 
     public void jump(Scene scene) {
-        // TODO: improve
-        if (highestPlatform > y) {
-            scene.moveCamera(0, -(highestPlatform - y));
-            highestPlatform = y;
+        if (highestPlatform > worldY) {
+            scene.moveCamera(0, -(highestPlatform - worldY));
+            highestPlatform = worldY;
         }
 
+        sprite.update();
         verticalVelocity = MAX_VELOCITY;
     }
 
@@ -113,10 +110,8 @@ public class CharacterObject extends GameObject {
         lastY = y;
         lastX = x;
 
-        this.x += x;
-        this.y += y;
-
-        sprite.setWorldPos(this.x, this.y);
+        this.worldX += x;
+        this.worldY += y;
     }
 
     public double lastBottom() {

@@ -2,6 +2,7 @@ package com.example.mmue_lm3.gameobjects;
 
 import android.graphics.Rect;
 
+import com.example.mmue_lm3.Camera;
 import com.example.mmue_lm3.interfaces.Drawable;
 import com.example.mmue_lm3.interfaces.Updatable;
 
@@ -11,26 +12,26 @@ import com.example.mmue_lm3.interfaces.Updatable;
  * @author Joshua Oblong (Demo as Template)
  */
 public abstract class GameObject implements Drawable, Updatable, Comparable<GameObject> {
-    double x;
-    double y;
+    double worldX;
+    double worldY;
     int width;
     int height;
     int priority;
 
-    protected GameObject(double x, double y, int width, int height, int priority) {
-        this.x = x;
-        this.y = y;
+    protected GameObject(double worldX, double worldY, int width, int height, int priority) {
+        this.worldX = worldX;
+        this.worldY = worldY;
         this.width = width;
         this.height = height;
         this.priority = priority;
     }
 
-    public void setX(double x) {
-        this.x = x;
+    public void setWorldX(double worldX) {
+        this.worldX = worldX;
     }
 
-    public void setY(double y) {
-        this.y = y;
+    public void setWorldY(double worldY) {
+        this.worldY = worldY;
     }
 
     public void setWidth(int width) {
@@ -41,12 +42,20 @@ public abstract class GameObject implements Drawable, Updatable, Comparable<Game
         this.height = height;
     }
 
-    public double getX() {
-        return x;
+    public double getWorldX() {
+        return worldX;
     }
 
-    public double getY() {
-        return y;
+    public double getWorldY() {
+        return worldY;
+    }
+
+    public int getScreenX(Camera camera) {
+        return (int) (worldX - camera.getX());
+    }
+
+    public int getScreenY(Camera camera) {
+        return (int) (worldY - camera.getY());
     }
 
     public int getHeight() {
@@ -58,25 +67,25 @@ public abstract class GameObject implements Drawable, Updatable, Comparable<Game
     }
 
     public double bottom() {
-        return y + height;
+        return worldY + height;
     }
 
     public double top() {
-        return y;
+        return worldY;
     }
 
     public double left() {
-        return x;
+        return worldX;
     }
 
     public double right() {
-        return x + width;
+        return worldX + width;
     }
 
     // Returns a rectangle matching the size of the object for collision detection.
     public Rect getRectangle() {
-        int x = (int) this.x;
-        int y = (int) this.y;
+        int x = (int) this.worldX;
+        int y = (int) this.worldY;
         return new Rect(x, y, x + width, y + height);
     }
 

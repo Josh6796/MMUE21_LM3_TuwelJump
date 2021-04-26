@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.util.Log;
 
+import com.example.mmue_lm3.gameobjects.Sprite;
 import com.example.mmue_lm3.hud.EctsElement;
 import com.example.mmue_lm3.hud.HudElement;
 import com.example.mmue_lm3.hud.LifeElement;
@@ -20,36 +21,29 @@ public class Hud {
     private final Set<HudElement> elements;
     private final Stack<LifeElement> lives;
 
+    private Sprite lifeSprite;
     private EctsElement ects;
 
     private int width;
     private int height;
 
-    // Life
-    private Bitmap lifeBitmap;
-    private int lifeWidth;
-    private int lifeHeight;
-
     public Hud(int width, int height) {
         this.width = width;
         this.height = height;
-
-        this.lifeBitmap = lifeBitmap;
 
         elements = new HashSet<>();
         lives = new Stack<>();
     }
 
-    public void setLife(Bitmap bitmap, int width, int height) {
-        this.lifeBitmap = bitmap;
-        this.lifeWidth = width;
-        this.lifeHeight = height;
+    public void setLife(Sprite sprite) {
+        this.lifeSprite = sprite;
     }
 
-    public void setEcts(Bitmap bitmap, int width, int height) {
+    public void setEcts(Sprite sprite) {
         int offsetX = 10;
         int offsetY = 70;
-        ects = new EctsElement(offsetX, offsetY, bitmap, width, height);
+
+        ects = new EctsElement(sprite, offsetX, offsetY, 45, 50);
     }
 
     public void add(HudElement element) {
@@ -94,7 +88,7 @@ public class Hud {
         int offsetX = 10;
         int offsetY = 10;
 
-        LifeElement life = new LifeElement(offsetX + (50 + offsetX) * lives.size(), offsetY, lifeBitmap, lifeWidth, lifeHeight);
+        LifeElement life = new LifeElement(lifeSprite, offsetX + (50 + offsetX) * lives.size(), offsetY, 50, 50);
         lives.push(life);
     }
 

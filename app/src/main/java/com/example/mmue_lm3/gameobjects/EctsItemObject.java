@@ -14,27 +14,27 @@ import com.example.mmue_lm3.Scene;
 public class EctsItemObject extends ItemObject {
 
     private final int ects;
-    private final Sprite sprite;
+    private final TimeAnimatedSprite timeAnimatedSprite;
 
     public EctsItemObject(Bitmap bitmap, int ects, double x, double y) {
         super(x, y, 0, 0);
 
         this.ects = ects;
 
-        this.sprite = new Sprite(bitmap, 6, 0.2, x, y);
+        this.timeAnimatedSprite = new TimeAnimatedSprite(bitmap, 6, 0.2);
 
-        super.setWidth(this.sprite.getFrameWidth());
-        super.setHeight(this.sprite.getFrameHeight());
+        super.setWidth(this.timeAnimatedSprite.getWidth());
+        super.setHeight(this.timeAnimatedSprite.getHeight());
     }
 
     @Override
     public void draw(Camera camera, Canvas canvas) {
-        sprite.draw(camera, canvas);
+        timeAnimatedSprite.draw(canvas, getScreenX(camera), getScreenY(camera), width, height);
     }
 
     @Override
     public void update(double deltaTime) {
-        sprite.update(deltaTime);
+        timeAnimatedSprite.update(deltaTime);
     }
 
     public int getEcts() {
