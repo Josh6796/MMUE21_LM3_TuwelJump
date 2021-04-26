@@ -1,7 +1,10 @@
-package com.example.mmue_lm3.gameobjects;
+package com.example.mmue_lm3.sprites;
 
 import android.graphics.Bitmap;
 
+/**
+ * Represents an event based animated sprite.
+ */
 public class EventAnimatedSprite extends Sprite {
 
     private final boolean repeat;

@@ -2,8 +2,12 @@ package com.example.mmue_lm3.hud;
 
 import android.graphics.Canvas;
 
-import com.example.mmue_lm3.gameobjects.Sprite;
+import com.example.mmue_lm3.GameSurfaceView;
+import com.example.mmue_lm3.sprites.Sprite;
 
+/**
+ * Base {@code class} for HUD elements.
+ */
 public abstract class HudElement {
 
     protected Sprite sprite;

@@ -1,18 +1,24 @@
 package com.example.mmue_lm3;
 
-import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.util.Log;
 
-import com.example.mmue_lm3.gameobjects.Sprite;
+import com.example.mmue_lm3.sprites.Sprite;
 import com.example.mmue_lm3.hud.EctsElement;
 import com.example.mmue_lm3.hud.HudElement;
 import com.example.mmue_lm3.hud.LifeElement;
 
+import java.util.Deque;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.Stack;
 
+/**
+ * Represents a head-up display (HUD) for the {@link GameSurfaceView}. Displays {@link LifeElement},
+ * {@link LifeElement} and other {@link HudElement}.
+ *
+ * @author Mathias Schwengerer
+ */
 public class Hud {
     private static final String TAG = Hud.class.getSimpleName();
 
@@ -20,30 +26,25 @@ public class Hud {
 
     private final Set<HudElement> elements;
     private final Stack<LifeElement> lives;
-
-    private Sprite lifeSprite;
     private EctsElement ects;
+
+    private final Sprite lifeSprite;
+    private final Sprite ectsSprite;
 
     private int width;
     private int height;
 
-    public Hud(int width, int height) {
+    public Hud(Sprite lifeSprite, Sprite ectsSprite, int width, int height) {
+        this.lifeSprite = lifeSprite;
+        this.ectsSprite = ectsSprite;
+
         this.width = width;
         this.height = height;
 
         elements = new HashSet<>();
         lives = new Stack<>();
-    }
 
-    public void setLife(Sprite sprite) {
-        this.lifeSprite = sprite;
-    }
-
-    public void setEcts(Sprite sprite) {
-        int offsetX = 10;
-        int offsetY = 70;
-
-        ects = new EctsElement(sprite, offsetX, offsetY, 45, 50);
+        initEcts();
     }
 
     public void add(HudElement element) {
@@ -90,6 +91,13 @@ public class Hud {
 
         LifeElement life = new LifeElement(lifeSprite, offsetX + (50 + offsetX) * lives.size(), offsetY, 50, 50);
         lives.push(life);
+    }
+
+    private void initEcts() {
+        int offsetX = 10;
+        int offsetY = 70;
+
+        ects = new EctsElement(ectsSprite, offsetX, offsetY, 45, 50);
     }
 
     private void drawLife(Canvas canvas) {

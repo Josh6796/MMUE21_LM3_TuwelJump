@@ -4,8 +4,11 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Typeface;
 
-import com.example.mmue_lm3.gameobjects.Sprite;
+import com.example.mmue_lm3.sprites.Sprite;
 
+/**
+ * Represents the ECTS HUD element. It consists of an icon followed by the current ECTS count.
+ */
 public class EctsElement extends HudElement {
 
     private int ects;

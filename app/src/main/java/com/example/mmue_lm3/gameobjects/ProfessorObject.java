@@ -6,6 +6,7 @@ import android.graphics.Canvas;
 import com.example.mmue_lm3.Camera;
 import com.example.mmue_lm3.Scene;
 import com.example.mmue_lm3.interfaces.Collidable;
+import com.example.mmue_lm3.sprites.TimeAnimatedSprite;
 
 /**
  * Professor GameObject

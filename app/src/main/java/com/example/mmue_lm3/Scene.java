@@ -6,7 +6,6 @@ import android.graphics.Rect;
 
 import com.example.mmue_lm3.gameobjects.CharacterObject;
 import com.example.mmue_lm3.gameobjects.GameObject;
-import com.example.mmue_lm3.gameobjects.LifeHudObject;
 import com.example.mmue_lm3.interfaces.Collidable;
 
 import java.util.Set;

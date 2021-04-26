@@ -1,15 +1,12 @@
-package com.example.mmue_lm3.gameobjects;
+package com.example.mmue_lm3.sprites;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.graphics.Rect;
-
-import com.example.mmue_lm3.Camera;
 
 /**
- * Class for Sprite Creation
+ * Represents a time based animated sprite.
  *
- * @author Joshua Oblong (Demo as Template)
+ * @author Joshua Oblong
  */
 public class TimeAnimatedSprite extends Sprite{
     private final double frameTime;

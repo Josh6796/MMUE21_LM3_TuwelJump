@@ -17,12 +17,9 @@ import com.example.mmue_lm3.events.ResumeEvent;
 import com.example.mmue_lm3.events.VelocityEvent;
 import com.example.mmue_lm3.gameobjects.BoosterItemObject;
 import com.example.mmue_lm3.gameobjects.DestroyablePlatformObject;
-import com.example.mmue_lm3.gameobjects.EctsHudObject;
-import com.example.mmue_lm3.gameobjects.LifeHudObject;
 import com.example.mmue_lm3.gameobjects.PlatformObject;
 import com.example.mmue_lm3.gameobjects.ProfessorObject;
-import com.example.mmue_lm3.gameobjects.Sprite;
-import com.example.mmue_lm3.hud.EctsElement;
+import com.example.mmue_lm3.sprites.Sprite;
 import com.example.mmue_lm3.interfaces.Event;
 import com.example.mmue_lm3.interfaces.EventListener;
 import com.example.mmue_lm3.events.TouchEvent;
@@ -52,8 +49,8 @@ public class GameLoop implements Runnable, EventListener {
     private final GameSurfaceView gameSurfaceView;
 
     private final Queue<Event> eventQueue;
-    private final Scene gameScene;
-    private final Hud hud;
+    private Scene gameScene;
+    private Hud hud;
 
     // Bitmaps
     private Bitmap characterBitmap;
@@ -73,8 +70,7 @@ public class GameLoop implements Runnable, EventListener {
 
         this.pause = false;
 
-        this.gameScene = new Scene(gameSurfaceView.getWidth(), gameSurfaceView.getHeight());
-        this.hud = new Hud(gameSurfaceView.getWidth(), gameSurfaceView.getHeight());
+
         this.eventQueue = new ConcurrentLinkedDeque<>();
     }
 
@@ -110,7 +106,6 @@ public class GameLoop implements Runnable, EventListener {
         this.lastTime = System.nanoTime();
 
         Context context = this.gameSurfaceView.getContext();
-
         characterBitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.character);
         professorBitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.professor);
         coffeeBitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.coffee);
@@ -120,12 +115,12 @@ public class GameLoop implements Runnable, EventListener {
         ectsBitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.ects);
         heartBitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.heart);
 
+        // Sprites
         Sprite lifeSprite = new Sprite(heartBitmap, 1, heartBitmap.getWidth(), heartBitmap.getHeight(), 0);
         Sprite ectsSprite = new Sprite(ectsBitmap, 6, ectsBitmap.getWidth() / 6, ectsBitmap.getHeight(), 0);
 
-        hud.setLife(lifeSprite);
-        hud.setEcts(ectsSprite);
-
+        this.gameScene = new Scene(gameSurfaceView.getWidth(), gameSurfaceView.getHeight());
+        this.hud = new Hud(lifeSprite, ectsSprite, gameSurfaceView.getWidth(), gameSurfaceView.getHeight());
         this.initScene(gameScene);
     }
 

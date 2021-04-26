@@ -10,6 +10,7 @@ import com.example.mmue_lm3.events.BoosterEvent;
 import com.example.mmue_lm3.events.ECTSEvent;
 import com.example.mmue_lm3.events.EventSystem;
 import com.example.mmue_lm3.events.HealthEvent;
+import com.example.mmue_lm3.sprites.EventAnimatedSprite;
 
 import static java.lang.Math.max;
 

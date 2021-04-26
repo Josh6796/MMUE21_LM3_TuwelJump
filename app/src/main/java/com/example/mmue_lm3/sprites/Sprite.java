@@ -1,9 +1,12 @@
-package com.example.mmue_lm3.gameobjects;
+package com.example.mmue_lm3.sprites;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Rect;
 
+/**
+ * Represents a basic sprite that can be rendered on a {@link Canvas}.
+ */
 public class Sprite {
 
     protected final Bitmap spriteSheet;
