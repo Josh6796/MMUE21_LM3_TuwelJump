@@ -273,6 +273,7 @@ public class GameLoop implements Runnable, EventListener {
         GameObject platform_7 = new DestroyablePlatformObject(700, 1300, 200, 2);
         GameObject platform_8 = new DestroyablePlatformObject(550, 1120, 200, 2);
         GameObject platform_9 = new DestroyablePlatformObject(150, 1050, 250, 2);
+        GameObject platform_10 = new DestroyablePlatformObject(700, 590, 240, 1);
         scene.add(platform_1);
         scene.add(platform_2);
         scene.add(platform_3);
@@ -282,10 +283,11 @@ public class GameLoop implements Runnable, EventListener {
         scene.add(platform_7);
         scene.add(platform_8);
         scene.add(platform_9);
+        scene.add(platform_10);
 
         // Professor
         ProfessorObject prof_1 = new ProfessorObject(professorBitmap, 5, 6, 920, 720);
-        ProfessorObject prof_2 = new ProfessorObject(professorBitmap, 5, 6, 700, 590);
+        ProfessorObject prof_2 = new ProfessorObject(professorBitmap, 5, 6, 700, 20);
         scene.add(prof_1);
         scene.add(prof_2);
     }

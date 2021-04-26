@@ -5,6 +5,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.graphics.Typeface;
 
 public class EctsElement extends HudElement {
 
@@ -36,6 +37,7 @@ public class EctsElement extends HudElement {
         // ects count
         Paint paint = new Paint();
         paint.setTextSize(70);
+        paint.setTypeface(Typeface.DEFAULT_BOLD);
         canvas.drawText(Integer.toString(ects), (int) x + width + 5, (int) y + height, paint);
     }
 }

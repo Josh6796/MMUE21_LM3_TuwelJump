@@ -21,7 +21,7 @@ public class EctsItemObject extends ItemObject {
 
         this.ects = ects;
 
-        this.sprite = new Sprite(bitmap, x, y, 6, 50);
+        this.sprite = new Sprite(bitmap, 6, 0.2, x, y);
 
         super.setWidth(this.sprite.getFrameWidth());
         super.setHeight(this.sprite.getFrameHeight());
@@ -34,7 +34,7 @@ public class EctsItemObject extends ItemObject {
 
     @Override
     public void update(double deltaTime) {
-        sprite.update(System.currentTimeMillis());
+        sprite.update(deltaTime);
     }
 
     public int getEcts() {

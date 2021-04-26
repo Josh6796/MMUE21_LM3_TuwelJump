@@ -26,7 +26,7 @@ public class ProfessorObject extends GameObject implements Collidable {
         this.health = health;
         this.ects = ects;
 
-        this.sprite = new Sprite(bitmap, x, y, 8, 50);
+        this.sprite = new Sprite(bitmap, 8, 0.15, x, y);
 
         super.setWidth(sprite.getFrameWidth());
         super.setHeight(sprite.getFrameHeight());
@@ -39,7 +39,7 @@ public class ProfessorObject extends GameObject implements Collidable {
 
     @Override
     public void update(double deltaTime) {
-        sprite.update(System.currentTimeMillis());
+        sprite.update(deltaTime);
     }
 
     public int getHealth() {

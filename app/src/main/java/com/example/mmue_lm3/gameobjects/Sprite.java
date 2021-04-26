@@ -12,77 +12,95 @@ import com.example.mmue_lm3.Camera;
  * @author Joshua Oblong (Demo as Template)
  */
 public class Sprite {
-    private final Bitmap sprite;
-    private double x;
-    private double y;
-    private int frameWidth;
-    private int frameHeight;
-    private final int totalFrames;
+    private final Bitmap spriteSheet;
+    private final int frames;
+    private final double frameTime;
+
+    private final boolean repeat;
+
+    private final int frameWidth;
+    private final int frameHeight;
+
+    private double worldX;
+    private double worldY;
+
+    private final int startFrame;
+    private final int endFrame;
     private int currentFrame;
+    private double time;
 
-    private long pastTime = 0;
-    private final int frameTime;
+    private boolean finished;
 
-    public Sprite(Bitmap sprite, double x, double y, int totalFrames, int frameTime) {
-        this.sprite = sprite;
-        this.totalFrames = totalFrames;
-        this.currentFrame = 0;
-        this.frameWidth = sprite.getWidth() / totalFrames;
-        this.frameHeight = sprite.getHeight();
-        this.x = x;
-        this.y = y;
+    public Sprite(Bitmap spriteSheet, int frames, double frameTime, int startFrame, int endFrame, boolean repeat, double worldX, double worldY) {
+        this.spriteSheet = spriteSheet;
+        this.frames = frames;
         this.frameTime = frameTime;
 
+        this.worldX = worldX;
+        this.worldY = worldY;
+
+        this.repeat = repeat;
+
+        this.frameWidth = spriteSheet.getWidth() / frames;
+        this.frameHeight = spriteSheet.getHeight();
+
+        this.startFrame = startFrame;
+        this.endFrame = endFrame;
+        this.currentFrame = startFrame;
+        this.time = 0;
+
+        this.finished = false;
     }
 
-    public void update(long currentTime) {
-        if (currentTime > pastTime + frameTime) {
-            pastTime = currentTime;
+    public Sprite(Bitmap spriteSheet, int totalFrames, double frameTime, double x, double y) {
+        this(spriteSheet, totalFrames, frameTime, 0, totalFrames - 1, true, x, y);
+    }
+
+    public void update(double deltaTime) {
+        if (finished) return;
+
+        this.time += deltaTime;
+
+        if (time >= frameTime) {
+            time -= frameTime;
+
             currentFrame++;
-            currentFrame %= totalFrames;
+            currentFrame %= frames;
+
+            if (currentFrame == endFrame && !repeat)
+                finished = true;
         }
     }
 
     public void draw(Camera camera, Canvas canvas) {
         if (canvas != null) {
-            Rect targetRect = new Rect((int)x, (int)y, (int)x + frameWidth, (int)y + frameHeight);
             Rect sourceRect = new Rect(currentFrame * frameWidth, 0, (currentFrame + 1) * frameWidth, frameHeight);
+            Rect targetRect = new Rect((int) worldX, (int) worldY, (int) worldX + frameWidth, (int) worldY + frameHeight);
 
-            targetRect.offset(-(int)camera.getX(), -(int)camera.getY());
+            targetRect.offset(-(int) camera.getX(), -(int) camera.getY());
 
-            canvas.drawBitmap(sprite, sourceRect, targetRect, null);
+            canvas.drawBitmap(spriteSheet, sourceRect, targetRect, null);
         }
-    }
-
-    public double getX() {
-        return x;
-    }
-
-    public void setX(double x) {
-        this.x = x;
-    }
-
-    public double getY() {
-        return y;
-    }
-
-    public void setY(double y) {
-        this.y = y;
     }
 
     public int getFrameWidth() {
         return frameWidth;
     }
 
-    public void setFrameWidth(int frameWidth) {
-        this.frameWidth = frameWidth;
-    }
-
     public int getFrameHeight() {
         return frameHeight;
     }
 
-    public void setFrameHeight(int frameHeight) {
-        this.frameHeight = frameHeight;
+    public void setWorldPos(double x, double y) {
+        this.worldX = x;
+        this.worldY = y;
+    }
+
+    public void setWorldX(double x) {
+        this.worldX = x;
+    }
+
+    public void setWorldY(double y) {
+        this.worldY = y;
     }
 }

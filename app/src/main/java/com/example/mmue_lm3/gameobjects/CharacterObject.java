@@ -48,7 +48,7 @@ public class CharacterObject extends GameObject {
         this.verticalVelocity = -150;
         this.highestPlatform = y;
 
-        this.sprite = new Sprite(bitmap, x, y, 2, 600);
+        this.sprite = new Sprite(bitmap, 2, .5, x, y);
 
         super.setWidth(sprite.getFrameWidth());
         super.setHeight(sprite.getFrameHeight());
@@ -57,14 +57,6 @@ public class CharacterObject extends GameObject {
     @Override
     public void draw(Camera camera, Canvas canvas) {
         this.sprite.draw(camera, canvas);
-
-        // ECTS HUD
-        Paint paint = new Paint();
-        paint.setColor(Color.BLACK);
-        paint.setTextSize(70);
-        paint.setTypeface(Typeface.DEFAULT_BOLD);
-
-        canvas.drawText("" + ects, 150, 275, paint);
     }
 
     @Override
@@ -77,16 +69,15 @@ public class CharacterObject extends GameObject {
         double deltaX = horizontalCenter - (x + width / 2.0);
         //this.x += deltaX * 0.8 * deltaTime;
         this.x += deltaX;
-        this.sprite.setX(this.x);
 
         // vertical velocity
         // TODO: improve (update verticalVelocity, ...)
         this.y -= verticalVelocity * deltaTime;
-        this.sprite.setY(this.y);
         verticalVelocity -= 600.0 * deltaTime;
         verticalVelocity = max(verticalVelocity, -250);
 
-        sprite.update(System.currentTimeMillis());
+        sprite.setWorldPos(x, y);
+        sprite.update(deltaTime);
     }
 
     public void jump(Scene scene) {
@@ -125,8 +116,7 @@ public class CharacterObject extends GameObject {
         this.x += x;
         this.y += y;
 
-        this.sprite.setX(this.x);
-        this.sprite.setY(this.y);
+        sprite.setWorldPos(this.x, this.y);
     }
 
     public double lastBottom() {
@@ -155,6 +145,7 @@ public class CharacterObject extends GameObject {
 
     public void addEcts(int ects) {
         this.ects += ects;
+        EventSystem.onEvent(new ECTSEvent(ects));
     }
 
     public void addHealth(boolean add) {
@@ -164,8 +155,7 @@ public class CharacterObject extends GameObject {
                 EventSystem.onEvent(new HealthEvent(add));
             }
         } else {
-            if(health > 0)
-            {
+            if (health > 0) {
                 health--;
                 EventSystem.onEvent(new HealthEvent(add));
             }

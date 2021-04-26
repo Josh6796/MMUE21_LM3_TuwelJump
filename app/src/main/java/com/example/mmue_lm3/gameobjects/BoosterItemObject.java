@@ -21,7 +21,7 @@ public class BoosterItemObject extends ItemObject {
         super(x, y, 0, 0);
         this.booster = booster;
 
-        sprite = new Sprite(bitmap, x, y, 4, 150);
+        sprite = new Sprite(bitmap, 4, 0.15, x, y);
 
         super.setHeight(sprite.getFrameHeight());
         super.setWidth(sprite.getFrameWidth());
@@ -38,7 +38,7 @@ public class BoosterItemObject extends ItemObject {
 
     @Override
     public void update(double deltaTime) {
-        sprite.update(System.currentTimeMillis());
+        sprite.update(deltaTime);
     }
 
     @Override
