@@ -8,7 +8,7 @@ import com.example.mmue_lm3.sprites.Sprite;
 /**
  * Base {@code class} for HUD elements.
  */
-public abstract class HudElement {
+public class HudElement {
 
     protected Sprite sprite;
     protected int screenX;
