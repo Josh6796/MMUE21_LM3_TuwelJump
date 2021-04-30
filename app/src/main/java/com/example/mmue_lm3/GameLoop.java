@@ -1,9 +1,7 @@
 package com.example.mmue_lm3;
 
 
-import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
+import android.content.res.Resources;
 import android.graphics.Canvas;
 import android.util.Log;
 import android.view.SurfaceHolder;
@@ -19,6 +17,7 @@ import com.example.mmue_lm3.gameobjects.BoosterItemObject;
 import com.example.mmue_lm3.gameobjects.DestroyablePlatformObject;
 import com.example.mmue_lm3.gameobjects.PlatformObject;
 import com.example.mmue_lm3.gameobjects.ProfessorObject;
+import com.example.mmue_lm3.sprites.EventAnimatedSprite;
 import com.example.mmue_lm3.sprites.Sprite;
 import com.example.mmue_lm3.interfaces.Event;
 import com.example.mmue_lm3.interfaces.EventListener;
@@ -26,6 +25,7 @@ import com.example.mmue_lm3.events.TouchEvent;
 import com.example.mmue_lm3.gameobjects.CharacterObject;
 import com.example.mmue_lm3.gameobjects.EctsItemObject;
 import com.example.mmue_lm3.gameobjects.GameObject;
+import com.example.mmue_lm3.sprites.TimeAnimatedSprite;
 
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedDeque;
@@ -52,15 +52,18 @@ public class GameLoop implements Runnable, EventListener {
     private Scene gameScene;
     private Hud hud;
 
-    // Bitmaps
-    private Bitmap characterBitmap;
-    private Bitmap professorBitmap;
-    private Bitmap coffeeBitmap;
-    private Bitmap klubnateBitmap;
-    private Bitmap clockBitmap;
-    private Bitmap mathbookBitmap;
-    private Bitmap ectsBitmap;
-    private Bitmap heartBitmap;
+    // Sprites
+    private EventAnimatedSprite characterSprite;
+
+    private TimeAnimatedSprite professorSprite;
+    private TimeAnimatedSprite coffeeSprite;
+    private TimeAnimatedSprite klubnateSprite;
+    private TimeAnimatedSprite clockSprite;
+    private TimeAnimatedSprite mathbookSprite;
+    private TimeAnimatedSprite ectsSprite;
+
+    private Sprite lifeSprite;
+    private Sprite ectsIconSprite;
 
 
     public GameLoop(SurfaceHolder surfaceHolder, GameSurfaceView gameSurfaceView) {
@@ -96,7 +99,8 @@ public class GameLoop implements Runnable, EventListener {
             if (!pause)
                 update();
             //Render assets
-            render();
+            if (!pause)
+                render();
         }
 
         shutdown();
@@ -105,22 +109,21 @@ public class GameLoop implements Runnable, EventListener {
     private void start() {
         this.lastTime = System.nanoTime();
 
-        Context context = this.gameSurfaceView.getContext();
-        characterBitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.character);
-        professorBitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.professor);
-        coffeeBitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.coffee);
-        klubnateBitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.klubnate);
-        clockBitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.clock);
-        mathbookBitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.mathbook);
-        ectsBitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.ects);
-        heartBitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.heart);
+        Resources res = this.gameSurfaceView.getContext().getResources();
+        characterSprite = new EventAnimatedSprite(res, R.drawable.character, 2, 0, 1, false);
 
-        // Sprites
-        Sprite lifeSprite = new Sprite(heartBitmap, 1, heartBitmap.getWidth(), heartBitmap.getHeight(), 0);
-        Sprite ectsSprite = new Sprite(ectsBitmap, 6, ectsBitmap.getWidth() / 6, ectsBitmap.getHeight(), 0);
+        professorSprite = new TimeAnimatedSprite(res, R.drawable.professor, 8, .15, 0, 7, true);
+        coffeeSprite = new TimeAnimatedSprite(res, R.drawable.coffee, 4, .15, 0, 3, true);
+        klubnateSprite = new TimeAnimatedSprite(res, R.drawable.klubnate, 4, .15, 0, 3, true);
+        clockSprite = new TimeAnimatedSprite(res, R.drawable.clock, 4, .15, 0, 3, true);
+        mathbookSprite = new TimeAnimatedSprite(res, R.drawable.mathbook, 4, .15, 0, 3, true);
+        ectsSprite = new TimeAnimatedSprite(res, R.drawable.ects, 6, .15, 0, 5, true);
+
+        lifeSprite = new Sprite(res, R.drawable.heart, 1, 0);
+        ectsIconSprite = new Sprite(res, R.drawable.ects, 6, 0);
 
         this.gameScene = new Scene(gameSurfaceView.getWidth(), gameSurfaceView.getHeight());
-        this.hud = new Hud(lifeSprite, ectsSprite, gameSurfaceView.getWidth(), gameSurfaceView.getHeight());
+        this.hud = new Hud(lifeSprite, ectsIconSprite, gameSurfaceView.getWidth(), gameSurfaceView.getHeight());
         this.initScene(gameScene);
     }
 
@@ -165,12 +168,14 @@ public class GameLoop implements Runnable, EventListener {
     private boolean processEvent(PauseEvent e) {
         Log.d(TAG, "pause event!");
         pause = true;
+        recycleSprites();
         return true;
     }
 
     private boolean processEvent(ResumeEvent e) {
         Log.d(TAG, "resume event!");
         this.lastTime = System.nanoTime();
+        loadSprites();
         pause = false;
         return true;
     }
@@ -218,6 +223,30 @@ public class GameLoop implements Runnable, EventListener {
 
     }
 
+    void recycleSprites() {
+        characterSprite.recycle();
+        professorSprite.recycle();
+        coffeeSprite.recycle();
+        klubnateSprite.recycle();
+        clockSprite.recycle();
+        mathbookSprite.recycle();
+        ectsSprite.recycle();
+        lifeSprite.recycle();
+        ectsIconSprite.recycle();
+    }
+
+    void loadSprites() {
+        characterSprite.load();
+        professorSprite.load();
+        coffeeSprite.load();
+        klubnateSprite.load();
+        clockSprite.load();
+        mathbookSprite.load();
+        ectsSprite.load();
+        lifeSprite.load();
+        ectsIconSprite.load();
+    }
+
     private void calculateDeltaTime() {
         long time = System.nanoTime();
         this.deltaTime = ((time - this.lastTime) / 1e+9f);
@@ -239,7 +268,7 @@ public class GameLoop implements Runnable, EventListener {
 
 
         // Character
-        CharacterObject character = new CharacterObject(characterBitmap, 3, 0, 500, 1300);
+        CharacterObject character = new CharacterObject(characterSprite, 3, 0, 500, 1300);
         scene.add(character);
 
         hud.addLife();
@@ -247,18 +276,18 @@ public class GameLoop implements Runnable, EventListener {
         hud.addLife();
 
         // Booster
-        GameObject booster_1 = new BoosterItemObject(klubnateBitmap, Booster.Speed, 300, 1300);
-        GameObject booster_2 = new BoosterItemObject(coffeeBitmap, Booster.Damage, 600, 1300);
-        GameObject booster_3 = new BoosterItemObject(clockBitmap, Booster.SlowMotion, 200, 1500);
-        GameObject booster_4 = new BoosterItemObject(mathbookBitmap, Booster.Invincibility, 700, 1500);
+        GameObject booster_1 = new BoosterItemObject(klubnateSprite, Booster.Speed, 300, 1300);
+        GameObject booster_2 = new BoosterItemObject(coffeeSprite, Booster.Damage, 600, 1300);
+        GameObject booster_3 = new BoosterItemObject(clockSprite, Booster.SlowMotion, 200, 1500);
+        GameObject booster_4 = new BoosterItemObject(mathbookSprite, Booster.Invincibility, 700, 1500);
         scene.add(booster_1);
         scene.add(booster_2);
         scene.add(booster_3);
         scene.add(booster_4);
 
         // Items
-        GameObject ects_1 = new EctsItemObject(ectsBitmap, 20, 50, 1200);
-        GameObject ects_2 = new EctsItemObject(ectsBitmap, 20, 50, 600);
+        GameObject ects_1 = new EctsItemObject(ectsSprite, 20, 50, 1200);
+        GameObject ects_2 = new EctsItemObject(ectsSprite, 20, 50, 600);
         scene.add(ects_1);
         scene.add(ects_2);
 
@@ -285,8 +314,8 @@ public class GameLoop implements Runnable, EventListener {
         scene.add(platform_10);
 
         // Professor
-        ProfessorObject prof_1 = new ProfessorObject(professorBitmap, 5, 6, 920, 720);
-        ProfessorObject prof_2 = new ProfessorObject(professorBitmap, 5, 6, 700, 20);
+        ProfessorObject prof_1 = new ProfessorObject(professorSprite, 5, 6, 920, 720);
+        ProfessorObject prof_2 = new ProfessorObject(professorSprite, 5, 6, 700, 20);
         scene.add(prof_1);
         scene.add(prof_2);
     }

@@ -18,11 +18,10 @@ public class BoosterItemObject extends ItemObject {
     private final Booster booster;
     private final TimeAnimatedSprite timeAnimatedSprite;
 
-    public BoosterItemObject(Bitmap bitmap, Booster booster, double x, double y) {
+    public BoosterItemObject(TimeAnimatedSprite sprite, Booster booster, double x, double y) {
         super(x, y, 0, 0);
+        timeAnimatedSprite = sprite;
         this.booster = booster;
-
-        timeAnimatedSprite = new TimeAnimatedSprite(bitmap, 4, 0.15);
 
         super.setHeight(timeAnimatedSprite.getHeight());
         super.setWidth(timeAnimatedSprite.getWidth());

@@ -1,5 +1,6 @@
 package com.example.mmue_lm3.sprites;
 
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 
 /**
@@ -14,8 +15,8 @@ public class EventAnimatedSprite extends Sprite {
 
     private boolean finished;
 
-    public EventAnimatedSprite(Bitmap spriteSheet, int frames, int startFrame, int endFrame, boolean repeat) {
-        super(spriteSheet, frames, spriteSheet.getWidth() / frames, spriteSheet.getHeight(), startFrame);
+    public EventAnimatedSprite(Resources res, int id, int frames, int startFrame, int endFrame, boolean repeat) {
+        super(res, id, frames, startFrame);
 
         this.repeat = repeat;
 

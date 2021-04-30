@@ -1,5 +1,6 @@
 package com.example.mmue_lm3.sprites;
 
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 
@@ -19,8 +20,8 @@ public class TimeAnimatedSprite extends Sprite{
 
     private boolean finished;
 
-    public TimeAnimatedSprite(Bitmap spriteSheet, int frames, double frameTime, int startFrame, int endFrame, boolean repeat) {
-        super(spriteSheet, frames, spriteSheet.getWidth() / frames, spriteSheet.getHeight(), startFrame);
+    public TimeAnimatedSprite(Resources res, int id, int frames, double frameTime, int startFrame, int endFrame, boolean repeat) {
+        super(res, id, frames, startFrame);
 
         this.frameTime = frameTime;
 
@@ -31,10 +32,6 @@ public class TimeAnimatedSprite extends Sprite{
         this.time = 0;
 
         this.finished = false;
-    }
-
-    public TimeAnimatedSprite(Bitmap spriteSheet, int totalFrames, double frameTime) {
-        this(spriteSheet, totalFrames, frameTime, 0, totalFrames - 1, true);
     }
 
     public void update(double deltaTime) {

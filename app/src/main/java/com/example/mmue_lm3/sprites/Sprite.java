@@ -1,6 +1,8 @@
 package com.example.mmue_lm3.sprites;
 
+import android.content.res.Resources;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Rect;
 
@@ -9,29 +11,31 @@ import android.graphics.Rect;
  */
 public class Sprite {
 
-    protected final Bitmap spriteSheet;
+    private Bitmap spriteSheet;
+    private final Resources resources;
+    private final int resourceID;
+
     protected final int frames;
 
-    protected final int frameWidth;
-    protected final int frameHeight;
+    protected int frameWidth;
+    protected int frameHeight;
 
     protected int frame;
 
-    public Sprite(Bitmap spriteSheet, int frames, int frameWidth, int frameHeight, int frame) {
-        this.spriteSheet = spriteSheet;
+    public Sprite(Resources res, int id, int frames, int frame) {
+        resources = res;
+        resourceID = id;
         this.frames = frames;
-
-        this.frameWidth = frameWidth;
-        this.frameHeight = frameHeight;
-
         this.frame = frame;
+
+        load();
     }
 
     public void draw(Canvas canvas, int canvasX, int canvasY, int width, int height) {
         if (canvas != null) {
             Rect sourceRect = sourceRect();
             Rect targetRect = targetRect(canvasX, canvasY, width, height);
-            canvas.drawBitmap(spriteSheet, sourceRect, targetRect, null);
+            canvas.drawBitmap(bitmap(), sourceRect, targetRect, null);
         }
     }
 
@@ -49,5 +53,30 @@ public class Sprite {
 
     public int getHeight() {
         return frameHeight;
+    }
+
+    public void load() {
+        if (spriteSheet != null)
+            return;
+
+        spriteSheet = BitmapFactory.decodeResource(resources, resourceID);
+        frameWidth = spriteSheet.getWidth() / frames;
+        frameHeight = spriteSheet.getHeight();
+    }
+
+    public void recycle() {
+        if (spriteSheet == null)
+            return;
+
+        spriteSheet.recycle();
+        spriteSheet = null;
+        frameWidth = 0;
+        frameHeight = 0;
+    }
+
+    protected Bitmap bitmap() {
+        if (spriteSheet == null)
+            load();
+        return spriteSheet;
     }
 }

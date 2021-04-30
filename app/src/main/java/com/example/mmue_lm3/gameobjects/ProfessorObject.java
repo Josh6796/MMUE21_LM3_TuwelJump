@@ -22,12 +22,11 @@ public class ProfessorObject extends GameObject implements Collidable {
     private int health;
     private final int ects;
 
-    public ProfessorObject(Bitmap bitmap, int health, int ects, int x, int y) {
+    public ProfessorObject(TimeAnimatedSprite sprite, int health, int ects, int x, int y) {
         super(x, y, 0, 0, PRIORITY);
+        this.timeAnimatedSprite = sprite;
         this.health = health;
         this.ects = ects;
-
-        this.timeAnimatedSprite = new TimeAnimatedSprite(bitmap, 8, 0.15);
 
         super.setWidth(timeAnimatedSprite.getWidth());
         super.setHeight(timeAnimatedSprite.getHeight());

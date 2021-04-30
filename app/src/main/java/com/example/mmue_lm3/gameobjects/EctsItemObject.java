@@ -17,12 +17,10 @@ public class EctsItemObject extends ItemObject {
     private final int ects;
     private final TimeAnimatedSprite timeAnimatedSprite;
 
-    public EctsItemObject(Bitmap bitmap, int ects, double x, double y) {
+    public EctsItemObject(TimeAnimatedSprite sprite, int ects, double x, double y) {
         super(x, y, 0, 0);
-
+        this.timeAnimatedSprite = sprite;
         this.ects = ects;
-
-        this.timeAnimatedSprite = new TimeAnimatedSprite(bitmap, 6, 0.2);
 
         super.setWidth(this.timeAnimatedSprite.getWidth());
         super.setHeight(this.timeAnimatedSprite.getHeight());

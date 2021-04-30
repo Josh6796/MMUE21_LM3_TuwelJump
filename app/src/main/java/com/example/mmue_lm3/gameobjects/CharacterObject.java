@@ -11,6 +11,7 @@ import com.example.mmue_lm3.events.ECTSEvent;
 import com.example.mmue_lm3.events.EventSystem;
 import com.example.mmue_lm3.events.HealthEvent;
 import com.example.mmue_lm3.sprites.EventAnimatedSprite;
+import com.example.mmue_lm3.sprites.Sprite;
 
 import static java.lang.Math.max;
 
@@ -38,15 +39,14 @@ public class CharacterObject extends GameObject {
     private double lastX;
     private double highestPlatform;
 
-    public CharacterObject(Bitmap bitmap, int health, int ects, int x, int y) {
+    public CharacterObject(EventAnimatedSprite sprite, int health, int ects, int x, int y) {
         super(x, y, 0, 0, PRIORITY);
+        this.sprite = sprite;
         this.lastY = y;
         this.health = health;
         this.ects = ects;
         this.verticalVelocity = -150;
         this.highestPlatform = y;
-
-        this.sprite = new EventAnimatedSprite(bitmap, 2, 0, 1, false);
 
         super.setWidth(sprite.getWidth());
         super.setHeight(sprite.getHeight());
