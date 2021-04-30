@@ -20,8 +20,8 @@ public class TimeAnimatedSprite extends Sprite{
 
     private boolean finished;
 
-    public TimeAnimatedSprite(Resources res, int id, int frames, double frameTime, int startFrame, int endFrame, boolean repeat) {
-        super(res, id, frames, startFrame);
+    public TimeAnimatedSprite(DynamicBitmap bitmap, int frames, double frameTime, int startFrame, int endFrame, boolean repeat) {
+        super(bitmap, frames, startFrame);
 
         this.frameTime = frameTime;
 
@@ -32,6 +32,10 @@ public class TimeAnimatedSprite extends Sprite{
         this.time = 0;
 
         this.finished = false;
+    }
+
+    public TimeAnimatedSprite(DynamicBitmap bitmap, int frames, double frameTime) {
+        this(bitmap, frames, frameTime, 0, frames - 1, true);
     }
 
     public void update(double deltaTime) {

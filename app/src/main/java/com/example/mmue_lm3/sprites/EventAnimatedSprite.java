@@ -15,8 +15,8 @@ public class EventAnimatedSprite extends Sprite {
 
     private boolean finished;
 
-    public EventAnimatedSprite(Resources res, int id, int frames, int startFrame, int endFrame, boolean repeat) {
-        super(res, id, frames, startFrame);
+    public EventAnimatedSprite(DynamicBitmap bitmap, int frames, int startFrame, int endFrame, boolean repeat) {
+        super(bitmap, frames, startFrame);
 
         this.repeat = repeat;
 

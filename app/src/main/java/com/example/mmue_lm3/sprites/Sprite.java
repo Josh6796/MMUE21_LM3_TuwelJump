@@ -11,24 +11,22 @@ import android.graphics.Rect;
  */
 public class Sprite {
 
-    private Bitmap spriteSheet;
-    private final Resources resources;
-    private final int resourceID;
+    private final DynamicBitmap spriteSheet;
 
     protected final int frames;
 
-    protected int frameWidth;
-    protected int frameHeight;
+    protected final int frameWidth;
+    protected final int frameHeight;
 
     protected int frame;
 
-    public Sprite(Resources res, int id, int frames, int frame) {
-        resources = res;
-        resourceID = id;
+    public Sprite(DynamicBitmap bitmap, int frames, int frame) {
+        spriteSheet = bitmap;
         this.frames = frames;
         this.frame = frame;
 
-        load();
+        frameWidth = spriteSheet.getWidth() / frames;
+        frameHeight = spriteSheet.getHeight();
     }
 
     public void draw(Canvas canvas, int canvasX, int canvasY, int width, int height) {
@@ -55,28 +53,7 @@ public class Sprite {
         return frameHeight;
     }
 
-    public void load() {
-        if (spriteSheet != null)
-            return;
-
-        spriteSheet = BitmapFactory.decodeResource(resources, resourceID);
-        frameWidth = spriteSheet.getWidth() / frames;
-        frameHeight = spriteSheet.getHeight();
-    }
-
-    public void recycle() {
-        if (spriteSheet == null)
-            return;
-
-        spriteSheet.recycle();
-        spriteSheet = null;
-        frameWidth = 0;
-        frameHeight = 0;
-    }
-
     protected Bitmap bitmap() {
-        if (spriteSheet == null)
-            load();
-        return spriteSheet;
+        return spriteSheet.get();
     }
 }

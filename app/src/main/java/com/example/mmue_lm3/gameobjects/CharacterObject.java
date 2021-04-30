@@ -10,6 +10,7 @@ import com.example.mmue_lm3.events.BoosterEvent;
 import com.example.mmue_lm3.events.ECTSEvent;
 import com.example.mmue_lm3.events.EventSystem;
 import com.example.mmue_lm3.events.HealthEvent;
+import com.example.mmue_lm3.sprites.DynamicBitmap;
 import com.example.mmue_lm3.sprites.EventAnimatedSprite;
 import com.example.mmue_lm3.sprites.Sprite;
 
@@ -39,9 +40,9 @@ public class CharacterObject extends GameObject {
     private double lastX;
     private double highestPlatform;
 
-    public CharacterObject(EventAnimatedSprite sprite, int health, int ects, int x, int y) {
+    public CharacterObject(DynamicBitmap bitmap, int health, int ects, int x, int y) {
         super(x, y, 0, 0, PRIORITY);
-        this.sprite = sprite;
+        this.sprite = new EventAnimatedSprite(bitmap, 2, 0, 1, false);
         this.lastY = y;
         this.health = health;
         this.ects = ects;

@@ -6,6 +6,7 @@ import android.graphics.Canvas;
 import com.example.mmue_lm3.Camera;
 import com.example.mmue_lm3.Scene;
 import com.example.mmue_lm3.enums.Booster;
+import com.example.mmue_lm3.sprites.DynamicBitmap;
 import com.example.mmue_lm3.sprites.TimeAnimatedSprite;
 
 /**
@@ -18,9 +19,9 @@ public class BoosterItemObject extends ItemObject {
     private final Booster booster;
     private final TimeAnimatedSprite timeAnimatedSprite;
 
-    public BoosterItemObject(TimeAnimatedSprite sprite, Booster booster, double x, double y) {
+    public BoosterItemObject(DynamicBitmap bitmap, Booster booster, double x, double y) {
         super(x, y, 0, 0);
-        timeAnimatedSprite = sprite;
+        timeAnimatedSprite = new TimeAnimatedSprite(bitmap, 4, 0.15);
         this.booster = booster;
 
         super.setHeight(timeAnimatedSprite.getHeight());

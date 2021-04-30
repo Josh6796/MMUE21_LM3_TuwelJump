@@ -6,6 +6,7 @@ import android.graphics.Canvas;
 import com.example.mmue_lm3.Camera;
 import com.example.mmue_lm3.Scene;
 import com.example.mmue_lm3.interfaces.Collidable;
+import com.example.mmue_lm3.sprites.DynamicBitmap;
 import com.example.mmue_lm3.sprites.TimeAnimatedSprite;
 
 /**
@@ -22,9 +23,9 @@ public class ProfessorObject extends GameObject implements Collidable {
     private int health;
     private final int ects;
 
-    public ProfessorObject(TimeAnimatedSprite sprite, int health, int ects, int x, int y) {
+    public ProfessorObject(DynamicBitmap bitmap, int health, int ects, int x, int y) {
         super(x, y, 0, 0, PRIORITY);
-        this.timeAnimatedSprite = sprite;
+        this.timeAnimatedSprite = new TimeAnimatedSprite(bitmap, 8, 0.15);
         this.health = health;
         this.ects = ects;
 
