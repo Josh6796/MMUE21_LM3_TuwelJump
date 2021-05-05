@@ -6,6 +6,7 @@ import android.util.Log;
 
 import com.example.mmue_lm3.Camera;
 import com.example.mmue_lm3.Scene;
+import com.example.mmue_lm3.enums.Booster;
 import com.example.mmue_lm3.events.BoosterEvent;
 import com.example.mmue_lm3.events.ECTSEvent;
 import com.example.mmue_lm3.events.EventSystem;
@@ -34,6 +35,11 @@ public class CharacterObject extends GameObject {
     private int health;
     private int ects;
 
+    // Booster
+    private double slowMotionBoost;
+    private double damageBoost;
+    private double invincibilityBoost;
+
     private double verticalVelocity;
     private double horizontalCenter;
     private double lastY;
@@ -49,6 +55,10 @@ public class CharacterObject extends GameObject {
         this.verticalVelocity = -150;
         this.highestPlatform = y;
 
+        slowMotionBoost = 0;
+        damageBoost = 0;
+        invincibilityBoost = 0;
+
         super.setWidth(sprite.getWidth());
         super.setHeight(sprite.getHeight());
     }
@@ -61,7 +71,6 @@ public class CharacterObject extends GameObject {
 
     @Override
     public void update(double deltaTime) {
-
         lastY = worldY;
         lastX = worldX;
 
@@ -77,6 +86,26 @@ public class CharacterObject extends GameObject {
 
         if (verticalVelocity < 0)
             sprite.reset();
+
+        // Booster
+        if (isActive(Booster.SlowMotion)) {
+            slowMotionBoost -= deltaTime;
+            if (!isActive(Booster.SlowMotion))
+                EventSystem.onEvent(new BoosterEvent(Booster.SlowMotion, false));
+        }
+
+        if (isActive(Booster.Damage)) {
+            damageBoost -= deltaTime;
+            if (!isActive(Booster.Damage))
+                EventSystem.onEvent(new BoosterEvent(Booster.Damage, false));
+        }
+
+        if (isActive(Booster.Invincibility)) {
+            invincibilityBoost -= deltaTime;
+            if (!isActive(Booster.Invincibility))
+                EventSystem.onEvent(new BoosterEvent(Booster.Invincibility, false));
+        }
+
     }
 
     public void jump(Scene scene) {
@@ -100,8 +129,23 @@ public class CharacterObject extends GameObject {
     }
 
     public void consume(BoosterItemObject boosterItem) {
-        Log.w(TAG, "Booster Item consumed!!!"); // TODO: do something (useful)...
-        EventSystem.onEvent(new BoosterEvent(boosterItem.getBooster()));
+
+        switch (boosterItem.getBooster()) {
+            case SlowMotion:
+                this.slowMotionBoost = 6;
+                break;
+            case Damage:
+                this.damageBoost = 15;
+                break;
+            case Invincibility:
+                this.invincibilityBoost = 12;
+                break;
+            case Speed:
+                // TODO: do something (useful)...
+                Log.w(TAG, "Speed booster item consumed!!!");
+                break;
+        }
+        EventSystem.onEvent(new BoosterEvent(boosterItem.getBooster(), true));
     }
 
     public void setHorizontalCenter(double center) {
@@ -157,5 +201,20 @@ public class CharacterObject extends GameObject {
                 EventSystem.onEvent(new HealthEvent(add));
             }
         }
+    }
+
+    public boolean isActive(Booster booster) {
+        switch (booster) {
+            case Speed:
+                return false;
+            case Invincibility:
+                return invincibilityBoost > 0;
+            case Damage:
+                return damageBoost > 0;
+            case SlowMotion:
+                return slowMotionBoost > 0;
+        }
+        return false;
+
     }
 }

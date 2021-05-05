@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.SurfaceHolder;
 
 import com.example.mmue_lm3.enums.Booster;
+import com.example.mmue_lm3.events.BoosterEvent;
 import com.example.mmue_lm3.events.ECTSEvent;
 import com.example.mmue_lm3.events.EventSystem;
 import com.example.mmue_lm3.events.HealthEvent;
@@ -39,9 +40,11 @@ import java.util.concurrent.ConcurrentLinkedDeque;
 public class GameLoop implements Runnable, EventListener {
 
     private static final String TAG = GameLoop.class.getSimpleName();
+    private static final double SLOW_MOTION_FACTOR = 0.5;
 
     public double deltaTime;
     private long lastTime;
+    public boolean slowMotion;
 
     private boolean running;
     private boolean pause;
@@ -119,8 +122,13 @@ public class GameLoop implements Runnable, EventListener {
         Sprite lifeSprite = new Sprite(heartBitmap, 1, 0);
         Sprite ectsIconSprite = new Sprite(ectsBitmap, 6, 0);
 
+        Sprite slowMotion = new Sprite(clockBitmap, 4, 0);
+        Sprite speed = new Sprite(coffeeBitmap, 4, 3);
+        Sprite invincibility = new Sprite(klubnateBitmap, 4, 3);
+        Sprite damage = new Sprite(mathbookBitmap, 4, 0);
+
         this.gameScene = new Scene(gameSurfaceView.getWidth(), gameSurfaceView.getHeight());
-        this.hud = new Hud(lifeSprite, ectsIconSprite, gameSurfaceView.getWidth(), gameSurfaceView.getHeight());
+        this.hud = new Hud(lifeSprite, ectsIconSprite, slowMotion, speed, damage, invincibility, gameSurfaceView.getWidth(), gameSurfaceView.getHeight());
         this.initScene(gameScene);
     }
 
@@ -152,6 +160,9 @@ public class GameLoop implements Runnable, EventListener {
 
         if (e.getClass() == ECTSEvent.class)
             return processEvent((ECTSEvent) e);
+
+        if (e.getClass() == BoosterEvent.class)
+            return processEvent((BoosterEvent) e);
 
 
         return false;
@@ -196,6 +207,21 @@ public class GameLoop implements Runnable, EventListener {
         hud.addEcts(e.getEcts());
         return true;
     }
+
+    private boolean processEvent(BoosterEvent e) {
+        switch (e.getType()) {
+            case SlowMotion:
+                slowMotion = e.isActive();
+                break;
+            case Speed:
+            case Damage:
+            case Invincibility:
+        }
+
+        hud.booster(e.getType(), e.isActive());
+        return true;
+    }
+
 
     private void update() {
         //Calculate time delta for frame independence
@@ -244,8 +270,12 @@ public class GameLoop implements Runnable, EventListener {
 
     private void calculateDeltaTime() {
         long time = System.nanoTime();
-        this.deltaTime = ((time - this.lastTime) / 1e+9f);
+        deltaTime = ((time - lastTime) / 1e+9f);
         lastTime = time;
+
+        // Slow Motion
+        if (slowMotion)
+            deltaTime *= SLOW_MOTION_FACTOR;
     }
 
     @Override
@@ -271,10 +301,10 @@ public class GameLoop implements Runnable, EventListener {
         hud.addLife();
 
         // Booster
-        GameObject booster_1 = new BoosterItemObject(klubnateBitmap, Booster.Speed, 300, 1300);
-        GameObject booster_2 = new BoosterItemObject(coffeeBitmap, Booster.Damage, 600, 1300);
+        GameObject booster_1 = new BoosterItemObject(coffeeBitmap, Booster.Speed, 300, 1300);
+        GameObject booster_2 = new BoosterItemObject(mathbookBitmap, Booster.Damage, 600, 1300);
         GameObject booster_3 = new BoosterItemObject(clockBitmap, Booster.SlowMotion, 200, 1500);
-        GameObject booster_4 = new BoosterItemObject(mathbookBitmap, Booster.Invincibility, 700, 1500);
+        GameObject booster_4 = new BoosterItemObject(klubnateBitmap, Booster.Invincibility, 700, 1500);
         scene.add(booster_1);
         scene.add(booster_2);
         scene.add(booster_3);

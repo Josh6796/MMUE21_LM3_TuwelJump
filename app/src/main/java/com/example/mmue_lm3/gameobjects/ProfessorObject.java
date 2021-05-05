@@ -5,6 +5,7 @@ import android.graphics.Canvas;
 
 import com.example.mmue_lm3.Camera;
 import com.example.mmue_lm3.Scene;
+import com.example.mmue_lm3.enums.Booster;
 import com.example.mmue_lm3.interfaces.Collidable;
 import com.example.mmue_lm3.sprites.DynamicBitmap;
 import com.example.mmue_lm3.sprites.TimeAnimatedSprite;
@@ -63,7 +64,7 @@ public class ProfessorObject extends GameObject implements Collidable {
     public boolean collide(Scene scene, CharacterObject character) {
         if (character.lastBottom() - 1 <= this.top() && character.bottom() >= this.top()) {
             character.jump(scene);
-            health--;
+            health -= character.isActive(Booster.Damage) ? 2 : 1;
             if (health <= 0) {
                 character.addEcts(ects);
                 scene.remove(this);
@@ -72,20 +73,23 @@ public class ProfessorObject extends GameObject implements Collidable {
         }
 
         if (character.lastRight() - 1 <= this.left() && character.right() >= this.left()) {
-            character.addHealth(false);
+            if(!character.isActive(Booster.Invincibility))
+                character.addHealth(false);
             scene.moveCamera(-200, 0);
             return true;
         }
 
         if (character.lastLeft() + 1 >= this.right() && character.left() <= this.right()) {
-            character.addHealth(false);
+            if(!character.isActive(Booster.Invincibility))
+                character.addHealth(false);
             scene.moveCamera(200, 0);
 
             return true;
         }
 
         if (character.lastTop() + 1 >= this.bottom() && character.top() <= this.bottom()) {
-            character.addHealth(false);
+            if(!character.isActive(Booster.Invincibility))
+                character.addHealth(false);
             character.move(0, 1);
             character.setVerticalVelocity(-CharacterObject.MAX_VELOCITY);
             return true;

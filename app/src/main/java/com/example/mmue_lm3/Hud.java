@@ -3,13 +3,20 @@ package com.example.mmue_lm3;
 import android.graphics.Canvas;
 import android.util.Log;
 
+import com.example.mmue_lm3.enums.Booster;
+import com.example.mmue_lm3.hud.BoosterElement;
 import com.example.mmue_lm3.sprites.Sprite;
 import com.example.mmue_lm3.hud.EctsElement;
 import com.example.mmue_lm3.hud.HudElement;
 import com.example.mmue_lm3.hud.LifeElement;
 
 import java.util.Deque;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Queue;
 import java.util.Set;
 import java.util.Stack;
 
@@ -26,23 +33,37 @@ public class Hud {
 
     private final Set<HudElement> elements;
     private final Stack<LifeElement> lives;
+
+    private final Queue<BoosterElement> booster;
+    private final Map<Booster, BoosterElement> activeBooster;
+
     private EctsElement ects;
 
     private final Sprite lifeSprite;
     private final Sprite ectsSprite;
+    private final Sprite slowMotion;
+    private final Sprite speed;
+    private final Sprite damage;
+    private final Sprite invincibility;
 
     private int width;
     private int height;
 
-    public Hud(Sprite lifeSprite, Sprite ectsSprite, int width, int height) {
+    public Hud(Sprite lifeSprite, Sprite ectsSprite, Sprite slowMotion, Sprite speed, Sprite damage, Sprite invincibility, int width, int height) {
         this.lifeSprite = lifeSprite;
         this.ectsSprite = ectsSprite;
+        this.slowMotion = slowMotion;
+        this.speed = speed;
+        this.damage = damage;
+        this.invincibility = invincibility;
 
         this.width = width;
         this.height = height;
 
         elements = new HashSet<>();
         lives = new Stack<>();
+        booster = new LinkedList<>();
+        activeBooster = new HashMap<>();
 
         initEcts();
     }
@@ -79,9 +100,46 @@ public class Hud {
         this.ects.add(ects);
     }
 
+    public void booster(Booster booster, boolean active) {
+        if ((activeBooster.get(booster) != null) == active)
+            return;
+
+        if (active) {
+            BoosterElement element = createBooster(booster);
+            this.booster.add(element);
+            this.activeBooster.put(booster, element);
+        } else {
+            this.booster.remove(activeBooster.get(booster));
+        }
+    }
+
+    private BoosterElement createBooster(Booster booster) {
+        int x = 300;
+        int y = 10;
+        int width;
+
+        switch (booster) {
+            case SlowMotion:
+                width =  (int) ((double) slowMotion.getWidth() / (double) slowMotion.getHeight() * 70.0);
+                return new BoosterElement(slowMotion, x, y, width, 70);
+            case Speed:
+                width =  (int) ((double) speed.getWidth() / (double) speed.getHeight() * 70.0);
+                return new BoosterElement(speed, x, y, width, 70);
+            case Damage:
+                width =  (int) ((double) damage.getWidth() / (double) damage.getHeight() * 70.0);
+                return new BoosterElement(damage, x, y, width, 70);
+            case Invincibility:
+                width =  (int) ((double) invincibility.getWidth() / (double) invincibility.getHeight() * 70.0);
+                return new BoosterElement(invincibility, x, y, width, 70);
+        }
+
+        return null;
+    }
+
     public void draw(Canvas canvas) {
         drawLife(canvas);
         drawEcts(canvas);
+        drawBooster(canvas);
         drawElements(canvas);
     }
 
@@ -113,6 +171,15 @@ public class Hud {
     private void drawElements(Canvas canvas) {
         for (HudElement element : elements)
             element.draw(canvas);
+    }
+
+    private void drawBooster(Canvas canvas) {
+        int offset = 5;
+        int xOffset = 0;
+        for (BoosterElement boost : booster) {
+            boost.draw(canvas, xOffset);
+            xOffset += boost.getWidth() + offset;
+        }
     }
 
 }
