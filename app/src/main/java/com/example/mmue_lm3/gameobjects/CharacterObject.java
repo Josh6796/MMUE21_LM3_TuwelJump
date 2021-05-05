@@ -28,7 +28,7 @@ public class CharacterObject extends GameObject {
 
     private static final int MAX_HEALTH = 3;
     private static final int PRIORITY = 3;
-    public static final double MAX_VELOCITY = 500;
+    public static final double MAX_VELOCITY = 550;
 
     private final EventAnimatedSprite sprite;
 
@@ -36,6 +36,7 @@ public class CharacterObject extends GameObject {
     private int ects;
 
     // Booster
+    private double speedBoost;
     private double slowMotionBoost;
     private double damageBoost;
     private double invincibilityBoost;
@@ -82,7 +83,7 @@ public class CharacterObject extends GameObject {
         // vertical velocity
         this.worldY -= verticalVelocity * deltaTime;
         verticalVelocity -= 600.0 * deltaTime;
-        verticalVelocity = max(verticalVelocity, -250);
+        verticalVelocity = max(verticalVelocity, -350);
 
         if (verticalVelocity < 0)
             sprite.reset();
@@ -106,6 +107,12 @@ public class CharacterObject extends GameObject {
                 EventSystem.onEvent(new BoosterEvent(Booster.Invincibility, false));
         }
 
+        if (isActive(Booster.Speed)) {
+            speedBoost -= deltaTime;
+            if (!isActive(Booster.Speed))
+                EventSystem.onEvent(new BoosterEvent(Booster.Speed, false));
+        }
+
     }
 
     public void jump(Scene scene) {
@@ -115,7 +122,7 @@ public class CharacterObject extends GameObject {
         }
 
         sprite.update();
-        verticalVelocity = MAX_VELOCITY;
+        verticalVelocity = isActive(Booster.Speed) ? MAX_VELOCITY * 1.3 : MAX_VELOCITY ;
     }
 
     public void setVerticalVelocity(double velocity) {
@@ -141,8 +148,7 @@ public class CharacterObject extends GameObject {
                 this.invincibilityBoost = 12;
                 break;
             case Speed:
-                // TODO: do something (useful)...
-                Log.w(TAG, "Speed booster item consumed!!!");
+                this.speedBoost = 10;
                 break;
         }
         EventSystem.onEvent(new BoosterEvent(boosterItem.getBooster(), true));
@@ -206,7 +212,7 @@ public class CharacterObject extends GameObject {
     public boolean isActive(Booster booster) {
         switch (booster) {
             case Speed:
-                return false;
+                return speedBoost > 0;
             case Invincibility:
                 return invincibilityBoost > 0;
             case Damage:
