@@ -1,8 +1,6 @@
 package com.example.mmue_lm3.gameobjects;
 
-import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.util.Log;
 
 import com.example.mmue_lm3.Camera;
 import com.example.mmue_lm3.Scene;
@@ -11,9 +9,9 @@ import com.example.mmue_lm3.events.BoosterEvent;
 import com.example.mmue_lm3.events.ECTSEvent;
 import com.example.mmue_lm3.events.EventSystem;
 import com.example.mmue_lm3.events.HealthEvent;
+import com.example.mmue_lm3.events.LoseEvent;
 import com.example.mmue_lm3.sprites.DynamicBitmap;
 import com.example.mmue_lm3.sprites.EventAnimatedSprite;
-import com.example.mmue_lm3.sprites.Sprite;
 
 import static java.lang.Math.max;
 
@@ -205,6 +203,9 @@ public class CharacterObject extends GameObject {
             if (health > 0) {
                 health--;
                 EventSystem.onEvent(new HealthEvent(add));
+                if (health == 0) {
+                    EventSystem.onEvent(new LoseEvent());
+                }
             }
         }
     }
@@ -221,6 +222,5 @@ public class CharacterObject extends GameObject {
                 return slowMotionBoost > 0;
         }
         return false;
-
     }
 }

@@ -4,4 +4,6 @@
     <string name="skip_video">Video überspringen</string>
     <string name="start_game">Spiel starten</string>
     <string name="see_highscores">Highscores ansehen</string>
+    <string name="you_lost">Du hast verloren!</string>
+    <string name="you_won">Du hast gewonnen!</string>
 </resources>
