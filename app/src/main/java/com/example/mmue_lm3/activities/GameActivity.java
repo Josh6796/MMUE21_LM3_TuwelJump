@@ -1,6 +1,8 @@
 package com.example.mmue_lm3.activities;
 
 import android.content.Intent;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -24,12 +26,19 @@ import com.example.mmue_lm3.interfaces.EventListener;
 public class GameActivity extends AppCompatActivity implements EventListener {
 
     private boolean isPaused = false;
+    private MediaPlayer mediaPlayer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EventSystem.subscribe(this);
         setContentView(R.layout.activity_game);
+
+        // Sounds
+        AudioManager audioManager = (AudioManager) getSystemService(GameActivity.AUDIO_SERVICE);
+        audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, audioManager.getStreamVolume(AudioManager.STREAM_MUSIC), 0);
+        mediaPlayer = MediaPlayer.create(this, R.raw.background);
+        mediaPlayer.start();
     }
 
     @Override
@@ -48,6 +57,7 @@ public class GameActivity extends AppCompatActivity implements EventListener {
     protected void onDestroy() {
         super.onDestroy();
         EventSystem.unsubscribe(this);
+        mediaPlayer.stop();
     }
 
     protected void onGameLost() {
@@ -76,7 +86,10 @@ public class GameActivity extends AppCompatActivity implements EventListener {
     }
 
     public void muteButtonClicked(View view) {
-        // TODO: Mute Button Action
+        if (mediaPlayer.isPlaying())
+            mediaPlayer.pause();
+        else
+            mediaPlayer.start();
     }
 
     @Override
