@@ -6,4 +6,5 @@
     <string name="see_highscores">Highscores ansehen</string>
     <string name="you_lost">Du hast verloren!</string>
     <string name="you_won">Du hast gewonnen!</string>
+    <string name="helpdialog">Hilfedialog</string>
 </resources>

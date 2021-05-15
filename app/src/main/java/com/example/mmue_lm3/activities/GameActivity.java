@@ -3,6 +3,7 @@ package com.example.mmue_lm3.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -60,13 +61,16 @@ public class GameActivity extends AppCompatActivity implements EventListener {
     }
 
     public void pauseButtonClicked(View view) {
+        ImageView helpdialog = (ImageView) findViewById(R.id.helpDialog);
         if (isPaused) {
             EventSystem.onEvent(new ResumeEvent());
             isPaused = false;
+            helpdialog.setVisibility(View.INVISIBLE);
             //this.onResume();
         } else {
             isPaused = true;
             EventSystem.onEvent(new PauseEvent());
+            helpdialog.setVisibility(View.VISIBLE);
             //this.onPause();
         }
     }
