@@ -204,7 +204,7 @@ public class CharacterObject extends GameObject {
                 health--;
                 EventSystem.onEvent(new HealthEvent(add));
                 if (health == 0) {
-                    EventSystem.onEvent(new LoseEvent());
+                    EventSystem.onEvent(new LoseEvent(ects));
                 }
             }
         }

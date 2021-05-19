@@ -9,4 +9,5 @@
     <string name="helpdialog">Help Dialog</string>
     <string name="back_to_menu">Back to Main Menu</string>
     <string name="highscores">List of all Highscores</string>
+    <string name="ects">ECTS: </string>
 </resources>

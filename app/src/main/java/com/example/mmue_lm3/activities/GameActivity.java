@@ -62,13 +62,15 @@ public class GameActivity extends AppCompatActivity implements EventListener, Me
         mediaPlayer.release();
     }
 
-    protected void onGameLost() {
+    protected void onGameLost(int score) {
         Intent intent = new Intent(this, LoseActivity.class);
+        intent.putExtra("Score", score);
         startActivity(intent);
     }
 
-    protected void onGameWon() {
+    protected void onGameWon(int score) {
         Intent intent = new Intent(this, WinActivity.class);
+        intent.putExtra("Score", score);
         startActivity(intent);
     }
 
@@ -97,9 +99,9 @@ public class GameActivity extends AppCompatActivity implements EventListener, Me
     @Override
     public void onEvent(Event event) {
         if (event.getClass() == LoseEvent.class)
-            onGameLost();
+            onGameLost(((LoseEvent) event).getScore());
         if (event.getClass() == WinEvent.class)
-            onGameWon();
+            onGameWon(((WinEvent) event).getScore());
     }
 
     @Override
