@@ -7,4 +7,6 @@
     <string name="you_lost">You lost!</string>
     <string name="you_won">You won!</string>
     <string name="helpdialog">Help Dialog</string>
+    <string name="back_to_menu">Back to Main Menu</string>
+    <string name="highscores">List of all Highscores</string>
 </resources>
