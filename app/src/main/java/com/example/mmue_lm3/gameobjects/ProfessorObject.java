@@ -19,29 +19,80 @@ public class ProfessorObject extends GameObject implements Collidable {
 
     private static final int PRIORITY = 2;
 
-    private final TimeAnimatedSprite timeAnimatedSprite;
+    private final TimeAnimatedSprite timeAnimatedSpriteForward;
+    private final TimeAnimatedSprite timeAnimatedSpriteBackward;
+
+    private final int startX;
+    private final int startY;
+    private final int endX;
+    private final int endY;
+    private final float speed;
+    private boolean forward;
 
     private int health;
     private final int ects;
 
-    public ProfessorObject(DynamicBitmap bitmap, int health, int ects, int x, int y) {
-        super(x, y, 0, 0, PRIORITY);
-        this.timeAnimatedSprite = new TimeAnimatedSprite(bitmap, 8, 0.15);
+    public ProfessorObject(DynamicBitmap bitmapForward, DynamicBitmap bitmapBackward, int health, int ects, int startX, int startY, int endX, int endY, float speed) {
+        super(startX, startY, 0, 0, PRIORITY);
+
+        this.timeAnimatedSpriteForward = new TimeAnimatedSprite(bitmapForward, 8, 0.15);
+        this.timeAnimatedSpriteBackward = new TimeAnimatedSprite(bitmapBackward, 8, 0.15);
+
+        this.startX = startX;
+        this.startY = startY;
+        this.endX = endX;
+        this.endY = endY;
+        this.speed = speed;
+
         this.health = health;
         this.ects = ects;
 
-        super.setWidth(timeAnimatedSprite.getWidth());
-        super.setHeight(timeAnimatedSprite.getHeight());
+        super.setWidth(timeAnimatedSpriteForward.getWidth());
+        super.setHeight(timeAnimatedSpriteForward.getHeight());
     }
 
     @Override
     public void draw(Camera camera, Canvas canvas) {
-        timeAnimatedSprite.draw(canvas, getScreenX(camera), getScreenY(camera), width, height);
+        if (forward)
+            timeAnimatedSpriteForward.draw(canvas, getScreenX(camera), getScreenY(camera), width, height);
+        else
+            timeAnimatedSpriteBackward.draw(canvas, getScreenX(camera), getScreenY(camera), width, height);
     }
 
     @Override
     public void update(double deltaTime) {
-        timeAnimatedSprite.update(deltaTime);
+        move(deltaTime);
+        timeAnimatedSpriteForward.update(deltaTime);
+        timeAnimatedSpriteBackward.update(deltaTime);
+    }
+
+    private void move(double deltaTime) {
+        double deltaX = endX - startX;
+        double deltaY = endY - startY;
+
+        if (deltaX == 0 && deltaY == 0)
+            return;
+
+        if (!forward) {
+            deltaX *= -1;
+            deltaY *= -1;
+        }
+
+        double magnitude = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+        double movementX = deltaX / magnitude * speed * deltaTime;
+        double movementY = deltaY / magnitude * speed * deltaTime;
+
+        this.worldX += movementX;
+        this.worldY += movementY;
+
+        if (deltaX > 0 && worldX > (forward ? endX : startX))
+            forward = !forward;
+        else if (deltaX < 0 && worldX < (forward ? endX : startX))
+            forward = !forward;
+        else if (deltaY > 0 && worldY > (forward ? endY : startY))
+            forward = !forward;
+        else if (deltaY < 0 && worldY < (forward ? endY : startY))
+            forward = !forward;
     }
 
     public int getHealth() {
@@ -62,7 +113,7 @@ public class ProfessorObject extends GameObject implements Collidable {
 
     @Override
     public boolean collide(Scene scene, CharacterObject character) {
-        if (character.lastBottom() - 1 <= this.top() && character.bottom() >= this.top()) {
+        if (character.lastBottom() - 3 <= this.top() && character.bottom() >= this.top()) {
             character.jump(scene);
             health -= character.isActive(Booster.Damage) ? 2 : 1;
             if (health <= 0) {
@@ -72,23 +123,23 @@ public class ProfessorObject extends GameObject implements Collidable {
             return true;
         }
 
-        if (character.lastRight() - 1 <= this.left() && character.right() >= this.left()) {
-            if(!character.isActive(Booster.Invincibility))
+        if (character.lastRight() - 3 <= this.left() && character.right() >= this.left()) {
+            if (!character.isActive(Booster.Invincibility))
                 character.addHealth(false);
             scene.moveCamera(-200, 0);
             return true;
         }
 
-        if (character.lastLeft() + 1 >= this.right() && character.left() <= this.right()) {
-            if(!character.isActive(Booster.Invincibility))
+        if (character.lastLeft() + 3 >= this.right() && character.left() <= this.right()) {
+            if (!character.isActive(Booster.Invincibility))
                 character.addHealth(false);
             scene.moveCamera(200, 0);
 
             return true;
         }
 
-        if (character.lastTop() + 1 >= this.bottom() && character.top() <= this.bottom()) {
-            if(!character.isActive(Booster.Invincibility))
+        if (character.lastTop() + 3 >= this.bottom() && character.top() <= this.bottom()) {
+            if (!character.isActive(Booster.Invincibility))
                 character.addHealth(false);
             character.move(0, 1);
             character.setVerticalVelocity(-CharacterObject.MAX_VELOCITY);

@@ -19,7 +19,6 @@ import com.example.mmue_lm3.gameobjects.DestroyablePlatformObject;
 import com.example.mmue_lm3.gameobjects.PlatformObject;
 import com.example.mmue_lm3.gameobjects.ProfessorObject;
 import com.example.mmue_lm3.sprites.DynamicBitmap;
-import com.example.mmue_lm3.sprites.EventAnimatedSprite;
 import com.example.mmue_lm3.sprites.Sprite;
 import com.example.mmue_lm3.interfaces.Event;
 import com.example.mmue_lm3.interfaces.EventListener;
@@ -27,7 +26,6 @@ import com.example.mmue_lm3.events.TouchEvent;
 import com.example.mmue_lm3.gameobjects.CharacterObject;
 import com.example.mmue_lm3.gameobjects.EctsItemObject;
 import com.example.mmue_lm3.gameobjects.GameObject;
-import com.example.mmue_lm3.sprites.TimeAnimatedSprite;
 
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedDeque;
@@ -58,7 +56,8 @@ public class GameLoop implements Runnable, EventListener {
 
     // Bitmaps
     private DynamicBitmap characterBitmap;
-    private DynamicBitmap professorBitmap;
+    private DynamicBitmap professorBackwardBitmap;
+    private DynamicBitmap professorForwardBitmap;
     private DynamicBitmap coffeeBitmap;
     private DynamicBitmap klubnateBitmap;
     private DynamicBitmap clockBitmap;
@@ -111,7 +110,8 @@ public class GameLoop implements Runnable, EventListener {
 
         Resources res = this.gameSurfaceView.getContext().getResources();
         characterBitmap = new DynamicBitmap(res, R.drawable.character);
-        professorBitmap = new DynamicBitmap(res, R.drawable.professor);
+        professorBackwardBitmap = new DynamicBitmap(res, R.drawable.professor);
+        professorForwardBitmap = new DynamicBitmap(res, R.drawable.professor_inverse);
         coffeeBitmap = new DynamicBitmap(res, R.drawable.coffee);
         klubnateBitmap = new DynamicBitmap(res, R.drawable.klubnate);
         clockBitmap = new DynamicBitmap(res, R.drawable.clock);
@@ -248,7 +248,8 @@ public class GameLoop implements Runnable, EventListener {
 
     void loadBitmaps() {
         characterBitmap.load();
-        professorBitmap.load();
+        professorBackwardBitmap.load();
+        professorForwardBitmap.load();
         coffeeBitmap.load();
         klubnateBitmap.load();
         clockBitmap.load();
@@ -259,7 +260,8 @@ public class GameLoop implements Runnable, EventListener {
 
     void unloadBitmaps() {
         characterBitmap.unload();
-        professorBitmap.unload();
+        professorBackwardBitmap.unload();
+        professorForwardBitmap.unload();
         coffeeBitmap.unload();
         klubnateBitmap.unload();
         clockBitmap.unload();
@@ -339,10 +341,12 @@ public class GameLoop implements Runnable, EventListener {
         scene.add(platform_10);
 
         // Professor
-        ProfessorObject prof_1 = new ProfessorObject(professorBitmap, 5, 6, 920, 720);
-        ProfessorObject prof_2 = new ProfessorObject(professorBitmap, 5, 6, 700, 20);
+        ProfessorObject prof_1 = new ProfessorObject(professorBackwardBitmap, professorForwardBitmap, 5, 6, 880, 720, 980, 720, 100);
+        ProfessorObject prof_2 = new ProfessorObject(professorBackwardBitmap, professorForwardBitmap, 5, 6, 300, 20, 750, 120, 100);
+        ProfessorObject prof_3 = new ProfessorObject(professorBackwardBitmap, professorForwardBitmap, 5, 400, 50, 1400, 50, 80, 100);
         scene.add(prof_1);
         scene.add(prof_2);
+        scene.add(prof_3);
     }
 
 }
