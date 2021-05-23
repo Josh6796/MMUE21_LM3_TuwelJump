@@ -23,7 +23,7 @@ import com.example.mmue_lm3.interfaces.EventListener;
  *
  * @author Joshua Oblong (Demo as Template)
  */
-public class GameActivity extends AppCompatActivity implements EventListener, MediaPlayer.OnCompletionListener {
+public class GameActivity extends AppCompatActivity implements EventListener {
 
     private boolean isPaused = false;
     private MediaPlayer mediaPlayer;
@@ -38,7 +38,7 @@ public class GameActivity extends AppCompatActivity implements EventListener, Me
         AudioManager audioManager = (AudioManager) getSystemService(GameActivity.AUDIO_SERVICE);
         audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, audioManager.getStreamVolume(AudioManager.STREAM_MUSIC), 0);
         mediaPlayer = MediaPlayer.create(this, R.raw.background);
-        mediaPlayer.setOnCompletionListener(this);
+        mediaPlayer.setLooping(true);
         mediaPlayer.start();
     }
 
@@ -102,10 +102,5 @@ public class GameActivity extends AppCompatActivity implements EventListener, Me
             onGameLost(((LoseEvent) event).getScore());
         if (event.getClass() == WinEvent.class)
             onGameWon(((WinEvent) event).getScore());
-    }
-
-    @Override
-    public void onCompletion(MediaPlayer mp) {
-        mediaPlayer.release();
     }
 }
