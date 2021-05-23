@@ -2,6 +2,34 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="match_parent">
 
+    <Button
+        android:id="@+id/wonHighscoreButton"
+        android:layout_width="217dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="96dp"
+        android:layout_marginEnd="97dp"
+        android:layout_marginBottom="31dp"
+        android:onClick="highscoreButtonClicked"
+        android:text="@string/see_highscores" />
+
+    <TextView
+        android:id="@+id/textViewScoreWon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="42dp"
+        android:layout_marginEnd="39dp"
+        android:layout_marginBottom="115dp"
+        android:textAlignment="center"
+        android:textAllCaps="true"
+        android:textColor="@color/blue"
+        android:textSize="34sp" />
+
     <TextView
         android:id="@+id/youWonText"
         android:layout_width="match_parent"

@@ -10,9 +10,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.mmue_lm3.R;
 import com.example.mmue_lm3.persistence.Score;
 import com.example.mmue_lm3.persistence.ScoreRoomDatabase;
-import com.example.mmue_lm3.util.Concurrency;
 
 import java.util.List;
+import java.util.concurrent.Executors;
 
 /**
  * Activity for the List of Highscores you reached in the Game
@@ -36,15 +36,15 @@ public class HighscoreActivity extends AppCompatActivity {
 
         textViewHighscores = findViewById(R.id.textViewHighscores);
 
-        // Load users
-        Concurrency.executeAsync(() -> {
+        // Load scores
+        Executors.newSingleThreadExecutor().execute(() -> {
             List<Score> scores = loadScores();
             runOnUiThread(() -> onScoresLoadedListener.onScoresLoaded(scores));
         });
     }
 
     private List<Score> loadScores() {
-        return ScoreRoomDatabase.getInstance(this).scoreDao().selectAllScoresDesc();
+        return ScoreRoomDatabase.getDatabase(this).scoreDao().selectAllScoresDesc();
     }
 
     private void updateScoresTable(List<Score> scores) {

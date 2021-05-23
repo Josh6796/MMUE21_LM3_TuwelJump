@@ -6,20 +6,16 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
-import java.util.HashMap;
-
 @Database(entities = {Score.class}, version = 1)
 public abstract class ScoreRoomDatabase extends RoomDatabase {
     public abstract ScoreDao scoreDao();
 
-    private static final HashMap<Context, ScoreRoomDatabase> INSTANCES = new HashMap<>();
+    private static ScoreRoomDatabase instance;
 
-    public static ScoreRoomDatabase getInstance(Context context) {
-        ScoreRoomDatabase db = INSTANCES.get(context);
-        if (db == null) {
-            db = Room.databaseBuilder(context, ScoreRoomDatabase.class, "scores_db").build();
-            INSTANCES.put(context, db);
+    public static synchronized ScoreRoomDatabase getDatabase(Context context) {
+        if (instance == null) {
+            instance = Room.databaseBuilder(context, ScoreRoomDatabase.class, "score_db").build();
         }
-        return db;
+        return instance;
     }
 }

@@ -13,18 +13,31 @@
         android:textSize="80sp" />
 
     <TextView
-        android:id="@+id/textViewScore"
+        android:id="@+id/textViewScoreLost"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
         android:layout_marginStart="42dp"
-        android:layout_marginEnd="40dp"
-        android:layout_marginBottom="42dp"
+        android:layout_marginEnd="39dp"
+        android:layout_marginBottom="115dp"
         android:textAlignment="center"
         android:textAllCaps="true"
         android:textColor="@color/blue"
         android:textSize="34sp" />
+
+    <Button
+        android:id="@+id/lostHighscoreButton"
+        android:layout_width="217dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="96dp"
+        android:layout_marginEnd="97dp"
+        android:layout_marginBottom="33dp"
+        android:onClick="highscoreButtonClicked"
+        android:text="@string/see_highscores" />
 
 </RelativeLayout>

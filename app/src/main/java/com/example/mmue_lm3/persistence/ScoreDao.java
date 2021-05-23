@@ -12,8 +12,6 @@ public interface ScoreDao {
     void insert(Score score);
     @Query("SELECT * FROM Score ORDER BY score DESC")
     List<Score> selectAllScoresDesc();
-    @Query("SELECT * FROM Score WHERE id = :id")
-    Score selectById(int id);
 }
 
 
