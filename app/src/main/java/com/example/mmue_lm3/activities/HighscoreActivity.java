@@ -44,7 +44,7 @@ public class HighscoreActivity extends AppCompatActivity {
     }
 
     private List<Score> loadScores() {
-        return ScoreRoomDatabase.getInstance(this).userDao().selectAllScoresDesc();
+        return ScoreRoomDatabase.getInstance(this).scoreDao().selectAllScoresDesc();
     }
 
     private void updateScoresTable(List<Score> scores) {

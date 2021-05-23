@@ -38,6 +38,6 @@ public class LoseActivity extends AppCompatActivity {
     }
 
     public void saveScore(Score score) {
-        ScoreRoomDatabase.getInstance(this).userDao().insert(score);
+        ScoreRoomDatabase.getInstance(this).scoreDao().insert(score);
     }
 }

@@ -10,14 +10,14 @@ import java.util.HashMap;
 
 @Database(entities = {Score.class}, version = 1)
 public abstract class ScoreRoomDatabase extends RoomDatabase {
-    public abstract ScoreDao userDao();
+    public abstract ScoreDao scoreDao();
 
     private static final HashMap<Context, ScoreRoomDatabase> INSTANCES = new HashMap<>();
 
     public static ScoreRoomDatabase getInstance(Context context) {
         ScoreRoomDatabase db = INSTANCES.get(context);
         if (db == null) {
-            db = Room.databaseBuilder(context, ScoreRoomDatabase.class, "users_db").build();
+            db = Room.databaseBuilder(context, ScoreRoomDatabase.class, "scores_db").build();
             INSTANCES.put(context, db);
         }
         return db;
