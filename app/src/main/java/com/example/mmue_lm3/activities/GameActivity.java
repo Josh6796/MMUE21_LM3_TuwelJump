@@ -4,13 +4,16 @@ import android.content.Intent;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.mmue_lm3.GameLoop;
 import com.example.mmue_lm3.R;
 import com.example.mmue_lm3.events.EventSystem;
+import com.example.mmue_lm3.events.LevelEvent;
 import com.example.mmue_lm3.events.LoseEvent;
 import com.example.mmue_lm3.events.PauseEvent;
 import com.example.mmue_lm3.events.ResumeEvent;
@@ -24,8 +27,11 @@ import com.example.mmue_lm3.interfaces.EventListener;
  * @author Joshua Oblong (Demo as Template)
  */
 public class GameActivity extends AppCompatActivity implements EventListener {
+    private static final String TAG = GameActivity.class.getSimpleName();
 
+    // specifies if the game (GameLoop) is paused
     private boolean isPaused = false;
+
     private MediaPlayer mediaPlayer;
 
     @Override
@@ -43,15 +49,20 @@ public class GameActivity extends AppCompatActivity implements EventListener {
     }
 
     @Override
-    protected void onPause() {
-        super.onPause();
-        isPaused = true;
+    protected void onResume() {
+        super.onResume();
+
+        Intent intent = getIntent();
+        int level = intent.getIntExtra("Level", 0);
+        int health = intent.getIntExtra("Health", 3);
+        int ects = intent.getIntExtra("Ects", 0);
+
+        EventSystem.onEvent(new LevelEvent(level, health, ects));
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-        isPaused = false;
+    protected void onPause() {
+        super.onPause();
     }
 
     @Override
@@ -68,9 +79,11 @@ public class GameActivity extends AppCompatActivity implements EventListener {
         startActivity(intent);
     }
 
-    protected void onGameWon(int score) {
+    protected void onGameWon(int level, int health, int ects) {
         Intent intent = new Intent(this, WinActivity.class);
-        intent.putExtra("Score", score);
+        intent.putExtra("Level", level);
+        intent.putExtra("Health", health);
+        intent.putExtra("Ects", ects);
         startActivity(intent);
     }
 
@@ -80,12 +93,10 @@ public class GameActivity extends AppCompatActivity implements EventListener {
             EventSystem.onEvent(new ResumeEvent());
             isPaused = false;
             helpdialog.setVisibility(View.INVISIBLE);
-            //this.onResume();
         } else {
             isPaused = true;
             EventSystem.onEvent(new PauseEvent());
             helpdialog.setVisibility(View.VISIBLE);
-            //this.onPause();
         }
     }
 
@@ -101,6 +112,9 @@ public class GameActivity extends AppCompatActivity implements EventListener {
         if (event.getClass() == LoseEvent.class)
             onGameLost(((LoseEvent) event).getScore());
         if (event.getClass() == WinEvent.class)
-            onGameWon(((WinEvent) event).getScore());
+        {
+            WinEvent e = (WinEvent)event;
+            onGameWon(e.getLevel(), e.getHealth(), e.getEcts());
+        }
     }
 }

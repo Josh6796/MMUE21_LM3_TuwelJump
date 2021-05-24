@@ -21,6 +21,11 @@ import java.util.concurrent.Executors;
  * @author Joshua Oblong (Demo as Template)
  */
 public class WinActivity extends AppCompatActivity {
+
+    private int level;
+    private int health;
+    private int ects;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,19 +37,23 @@ public class WinActivity extends AppCompatActivity {
         text.startAnimation(viewAnimation);
 
         Intent intent = getIntent();
-        int score = intent.getIntExtra("Score", 0);
-        Executors.newSingleThreadExecutor().execute(() -> saveScore(new Score(score)));
+        level = intent.getIntExtra("Level", 0);
+        health = intent.getIntExtra("Health", 0);
+        ects = intent.getIntExtra("Ects", 0);
 
         TextView textViewScore = findViewById(R.id.textViewScoreWon);
-        textViewScore.setText("ECTS: " + score);
+        textViewScore.setText("ECTS: " + ects);
     }
 
     public void saveScore(Score score) {
         ScoreRoomDatabase.getDatabase(this).scoreDao().insert(score);
     }
 
-    public void highscoreButtonClicked(View view) {
-        Intent intent = new Intent(this, HighscoreActivity.class);
+    public void continueButtonClicked(View view) {
+        Intent intent = new Intent(this, GameActivity.class);
+        intent.putExtra("Level", level + 1);
+        intent.putExtra("Health", health);
+        intent.putExtra("Ects", ects);
         startActivity(intent);
     }
 }

@@ -11,9 +11,11 @@ import com.example.mmue_lm3.events.BoosterEvent;
 import com.example.mmue_lm3.events.ECTSEvent;
 import com.example.mmue_lm3.events.EventSystem;
 import com.example.mmue_lm3.events.HealthEvent;
+import com.example.mmue_lm3.events.LevelEvent;
 import com.example.mmue_lm3.events.PauseEvent;
 import com.example.mmue_lm3.events.ResumeEvent;
 import com.example.mmue_lm3.events.VelocityEvent;
+import com.example.mmue_lm3.events.WinEvent;
 import com.example.mmue_lm3.gameobjects.BoosterItemObject;
 import com.example.mmue_lm3.gameobjects.DestroyablePlatformObject;
 import com.example.mmue_lm3.gameobjects.PlatformObject;
@@ -47,11 +49,16 @@ public class GameLoop implements Runnable, EventListener {
     private boolean running;
     private boolean pause;
 
+    private final int currentLevel;
+    private final int startHealth;
+    private final int startEcts;
+    private int currentEcts;
+
     private final SurfaceHolder surfaceHolder;
     private final GameSurfaceView gameSurfaceView;
 
     private final Queue<Event> eventQueue;
-    private Scene gameScene;
+    private Scene scene;
     private Hud hud;
 
     // Bitmaps
@@ -65,15 +72,19 @@ public class GameLoop implements Runnable, EventListener {
     private DynamicBitmap ectsBitmap;
     private DynamicBitmap heartBitmap;
 
-    public GameLoop(SurfaceHolder surfaceHolder, GameSurfaceView gameSurfaceView) {
+    public GameLoop(SurfaceHolder surfaceHolder, GameSurfaceView gameSurfaceView, int level, int health, int ects) {
         EventSystem.subscribe(this);
         this.surfaceHolder = surfaceHolder;
         this.gameSurfaceView = gameSurfaceView;
 
+        this.running = false;
         this.pause = false;
-
-
         this.eventQueue = new ConcurrentLinkedDeque<>();
+
+        this.currentLevel = level;
+        this.startHealth = health;
+        this.startEcts = ects;
+        this.currentEcts = ects;
     }
 
     public boolean isRunning() {
@@ -127,9 +138,9 @@ public class GameLoop implements Runnable, EventListener {
         Sprite invincibility = new Sprite(klubnateBitmap, 4, 3);
         Sprite damage = new Sprite(mathbookBitmap, 4, 0);
 
-        this.gameScene = new Scene(gameSurfaceView.getWidth(), gameSurfaceView.getHeight());
+        this.scene = new Scene(gameSurfaceView.getWidth(), gameSurfaceView.getHeight());
         this.hud = new Hud(lifeSprite, ectsIconSprite, slowMotion, speed, damage, invincibility, gameSurfaceView.getWidth(), gameSurfaceView.getHeight());
-        this.initScene(gameScene);
+        this.initGame(scene, hud, currentLevel, startHealth, startEcts);
     }
 
     private void shutdown() {
@@ -164,8 +175,17 @@ public class GameLoop implements Runnable, EventListener {
         if (e.getClass() == BoosterEvent.class)
             return processEvent((BoosterEvent) e);
 
+        if (e.getClass() == LevelEvent.class)
+            return processEvent((LevelEvent) e);
 
         return false;
+    }
+
+    private boolean processEvent(LevelEvent e) {
+        Log.e(TAG, "----x processEvent(LevelEvent e)");
+
+
+        return true;
     }
 
     private boolean processEvent(TouchEvent e) {
@@ -189,7 +209,7 @@ public class GameLoop implements Runnable, EventListener {
     }
 
     private boolean processEvent(VelocityEvent e) {
-        gameScene.moveCamera(-(int) e.getX(), 0);
+        scene.moveCamera(-(int) e.getX(), 0);
         return true;
     }
 
@@ -226,7 +246,7 @@ public class GameLoop implements Runnable, EventListener {
     private void update() {
         //Calculate time delta for frame independence
         calculateDeltaTime();
-        gameScene.update(deltaTime);
+        scene.update(deltaTime);
     }
 
     private void render() {
@@ -237,7 +257,7 @@ public class GameLoop implements Runnable, EventListener {
                 if (canvas == null) return;
 
                 gameSurfaceView.draw(canvas);
-                gameScene.draw(canvas);
+                scene.draw(canvas);
                 hud.draw(canvas);
             }
         } finally {
@@ -290,17 +310,18 @@ public class GameLoop implements Runnable, EventListener {
         return "GameLoop";
     }
 
-    // TODO: remove (just for testing)
-    void initScene(Scene scene) {
+    private void initGame(Scene scene, Hud hud, int level, int health, int ects) {
+        // Hud
+        hud.addEcts(ects);
 
+        for (int i = 0; i < health; i++)
+            hud.addLife();
 
         // Character
-        CharacterObject character = new CharacterObject(characterBitmap, 3, 0, 500, 1300);
+        CharacterObject character = new CharacterObject(characterBitmap, level, health, ects, 500, 1300);
         scene.add(character);
 
-        hud.addLife();
-        hud.addLife();
-        hud.addLife();
+        // TODO: improve level generation
 
         // Booster
         GameObject booster_1 = new BoosterItemObject(coffeeBitmap, Booster.Speed, 300, 1300);
@@ -343,7 +364,7 @@ public class GameLoop implements Runnable, EventListener {
         // Professor
         ProfessorObject prof_1 = new ProfessorObject(professorBackwardBitmap, professorForwardBitmap, 5, 6, 880, 720, 980, 720, 100);
         ProfessorObject prof_2 = new ProfessorObject(professorBackwardBitmap, professorForwardBitmap, 5, 6, 300, 20, 750, 120, 100);
-        ProfessorObject prof_3 = new ProfessorObject(professorBackwardBitmap, professorForwardBitmap, 5, 400, 50, 1400, 50, 80, 100);
+        ProfessorObject prof_3 = new ProfessorObject(professorBackwardBitmap, professorForwardBitmap, 3, 175, 50, 1400, 50, 80, 100);
         scene.add(prof_1);
         scene.add(prof_2);
         scene.add(prof_3);

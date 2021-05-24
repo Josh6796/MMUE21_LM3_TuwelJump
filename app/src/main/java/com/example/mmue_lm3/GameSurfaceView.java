@@ -13,22 +13,27 @@ import android.view.SurfaceView;
 import android.view.VelocityTracker;
 
 import com.example.mmue_lm3.events.EventSystem;
+import com.example.mmue_lm3.events.LevelEvent;
 import com.example.mmue_lm3.events.TouchEvent;
 import com.example.mmue_lm3.events.VelocityEvent;
-import com.example.mmue_lm3.gameobjects.GameObject;
+import com.example.mmue_lm3.interfaces.Event;
+import com.example.mmue_lm3.interfaces.EventListener;
 
 /**
  * Class for the GameSurfaceView
  *
  * @author Joshua Oblong (Demo as Template)
  */
-public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callback {
+public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callback, EventListener {
 
     private static final String TAG = GameSurfaceView.class.getSimpleName();
 
     private GameLoop gameLoop;
     private Thread gameMainThread;
-    private GameObject character;
+
+    private int currentLevel;
+    private int startHealth;
+    private int startEcts;
 
     private VelocityTracker velocityTracker = null;
 
@@ -36,17 +41,19 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
         super(context, attrs);
         getHolder().addCallback(this);
         setFocusable(true);
-
-        loadAssets();
+        EventSystem.subscribe(this);
     }
 
     private void startGame(SurfaceHolder holder) {
-        gameLoop = new GameLoop(holder, this);
+        gameLoop = new GameLoop(holder, this, currentLevel, startHealth, startEcts);
         gameMainThread = new Thread(gameLoop);
         gameMainThread.start();
     }
 
     private void endGame() {
+        if (!gameLoop.isRunning())
+            return;
+
         gameLoop.setRunning(false);
         try {
             gameMainThread.join();
@@ -55,8 +62,14 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
         }
     }
 
-    private void loadAssets() {
-        // Initialize the assets:
+    @Override
+    public void onEvent(Event event) {
+        if (event.getClass() == LevelEvent.class) {
+            LevelEvent e = (LevelEvent) event;
+            this.currentLevel = e.getLevel();
+            this.startHealth = e.getHealth();
+            this.startEcts = e.getEcts();
+        }
     }
 
     @Override
@@ -71,6 +84,7 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
     @Override
     public void surfaceDestroyed(SurfaceHolder holder) {
         endGame();
+        EventSystem.unsubscribe(this);
     }
 
     @Override
@@ -111,6 +125,11 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
         }
 
         return true;
+    }
+
+    @Override
+    public String toString() {
+        return "GameSurfaceView";
     }
 }
 

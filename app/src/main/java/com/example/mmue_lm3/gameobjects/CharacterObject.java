@@ -10,6 +10,7 @@ import com.example.mmue_lm3.events.ECTSEvent;
 import com.example.mmue_lm3.events.EventSystem;
 import com.example.mmue_lm3.events.HealthEvent;
 import com.example.mmue_lm3.events.LoseEvent;
+import com.example.mmue_lm3.events.WinEvent;
 import com.example.mmue_lm3.sprites.DynamicBitmap;
 import com.example.mmue_lm3.sprites.EventAnimatedSprite;
 
@@ -30,6 +31,7 @@ public class CharacterObject extends GameObject {
 
     private final EventAnimatedSprite sprite;
 
+    private final int level;
     private int health;
     private int ects;
 
@@ -45,12 +47,15 @@ public class CharacterObject extends GameObject {
     private double lastX;
     private double highestPlatform;
 
-    public CharacterObject(DynamicBitmap bitmap, int health, int ects, int x, int y) {
+    public CharacterObject(DynamicBitmap bitmap, int level, int health, int ects, int x, int y) {
         super(x, y, 0, 0, PRIORITY);
         this.sprite = new EventAnimatedSprite(bitmap, 2, 0, 1, false);
         this.lastY = y;
+
+        this.level = level;
         this.health = health;
         this.ects = ects;
+
         this.verticalVelocity = -150;
         this.highestPlatform = y;
 
@@ -120,7 +125,7 @@ public class CharacterObject extends GameObject {
         }
 
         sprite.update();
-        verticalVelocity = isActive(Booster.Speed) ? MAX_VELOCITY * 1.3 : MAX_VELOCITY ;
+        verticalVelocity = isActive(Booster.Speed) ? MAX_VELOCITY * 1.3 : MAX_VELOCITY;
     }
 
     public void setVerticalVelocity(double velocity) {
@@ -129,7 +134,7 @@ public class CharacterObject extends GameObject {
 
     public void consume(EctsItemObject ectsItem) {
         int ects = ectsItem.getEcts();
-        this.ects += ects;
+        addEcts(ects);
         EventSystem.onEvent(new ECTSEvent(ects));
     }
 
@@ -191,6 +196,17 @@ public class CharacterObject extends GameObject {
     public void addEcts(int ects) {
         this.ects += ects;
         EventSystem.onEvent(new ECTSEvent(ects));
+
+        switch (level) {
+            case 0:
+                if (this.ects >= 180)
+                    EventSystem.onEvent(new WinEvent(this.level, this.health, this.ects));
+                break;
+            case 1:
+                if (this.ects >= 300)
+                    EventSystem.onEvent(new WinEvent(this.level, this.health, this.ects));
+                break;
+        }
     }
 
     public void addHealth(boolean add) {
