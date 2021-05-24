@@ -4,13 +4,11 @@ import android.content.Intent;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.mmue_lm3.GameLoop;
 import com.example.mmue_lm3.R;
 import com.example.mmue_lm3.events.EventSystem;
 import com.example.mmue_lm3.events.LevelEvent;
@@ -97,6 +95,7 @@ public class GameActivity extends AppCompatActivity implements EventListener {
             isPaused = true;
             EventSystem.onEvent(new PauseEvent());
             helpdialog.setVisibility(View.VISIBLE);
+            helpdialog.bringToFront();
         }
     }
 
