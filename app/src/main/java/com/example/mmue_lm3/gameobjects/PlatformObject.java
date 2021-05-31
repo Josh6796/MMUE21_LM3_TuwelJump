@@ -20,7 +20,7 @@ public class PlatformObject extends GameObject implements Collidable {
     private static final int PRIORITY = 1;
 
     public PlatformObject(double x, double y, int width) {
-        super(x, y, width, 50, PRIORITY);
+        super(x, y, width, 45, PRIORITY);
     }
 
     @Override

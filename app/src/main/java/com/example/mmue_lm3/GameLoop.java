@@ -30,6 +30,7 @@ import com.example.mmue_lm3.gameobjects.EctsItemObject;
 import com.example.mmue_lm3.gameobjects.GameObject;
 
 import java.util.Queue;
+import java.util.Random;
 import java.util.concurrent.ConcurrentLinkedDeque;
 
 /**
@@ -52,7 +53,6 @@ public class GameLoop implements Runnable, EventListener {
     private final int currentLevel;
     private final int startHealth;
     private final int startEcts;
-    private int currentEcts;
 
     private final SurfaceHolder surfaceHolder;
     private final GameSurfaceView gameSurfaceView;
@@ -84,7 +84,6 @@ public class GameLoop implements Runnable, EventListener {
         this.currentLevel = level;
         this.startHealth = health;
         this.startEcts = ects;
-        this.currentEcts = ects;
     }
 
     public boolean isRunning() {
@@ -317,28 +316,45 @@ public class GameLoop implements Runnable, EventListener {
         for (int i = 0; i < health; i++)
             hud.addLife();
 
+        // Scene
+        final int sceneCenter = scene.getWidth() / 2;
+
         // Character
-        CharacterObject character = new CharacterObject(characterBitmap, level, health, ects, 500, 1300);
+        CharacterObject character = new CharacterObject(characterBitmap, level, health, ects, sceneCenter, -300);
         scene.add(character);
 
-        // TODO: improve level generation
+        // StartPlatform
+        GameObject startPlatform = new PlatformObject(sceneCenter - 100, -50, 200);
+        scene.add(startPlatform);
 
-        // Booster
-        GameObject booster_1 = new BoosterItemObject(coffeeBitmap, Booster.Speed, 300, 1300);
-        GameObject booster_2 = new BoosterItemObject(mathbookBitmap, Booster.Damage, 600, 1300);
-        GameObject booster_3 = new BoosterItemObject(clockBitmap, Booster.SlowMotion, 200, 1500);
-        GameObject booster_4 = new BoosterItemObject(klubnateBitmap, Booster.Invincibility, 700, 1500);
-        scene.add(booster_1);
-        scene.add(booster_2);
-        scene.add(booster_3);
-        scene.add(booster_4);
+        int currentY = 50;
+        final float maxOffsetX = scene.getWidth() * 0.6f + 50 * level;
 
-        // Items
-        GameObject ects_1 = new EctsItemObject(ectsBitmap, 20, 50, 1200);
-        GameObject ects_2 = new EctsItemObject(ectsBitmap, 20, 50, 600);
-        scene.add(ects_1);
-        scene.add(ects_2);
+        // probabilities
+        Random random = new Random();
+        int lPlatform = 1;
+        float pPlatform = 0.3f;
 
+        while (currentY < 10000) {
+            int step = 30 + 5 * level;
+
+            if (lPlatform > 2 && (lPlatform > 5 || random.nextFloat() <= pPlatform))
+            {
+                int platformWidth = (int)(150 + 200 * random.nextFloat());
+
+                float offsetX = maxOffsetX * random.nextFloat();
+                GameObject platform = new PlatformObject(sceneCenter + (random.nextFloat() > .5 ? offsetX : -offsetX) - platformWidth / 2.0, -currentY, platformWidth);
+                scene.add(platform);
+
+                lPlatform = 0;
+            }
+
+
+            lPlatform ++;
+            currentY += step;
+        }
+
+        /*
         // Platforms
         GameObject platform_1 = new PlatformObject(50, 200, 100);
         GameObject platform_2 = new PlatformObject(1000, 400, 200);
@@ -361,6 +377,22 @@ public class GameLoop implements Runnable, EventListener {
         scene.add(platform_9);
         scene.add(platform_10);
 
+        // Booster
+        GameObject booster_1 = new BoosterItemObject(coffeeBitmap, Booster.Speed, 300, 1300);
+        GameObject booster_2 = new BoosterItemObject(mathbookBitmap, Booster.Damage, 600, 1300);
+        GameObject booster_3 = new BoosterItemObject(clockBitmap, Booster.SlowMotion, 200, 1500);
+        GameObject booster_4 = new BoosterItemObject(klubnateBitmap, Booster.Invincibility, 700, 1500);
+        scene.add(booster_1);
+        scene.add(booster_2);
+        scene.add(booster_3);
+        scene.add(booster_4);
+
+        // Items
+        GameObject ects_1 = new EctsItemObject(ectsBitmap, 20, 50, 1200);
+        GameObject ects_2 = new EctsItemObject(ectsBitmap, 20, 50, 600);
+        scene.add(ects_1);
+        scene.add(ects_2);
+
         // Professor
         ProfessorObject prof_1 = new ProfessorObject(professorBackwardBitmap, professorForwardBitmap, 5, 6, 880, 720, 980, 720, 100);
         ProfessorObject prof_2 = new ProfessorObject(professorBackwardBitmap, professorForwardBitmap, 5, 6, 300, 20, 750, 120, 100);
@@ -368,6 +400,7 @@ public class GameLoop implements Runnable, EventListener {
         scene.add(prof_1);
         scene.add(prof_2);
         scene.add(prof_3);
+*/
     }
 
 }

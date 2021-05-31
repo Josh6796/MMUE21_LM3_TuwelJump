@@ -4,6 +4,8 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Rect;
 
+import com.example.mmue_lm3.events.EventSystem;
+import com.example.mmue_lm3.events.LoseEvent;
 import com.example.mmue_lm3.gameobjects.CharacterObject;
 import com.example.mmue_lm3.gameobjects.GameObject;
 import com.example.mmue_lm3.interfaces.Collidable;
@@ -18,8 +20,11 @@ import java.util.TreeSet;
  * @author Joshua Oblong
  */
 public class Scene {
-
     private static final String TAG = Scene.class.getSimpleName();
+
+    private final int width;
+    private final int height;
+
     private final Set<GameObject> gameObjects;
     private final Stack<GameObject> trash;
 
@@ -29,7 +34,10 @@ public class Scene {
     public Scene(int width, int height) {
         gameObjects = new TreeSet<>();
         trash = new Stack<>();
-        camera = new Camera(0, 0, width, height);
+        camera = new Camera(0, -height, width, height);
+
+        this.width = width;
+        this.height = height;
     }
 
     public void draw(Canvas canvas) {
@@ -66,6 +74,10 @@ public class Scene {
         camera.update(deltaTime);
         character.setHorizontalCenter(camera.getCenterX());
 
+        if (character.bottom() > camera.getY() + height) {
+            character.addHealth(false);
+        }
+
         for (GameObject gameObject : gameObjects) {
             gameObject.update(deltaTime);
 
@@ -76,4 +88,11 @@ public class Scene {
         }
     }
 
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
 }
