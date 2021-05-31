@@ -137,7 +137,7 @@ public class GameLoop implements Runnable, EventListener {
         Sprite invincibility = new Sprite(klubnateBitmap, 4, 3);
         Sprite damage = new Sprite(mathbookBitmap, 4, 0);
 
-        this.scene = new Scene(gameSurfaceView.getWidth(), gameSurfaceView.getHeight());
+        this.scene = new Scene(gameSurfaceView.getWidth(), gameSurfaceView.getHeight(), currentLevel);
         this.hud = new Hud(lifeSprite, ectsIconSprite, slowMotion, speed, damage, invincibility, gameSurfaceView.getWidth(), gameSurfaceView.getHeight());
         this.initGame(scene, hud, currentLevel, startHealth, startEcts);
     }
@@ -332,75 +332,87 @@ public class GameLoop implements Runnable, EventListener {
 
         // probabilities
         Random random = new Random();
-        int lPlatform = 1;
         float pPlatform = 0.3f;
 
-        while (currentY < 10000) {
+        final float pEctsBase = 0.01f;
+        final float pBoosterBase = 0.001f;
+        final float pProfessorBase = 0.0001f;
+
+        float pEcts = pEctsBase;
+        float pBooster = pBoosterBase;
+        float pProfessor = pProfessorBase;
+
+        int lastPlatform = 1;                       // step since last platform was placed
+        float lastPlatformCenter = sceneCenter;     // center of the last platform
+
+        while (currentY < 100000) {
             int step = 30 + 5 * level;
 
-            if (lPlatform > 2 && (lPlatform > 5 || random.nextFloat() <= pPlatform))
-            {
-                int platformWidth = (int)(150 + 200 * random.nextFloat());
+            // Platform
+            if (lastPlatform > 2 && (lastPlatform > 5 || random.nextFloat() <= pPlatform)) {
+                int platformWidth = (int) (150 + 200 * random.nextFloat());
 
                 float offsetX = maxOffsetX * random.nextFloat();
-                GameObject platform = new PlatformObject(sceneCenter + (random.nextFloat() > .5 ? offsetX : -offsetX) - platformWidth / 2.0, -currentY, platformWidth);
+                float center = sceneCenter + (random.nextFloat() > 0.5f ? offsetX : -offsetX);
+                GameObject platform = new PlatformObject(center - platformWidth / 2.0f, -currentY, platformWidth);
                 scene.add(platform);
 
-                lPlatform = 0;
+                lastPlatformCenter = center;
+                lastPlatform = 0;
             }
 
+            if (lastPlatform == 1) {
+                pEcts *= 2;
+                pBooster *= 1.5;
 
-            lPlatform ++;
+                if (random.nextFloat() <= pEcts) {
+                    GameObject ectsItem = new EctsItemObject(ectsBitmap, 8, 0, 0);
+                    ectsItem.setWorldX(lastPlatformCenter - ectsItem.getWidth() / 2.0);
+                    ectsItem.setWorldY(-currentY - ectsItem.getHeight());
+                    scene.add(ectsItem);
+                    pEcts = pEctsBase;
+                } else if (random.nextFloat() <= pBoosterBase + pBooster) {
+                    float r = random.nextFloat();
+
+                    GameObject booster;
+                    if (r < 0.25) {
+                        booster = new BoosterItemObject(coffeeBitmap, Booster.Speed, 0, 0);
+                    } else if (r < 0.5) {
+                        booster = new BoosterItemObject(mathbookBitmap, Booster.Damage, 0, 0);
+                    } else if (r < 0.75) {
+                        booster = new BoosterItemObject(clockBitmap, Booster.SlowMotion, 0, 0);
+                    } else {
+                        booster = new BoosterItemObject(klubnateBitmap, Booster.Invincibility, 0, 0);
+                    }
+
+                    booster.setWorldX(lastPlatformCenter - booster.getWidth() / 2.0);
+                    booster.setWorldY(-currentY - booster.getHeight());
+                    scene.add(booster);
+                    pBooster = pBoosterBase;
+                }
+
+            }
+
+            if (lastPlatform == 0) {
+                pProfessor *= 1.2;
+
+                if (random.nextFloat() <= pProfessor) {
+
+                    int deltaX = 350 + random.nextInt(150);;
+                    int deltaY = 50 + random.nextInt(50);
+                    int centerX = random.nextInt(scene.getWidth());
+                    ProfessorObject prof = new ProfessorObject(professorForwardBitmap, professorBackwardBitmap, 3, 20, centerX + deltaX / 2, -currentY + deltaY / 2, centerX - deltaX / 2, -currentY - deltaY / 2, 100);
+
+                    scene.add(prof);
+                    pProfessor = pProfessorBase;
+                    lastPlatform = -1;
+                }
+            }
+
+            lastPlatform++;
             currentY += step;
         }
 
-        /*
-        // Platforms
-        GameObject platform_1 = new PlatformObject(50, 200, 100);
-        GameObject platform_2 = new PlatformObject(1000, 400, 200);
-        GameObject platform_3 = new PlatformObject(500, 500, 100);
-        GameObject platform_4 = new PlatformObject(800, 900, 150);
-        GameObject platform_5 = new PlatformObject(300, 1450, 500);
-        GameObject platform_6 = new PlatformObject(0, 1650, 1000);
-        GameObject platform_7 = new DestroyablePlatformObject(700, 1300, 200, 2);
-        GameObject platform_8 = new DestroyablePlatformObject(550, 1120, 200, 2);
-        GameObject platform_9 = new DestroyablePlatformObject(150, 1050, 250, 2);
-        GameObject platform_10 = new DestroyablePlatformObject(700, 590, 240, 1);
-        scene.add(platform_1);
-        scene.add(platform_2);
-        scene.add(platform_3);
-        scene.add(platform_4);
-        scene.add(platform_5);
-        scene.add(platform_6);
-        scene.add(platform_7);
-        scene.add(platform_8);
-        scene.add(platform_9);
-        scene.add(platform_10);
-
-        // Booster
-        GameObject booster_1 = new BoosterItemObject(coffeeBitmap, Booster.Speed, 300, 1300);
-        GameObject booster_2 = new BoosterItemObject(mathbookBitmap, Booster.Damage, 600, 1300);
-        GameObject booster_3 = new BoosterItemObject(clockBitmap, Booster.SlowMotion, 200, 1500);
-        GameObject booster_4 = new BoosterItemObject(klubnateBitmap, Booster.Invincibility, 700, 1500);
-        scene.add(booster_1);
-        scene.add(booster_2);
-        scene.add(booster_3);
-        scene.add(booster_4);
-
-        // Items
-        GameObject ects_1 = new EctsItemObject(ectsBitmap, 20, 50, 1200);
-        GameObject ects_2 = new EctsItemObject(ectsBitmap, 20, 50, 600);
-        scene.add(ects_1);
-        scene.add(ects_2);
-
-        // Professor
-        ProfessorObject prof_1 = new ProfessorObject(professorBackwardBitmap, professorForwardBitmap, 5, 6, 880, 720, 980, 720, 100);
-        ProfessorObject prof_2 = new ProfessorObject(professorBackwardBitmap, professorForwardBitmap, 5, 6, 300, 20, 750, 120, 100);
-        ProfessorObject prof_3 = new ProfessorObject(professorBackwardBitmap, professorForwardBitmap, 3, 175, 50, 1400, 50, 80, 100);
-        scene.add(prof_1);
-        scene.add(prof_2);
-        scene.add(prof_3);
-*/
     }
 
 }

@@ -47,8 +47,8 @@ public class ProfessorObject extends GameObject implements Collidable {
         this.health = health;
         this.ects = ects;
 
-        super.setWidth(timeAnimatedSpriteForward.getWidth());
-        super.setHeight(timeAnimatedSpriteForward.getHeight());
+        super.setWidth(timeAnimatedSpriteBackward.getWidth());
+        super.setHeight(timeAnimatedSpriteBackward.getHeight());
     }
 
     @Override

@@ -110,6 +110,7 @@ public class Hud {
             this.activeBooster.put(booster, element);
         } else {
             this.booster.remove(activeBooster.get(booster));
+            this.activeBooster.remove(booster);
         }
     }
 

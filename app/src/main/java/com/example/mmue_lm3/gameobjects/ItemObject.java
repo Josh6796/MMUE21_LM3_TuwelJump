@@ -9,7 +9,7 @@ import com.example.mmue_lm3.interfaces.Collidable;
  */
 public abstract class ItemObject extends GameObject implements Collidable {
 
-    private static final int PRIORITY = 1;
+    private static final int PRIORITY = 2;
 
     protected ItemObject(double x, double y, int width, int height) {
         super(x, y, width, height, PRIORITY);

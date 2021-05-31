@@ -24,6 +24,7 @@ public class Scene {
 
     private final int width;
     private final int height;
+    private final int level;
 
     private final Set<GameObject> gameObjects;
     private final Stack<GameObject> trash;
@@ -31,18 +32,24 @@ public class Scene {
     private CharacterObject character;
     private final Camera camera;
 
-    public Scene(int width, int height) {
+    public Scene(int width, int height, int level) {
         gameObjects = new TreeSet<>();
         trash = new Stack<>();
         camera = new Camera(0, -height, width, height);
 
         this.width = width;
         this.height = height;
+        this.level = level;
     }
 
     public void draw(Canvas canvas) {
         // background
-        canvas.drawColor(Color.rgb(165, 200, 255));
+        if (level == 0)
+            canvas.drawColor(Color.rgb(165, 200, 255));
+        else if (level == 1)
+            canvas.drawColor(Color.rgb(145, 250, 205));
+        else
+            canvas.drawColor(Color.rgb(255, 180, 125));
 
         for (GameObject gameObject : gameObjects) {
             gameObject.draw(camera, canvas);

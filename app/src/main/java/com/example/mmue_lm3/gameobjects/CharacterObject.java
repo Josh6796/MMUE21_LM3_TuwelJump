@@ -26,7 +26,7 @@ public class CharacterObject extends GameObject {
     private static final String TAG = CharacterObject.class.getSimpleName();
 
     private static final int MAX_HEALTH = 3;
-    private static final int PRIORITY = 3;
+    private static final int PRIORITY = 4;
     public static final double MAX_VELOCITY = 550;
 
     private final EventAnimatedSprite sprite;
@@ -135,7 +135,6 @@ public class CharacterObject extends GameObject {
     public void consume(EctsItemObject ectsItem) {
         int ects = ectsItem.getEcts();
         addEcts(ects);
-        EventSystem.onEvent(new ECTSEvent(ects));
     }
 
     public void consume(BoosterItemObject boosterItem) {
