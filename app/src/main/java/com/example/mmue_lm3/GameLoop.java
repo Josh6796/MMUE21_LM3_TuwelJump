@@ -18,6 +18,7 @@ import com.example.mmue_lm3.events.TouchEvent;
 import com.example.mmue_lm3.events.VelocityEvent;
 import com.example.mmue_lm3.gameobjects.BoosterItemObject;
 import com.example.mmue_lm3.gameobjects.CharacterObject;
+import com.example.mmue_lm3.gameobjects.DestroyablePlatformObject;
 import com.example.mmue_lm3.gameobjects.EctsItemObject;
 import com.example.mmue_lm3.gameobjects.GameObject;
 import com.example.mmue_lm3.gameobjects.PlatformObject;
@@ -329,6 +330,8 @@ public class GameLoop implements Runnable, EventListener {
 
         int currentY = 50;
         final float maxOffsetX = scene.getWidth() * 0.6f + 50 * level;
+        final float platformBaseWith = level == 0 ? 170 : level == 1 ? 100 : 50;
+        final float destroyablePlatformRatio = level == 0 ? 0.1f : level == 1 ? 0.2f : 0.5f;
 
         // probabilities
         Random random = new Random();
@@ -350,12 +353,18 @@ public class GameLoop implements Runnable, EventListener {
 
             // Platform
             if (lastPlatform > 2 && (lastPlatform > 5 || random.nextFloat() <= pPlatform)) {
-                int platformWidth = (int) (150 + 200 * random.nextFloat());
+                int platformWidth = (int) (platformBaseWith + 200 * random.nextFloat());
 
                 float offsetX = maxOffsetX * random.nextFloat();
                 float center = sceneCenter + (random.nextFloat() > 0.5f ? offsetX : -offsetX);
-                GameObject platform = new PlatformObject(center - platformWidth / 2.0f, -currentY, platformWidth);
-                scene.add(platform);
+
+                if (random.nextFloat() < destroyablePlatformRatio) {
+                    GameObject platform = new DestroyablePlatformObject(center - platformWidth / 2.0f, -currentY, platformWidth, 2);
+                    scene.add(platform);
+                } else {
+                    GameObject platform = new PlatformObject(center - platformWidth / 2.0f, -currentY, platformWidth);
+                    scene.add(platform);
+                }
 
                 lastPlatformCenter = center;
                 lastPlatform = 0;
@@ -398,7 +407,8 @@ public class GameLoop implements Runnable, EventListener {
 
                 if (random.nextFloat() <= pProfessor) {
 
-                    int deltaX = 350 + random.nextInt(150);;
+                    int deltaX = 350 + random.nextInt(150);
+                    ;
                     int deltaY = 50 + random.nextInt(50);
                     int centerX = random.nextInt(scene.getWidth());
                     ProfessorObject prof = new ProfessorObject(professorForwardBitmap, professorBackwardBitmap, 3, 20, centerX + deltaX / 2, -currentY + deltaY / 2, centerX - deltaX / 2, -currentY - deltaY / 2, 100);

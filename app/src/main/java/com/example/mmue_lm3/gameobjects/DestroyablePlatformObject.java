@@ -26,7 +26,7 @@ public class DestroyablePlatformObject extends PlatformObject {
     @Override
     public void draw(Camera camera, Canvas canvas) {
         Paint paint = new Paint();
-        paint.setColor(Color.rgb(123, 18, 41));
+        paint.setColor(Color.rgb(20 + 30 * health, 10, 5 + 30 * health));
         paint.setStyle(Paint.Style.FILL);
 
         Rect rect = this.getRectangle();
