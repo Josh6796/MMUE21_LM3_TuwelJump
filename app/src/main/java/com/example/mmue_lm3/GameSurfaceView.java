@@ -20,7 +20,8 @@ import com.example.mmue_lm3.interfaces.Event;
 import com.example.mmue_lm3.interfaces.EventListener;
 
 /**
- * Class for the GameSurfaceView
+ * Class for the GameSurfaceView. Here we basically just start the game loop in a new thread and
+ * listen to certain events.
  *
  * @author Joshua Oblong (Demo as Template)
  */

@@ -1,7 +1,8 @@
 package com.example.mmue_lm3.interfaces;
 
 /**
- * Interface for Updatable GameObjects
+ * Interface for Updatable GameObjects which implements the update Method and enables us
+ * to update our GameObjects with a deltaTime.
  *
  * @author Joshua Oblong
  */

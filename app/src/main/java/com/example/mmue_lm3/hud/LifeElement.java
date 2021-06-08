@@ -4,6 +4,8 @@ import com.example.mmue_lm3.sprites.Sprite;
 
 /**
  * Represents a single life (heart) HUD element.
+ *
+ * @author Mathias Schwengerer
  */
 public class LifeElement extends HudElement {
 

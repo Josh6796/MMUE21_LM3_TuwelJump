@@ -3,7 +3,8 @@ package com.example.mmue_lm3;
 import com.example.mmue_lm3.interfaces.Updatable;
 
 /**
- * Class for the Camera
+ * Class for the Camera which enables us to move the whole background instead of only the character.
+ * It is necessary for every Object on the canvas to know the camera information
  *
  * @author Mathias Schwengerer
  */

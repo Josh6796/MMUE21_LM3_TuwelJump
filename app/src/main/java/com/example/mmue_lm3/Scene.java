@@ -4,8 +4,6 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Rect;
 
-import com.example.mmue_lm3.events.EventSystem;
-import com.example.mmue_lm3.events.LoseEvent;
 import com.example.mmue_lm3.gameobjects.CharacterObject;
 import com.example.mmue_lm3.gameobjects.GameObject;
 import com.example.mmue_lm3.interfaces.Collidable;
@@ -15,7 +13,8 @@ import java.util.Stack;
 import java.util.TreeSet;
 
 /**
- * Class that implements the Scene
+ * Class that implements the Scene which enables us to build our game in a single scene and even
+ * create different scenes for different levels.
  *
  * @author Joshua Oblong
  */

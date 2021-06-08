@@ -5,7 +5,7 @@ import android.graphics.Canvas;
 import com.example.mmue_lm3.sprites.Sprite;
 
 /**
- * Booster Hud Element
+ * Booster Hud Element which shows the active Booster Icons on the top of the screen.
  *
  * @author Mathias Schwengerer
  */

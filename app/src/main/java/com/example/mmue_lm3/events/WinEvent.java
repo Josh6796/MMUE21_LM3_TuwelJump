@@ -4,7 +4,8 @@ package com.example.mmue_lm3.events;
 import com.example.mmue_lm3.interfaces.Event;
 
 /**
- * Event for Handling Winning
+ * Event for Handling Winning which gives us the insight from outside the game
+ * if we can make an intent to the WinActivity.
  *
  * @author Joshua Oblong
  */

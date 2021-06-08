@@ -4,14 +4,14 @@ package com.example.mmue_lm3.events;
 
 import android.util.Log;
 
-import com.example.mmue_lm3.GameSurfaceView;
 import com.example.mmue_lm3.interfaces.Event;
 import com.example.mmue_lm3.interfaces.EventListener;
 
 import java.util.Stack;
 
 /**
- * System for handling Events
+ * System for handling Events which enables us to subscribe to certain EventListeners from
+ * everywhere in our code so we can always know what happens in the Game.
  *
  * @author Mathias Schwengerer
  */

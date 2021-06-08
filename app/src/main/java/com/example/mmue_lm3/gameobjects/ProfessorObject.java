@@ -1,6 +1,5 @@
 package com.example.mmue_lm3.gameobjects;
 
-import android.graphics.Bitmap;
 import android.graphics.Canvas;
 
 import com.example.mmue_lm3.Camera;
@@ -11,7 +10,8 @@ import com.example.mmue_lm3.sprites.DynamicBitmap;
 import com.example.mmue_lm3.sprites.TimeAnimatedSprite;
 
 /**
- * Professor GameObject
+ * Professor GameObject which is there for creating, drawing, updating an detecting collision.
+ * Also many functionalities for the Gameplay are implemented here.
  *
  * @author Joshua Oblong
  */

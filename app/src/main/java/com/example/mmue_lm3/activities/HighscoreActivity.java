@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.concurrent.Executors;
 
 /**
- * Activity for the List of Highscores you reached in the Game
+ * Activity for the List of Highscores you reached in the Game.
  *
  * @author Joshua Oblong (Demo as Template)
  */

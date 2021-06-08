@@ -1,15 +1,12 @@
 package com.example.mmue_lm3.sprites;
 
-import android.content.res.Resources;
-import android.graphics.Bitmap;
-import android.graphics.Canvas;
-
 /**
- * Represents a time based animated sprite.
+ * Represents a time based animated sprite. Depending on the time we can change the
+ * look of the Sprite.
  *
  * @author Joshua Oblong
  */
-public class TimeAnimatedSprite extends Sprite{
+public class TimeAnimatedSprite extends Sprite {
     private final double frameTime;
     private final boolean repeat;
 

@@ -3,7 +3,8 @@ package com.example.mmue_lm3.events;
 import com.example.mmue_lm3.interfaces.Event;
 
 /**
- * Event for Handling Resume
+ * Event for Resuming the Game which is especially important for reloading the resources from
+ * outside of the Gameloop.
  *
  * @author Mathias Schwengerer
  */

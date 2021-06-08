@@ -14,27 +14,27 @@ import com.example.mmue_lm3.events.HealthEvent;
 import com.example.mmue_lm3.events.LevelEvent;
 import com.example.mmue_lm3.events.PauseEvent;
 import com.example.mmue_lm3.events.ResumeEvent;
-import com.example.mmue_lm3.events.VelocityEvent;
-import com.example.mmue_lm3.events.WinEvent;
-import com.example.mmue_lm3.gameobjects.BoosterItemObject;
-import com.example.mmue_lm3.gameobjects.DestroyablePlatformObject;
-import com.example.mmue_lm3.gameobjects.PlatformObject;
-import com.example.mmue_lm3.gameobjects.ProfessorObject;
-import com.example.mmue_lm3.sprites.DynamicBitmap;
-import com.example.mmue_lm3.sprites.Sprite;
-import com.example.mmue_lm3.interfaces.Event;
-import com.example.mmue_lm3.interfaces.EventListener;
 import com.example.mmue_lm3.events.TouchEvent;
+import com.example.mmue_lm3.events.VelocityEvent;
+import com.example.mmue_lm3.gameobjects.BoosterItemObject;
 import com.example.mmue_lm3.gameobjects.CharacterObject;
 import com.example.mmue_lm3.gameobjects.EctsItemObject;
 import com.example.mmue_lm3.gameobjects.GameObject;
+import com.example.mmue_lm3.gameobjects.PlatformObject;
+import com.example.mmue_lm3.gameobjects.ProfessorObject;
+import com.example.mmue_lm3.interfaces.Event;
+import com.example.mmue_lm3.interfaces.EventListener;
+import com.example.mmue_lm3.sprites.DynamicBitmap;
+import com.example.mmue_lm3.sprites.Sprite;
 
 import java.util.Queue;
 import java.util.Random;
 import java.util.concurrent.ConcurrentLinkedDeque;
 
 /**
- * Class for the GameLoop
+ * Class for the GameLoop. Here's where the magic happens. Not only do we load all the assets here
+ * but it also processes the different events and most importantly initializes and holds the render
+ * loop which is for continuously drawing something on the canvas until we want it to stop.
  *
  * @author Joshua Oblong (Demo as Template)
  */

@@ -6,6 +6,11 @@ import androidx.room.Query;
 
 import java.util.List;
 
+/**
+ * Interface for the Score Data Access Object which enables us to make certain database queries.
+ *
+ * @author Joshua Oblong
+ */
 @Dao
 public interface ScoreDao {
     @Insert

@@ -14,7 +14,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.mmue_lm3.R;
 
 /**
- * Activity for the Video you see when the Game starts
+ * Activity for the Video you see when the Game starts which has also a Skip Function which
+ * leads you to the Game's Menu
  *
  * @author Mathias Schwengerer (Demo as Template)
  */

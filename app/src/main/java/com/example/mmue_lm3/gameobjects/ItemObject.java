@@ -3,7 +3,7 @@ package com.example.mmue_lm3.gameobjects;
 import com.example.mmue_lm3.interfaces.Collidable;
 
 /**
- * Item GameObject
+ * Item GameObject which is there for creating, drawing, updating an detecting collision.
  *
  * @author Joshua Oblong
  */

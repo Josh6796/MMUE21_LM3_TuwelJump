@@ -3,7 +3,8 @@ package com.example.mmue_lm3.events;
 import com.example.mmue_lm3.interfaces.Event;
 
 /**
- * Event for handling Touchscreen Usage
+ * Event for handling Touchscreen Usage which enables us to know wherever when the screen is
+ * touched and in what direction
  *
  * @author Mathias Schwengerer
  */

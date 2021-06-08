@@ -1,10 +1,10 @@
 package com.example.mmue_lm3.sprites;
 
-import android.content.res.Resources;
-import android.graphics.Bitmap;
-
 /**
- * Represents an event based animated sprite.
+ * Represents an event based animated sprite. Depending on the Event we can change the look of the
+ * Sprite (e.g. for Jumping)
+ *
+ * @author Mathias Schwengerer
  */
 public class EventAnimatedSprite extends Sprite {
 

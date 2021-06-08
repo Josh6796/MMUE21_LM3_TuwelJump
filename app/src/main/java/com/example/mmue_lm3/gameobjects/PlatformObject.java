@@ -4,14 +4,13 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
-import android.util.Log;
 
 import com.example.mmue_lm3.Camera;
 import com.example.mmue_lm3.Scene;
 import com.example.mmue_lm3.interfaces.Collidable;
 
 /**
- * Platform GameObject
+ * Platform GameObject which is there for creating, drawing, updating an detecting collision.
  *
  * @author Joshua Oblong
  */

@@ -4,7 +4,8 @@ import com.example.mmue_lm3.enums.Booster;
 import com.example.mmue_lm3.interfaces.Event;
 
 /**
- * Event for handling Booster
+ * Event for handling Booster Items so we can know which type of Booster was activated and
+ * if it is still active in the current render process.
  *
  * @author Mathias Schwengerer
  */

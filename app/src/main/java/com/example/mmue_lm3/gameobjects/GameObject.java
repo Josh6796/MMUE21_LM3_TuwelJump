@@ -7,7 +7,10 @@ import com.example.mmue_lm3.interfaces.Drawable;
 import com.example.mmue_lm3.interfaces.Updatable;
 
 /**
- * Main GameObject
+ * Main GameObject which enables us to distinguish different Objects in the Game.
+ * This class is abstract and is extended by all the different Objects.
+ * It implements Drawable, Updatable and Comparable which gives the Game Objects the functionality
+ * of being drawn, updated and compared (for collision).
  *
  * @author Joshua Oblong (Demo as Template)
  */

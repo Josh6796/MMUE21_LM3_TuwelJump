@@ -4,6 +4,12 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
+/**
+ * Class for creating Bitmaps and also for helping us with the resource management. It enables us
+ * to load and unload a bitmap and simultaneously clear the resources.
+ *
+ * @author Mathias Schwengerer
+ */
 public class DynamicBitmap {
 
     private Bitmap bitmap;

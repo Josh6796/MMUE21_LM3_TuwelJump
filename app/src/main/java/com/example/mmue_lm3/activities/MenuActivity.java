@@ -9,7 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.mmue_lm3.R;
 
 /**
- * Activity for the Game's Menu
+ * Activity for the Game's Menu where you can start the Game or see your Highscores.
  *
  * @author Joshua Oblong (Demo as Template)
  */

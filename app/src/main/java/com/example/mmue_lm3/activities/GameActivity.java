@@ -20,7 +20,10 @@ import com.example.mmue_lm3.interfaces.Event;
 import com.example.mmue_lm3.interfaces.EventListener;
 
 /**
- * Activity for the Game itself
+ * Activity for the Game itself where we listen to Pause and Resume Events to pause or resume
+ * the game and Lose or Win Events to get to the next level or show the Losing Splashscreen.
+ * There's also a Mediaplayer for the background music which has a mute functionality.
+ * Also it's showing a Help Dialog when pressing the Pause Button
  *
  * @author Joshua Oblong (Demo as Template)
  */

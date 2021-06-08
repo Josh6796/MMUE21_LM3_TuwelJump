@@ -13,10 +13,9 @@ import com.example.mmue_lm3.R;
 import com.example.mmue_lm3.persistence.Score;
 import com.example.mmue_lm3.persistence.ScoreRoomDatabase;
 
-import java.util.concurrent.Executors;
-
 /**
- * Activity for the Splash Screen that comes when you won the game with the View Animation
+ * Activity for the Splash Screen that comes when you won the game with the View Animation and
+ * the achieved Highscore. It also handles if you go to the next Level.
  *
  * @author Joshua Oblong (Demo as Template)
  */

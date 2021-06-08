@@ -1,6 +1,5 @@
 package com.example.mmue_lm3.gameobjects;
 
-import android.graphics.Bitmap;
 import android.graphics.Canvas;
 
 import com.example.mmue_lm3.Camera;
@@ -9,7 +8,8 @@ import com.example.mmue_lm3.sprites.DynamicBitmap;
 import com.example.mmue_lm3.sprites.TimeAnimatedSprite;
 
 /**
- * ECTS Item GameObject
+ * ECTS Item GameObject which is there for creating, drawing, updating an detecting collision.
+ * It extends the ItemObject Class.
  *
  * @author Joshua Oblong
  */

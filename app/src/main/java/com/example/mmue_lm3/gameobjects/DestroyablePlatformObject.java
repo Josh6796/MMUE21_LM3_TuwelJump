@@ -9,7 +9,8 @@ import com.example.mmue_lm3.Camera;
 import com.example.mmue_lm3.Scene;
 
 /**
- * Destroyable Platform GameObject
+ * Destroyable Platform GameObject which is there for creating, drawing, updating an detecting collision.
+ * It extends the PlatformObject Class.
  *
  * @author Joshua Oblong
  */

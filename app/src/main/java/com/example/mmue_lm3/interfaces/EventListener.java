@@ -1,7 +1,7 @@
 package com.example.mmue_lm3.interfaces;
 
 /**
- * Interface for handling Events
+ * Interface for handling Events which implements the onEvent Method
  *
  * @author Joshua Oblong
  */

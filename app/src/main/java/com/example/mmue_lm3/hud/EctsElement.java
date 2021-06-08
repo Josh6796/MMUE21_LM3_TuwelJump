@@ -8,6 +8,8 @@ import com.example.mmue_lm3.sprites.Sprite;
 
 /**
  * Represents the ECTS HUD element. It consists of an icon followed by the current ECTS count.
+ *
+ * @author Mathias Schwengerer
  */
 public class EctsElement extends HudElement {
 

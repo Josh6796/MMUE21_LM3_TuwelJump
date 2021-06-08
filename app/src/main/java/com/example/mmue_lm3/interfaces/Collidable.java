@@ -6,7 +6,8 @@ import com.example.mmue_lm3.Scene;
 import com.example.mmue_lm3.gameobjects.CharacterObject;
 
 /**
- * Interface for Collidable GameObjects
+ * Interface for Collidable GameObjects which implements the collide Method for GameObjects,
+ * so we can detect the collision for each Object.
  *
  * @author Joshua Oblong
  */

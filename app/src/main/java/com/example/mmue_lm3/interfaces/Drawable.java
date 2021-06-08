@@ -5,7 +5,8 @@ import android.graphics.Canvas;
 import com.example.mmue_lm3.Camera;
 
 /**
- * Interface for Drawable GameObjects
+ * Interface for Drawable GameObjects which implements the draw Method for GameObjects and enables
+ * us to draw on the Canvas.
  *
  * @author Joshua Oblong
  */

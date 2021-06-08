@@ -16,7 +16,8 @@ import com.example.mmue_lm3.persistence.ScoreRoomDatabase;
 import java.util.concurrent.Executors;
 
 /**
- * Activity for the Splash Screen that comes when you lost the game with the View Animation
+ * Activity for the Splash Screen that comes when you lost the game with the View Animation and
+ * the achieved Highscore.
  *
  * @author Joshua Oblong (Demo as Template)
  */

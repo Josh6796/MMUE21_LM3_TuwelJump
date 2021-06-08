@@ -17,7 +17,8 @@ import com.example.mmue_lm3.sprites.EventAnimatedSprite;
 import static java.lang.Math.max;
 
 /**
- * Character GameObject
+ * Character GameObject which is there for creating, drawing, updating an detecting collision.
+ * Also many functionalities for the Gameplay are implemented here.
  *
  * @author Joshua Oblong
  */
