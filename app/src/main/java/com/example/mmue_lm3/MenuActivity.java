@@ -1,12 +1,10 @@
-package com.example.mmue_lm3.activities;
+package com.example.mmue_lm3;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
-
-import com.example.mmue_lm3.R;
 
 /**
  * Activity for the Game's Menu where you can start the Game or see your Highscores.

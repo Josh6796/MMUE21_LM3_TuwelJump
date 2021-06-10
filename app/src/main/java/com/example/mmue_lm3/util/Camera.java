@@ -1,4 +1,4 @@
-package com.example.mmue_lm3;
+package com.example.mmue_lm3.util;
 
 import com.example.mmue_lm3.interfaces.Updatable;
 

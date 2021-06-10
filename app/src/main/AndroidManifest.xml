@@ -9,15 +9,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MMUELM3">
-        <activity android:name=".activities.LoseActivity"
+        <activity android:name=".LoseActivity"
             android:noHistory="true" />
-        <activity android:name=".activities.WinActivity"
+        <activity android:name=".WinActivity"
             android:noHistory="true" />
-        <activity android:name=".activities.HighscoreActivity"/>
-        <activity android:name=".activities.GameActivity"
+        <activity android:name=".HighscoreActivity"/>
+        <activity android:name=".GameActivity"
             android:noHistory="true" />
-        <activity android:name=".activities.MenuActivity"/>
-        <activity android:name=".activities.VideoActivity"
+        <activity android:name=".MenuActivity"/>
+        <activity android:name=".VideoActivity"
                 android:noHistory="true" >
         <intent-filter>
             <action android:name="android.intent.action.MAIN" />

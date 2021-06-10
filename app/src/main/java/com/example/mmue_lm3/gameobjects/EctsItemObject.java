@@ -2,7 +2,7 @@ package com.example.mmue_lm3.gameobjects;
 
 import android.graphics.Canvas;
 
-import com.example.mmue_lm3.Camera;
+import com.example.mmue_lm3.util.Camera;
 import com.example.mmue_lm3.Scene;
 import com.example.mmue_lm3.sprites.DynamicBitmap;
 import com.example.mmue_lm3.sprites.TimeAnimatedSprite;
@@ -20,7 +20,7 @@ public class EctsItemObject extends ItemObject {
 
     public EctsItemObject(DynamicBitmap bitmap, int ects, double x, double y) {
         super(x, y, 0, 0);
-        this.timeAnimatedSprite = new TimeAnimatedSprite(bitmap, 6, 0.15);;
+        this.timeAnimatedSprite = new TimeAnimatedSprite(bitmap, 6, 0.15);
         this.ects = ects;
 
         super.setWidth(this.timeAnimatedSprite.getWidth());

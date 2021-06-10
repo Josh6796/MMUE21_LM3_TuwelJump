@@ -1,4 +1,4 @@
-package com.example.mmue_lm3.activities;
+package com.example.mmue_lm3;
 
 import android.content.Intent;
 import android.media.MediaPlayer;
@@ -10,8 +10,6 @@ import android.view.WindowManager;
 import android.widget.VideoView;
 
 import androidx.appcompat.app.AppCompatActivity;
-
-import com.example.mmue_lm3.R;
 
 /**
  * Activity for the Video you see when the Game starts which has also a Skip Function which

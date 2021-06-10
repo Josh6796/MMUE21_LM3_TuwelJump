@@ -2,7 +2,7 @@ package com.example.mmue_lm3.gameobjects;
 
 import android.graphics.Rect;
 
-import com.example.mmue_lm3.Camera;
+import com.example.mmue_lm3.util.Camera;
 import com.example.mmue_lm3.interfaces.Drawable;
 import com.example.mmue_lm3.interfaces.Updatable;
 

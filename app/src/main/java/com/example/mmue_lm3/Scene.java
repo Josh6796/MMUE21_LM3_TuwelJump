@@ -7,6 +7,7 @@ import android.graphics.Rect;
 import com.example.mmue_lm3.gameobjects.CharacterObject;
 import com.example.mmue_lm3.gameobjects.GameObject;
 import com.example.mmue_lm3.interfaces.Collidable;
+import com.example.mmue_lm3.util.Camera;
 
 import java.util.Set;
 import java.util.Stack;

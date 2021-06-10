@@ -5,7 +5,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 
-import com.example.mmue_lm3.Camera;
+import com.example.mmue_lm3.util.Camera;
 import com.example.mmue_lm3.Scene;
 
 /**

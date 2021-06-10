@@ -1,20 +1,15 @@
-package com.example.mmue_lm3;
+package com.example.mmue_lm3.hud;
 
 import android.graphics.Canvas;
 import android.util.Log;
 
+import com.example.mmue_lm3.GameSurfaceView;
 import com.example.mmue_lm3.enums.Booster;
-import com.example.mmue_lm3.hud.BoosterElement;
 import com.example.mmue_lm3.sprites.Sprite;
-import com.example.mmue_lm3.hud.EctsElement;
-import com.example.mmue_lm3.hud.HudElement;
-import com.example.mmue_lm3.hud.LifeElement;
 
-import java.util.Deque;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Map;
 import java.util.Queue;
 import java.util.Set;

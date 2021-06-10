@@ -2,7 +2,7 @@ package com.example.mmue_lm3.gameobjects;
 
 import android.graphics.Canvas;
 
-import com.example.mmue_lm3.Camera;
+import com.example.mmue_lm3.util.Camera;
 import com.example.mmue_lm3.Scene;
 import com.example.mmue_lm3.enums.Booster;
 import com.example.mmue_lm3.events.BoosterEvent;

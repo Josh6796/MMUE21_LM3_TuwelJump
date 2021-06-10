@@ -2,7 +2,7 @@ package com.example.mmue_lm3.interfaces;
 
 import android.graphics.Canvas;
 
-import com.example.mmue_lm3.Camera;
+import com.example.mmue_lm3.util.Camera;
 
 /**
  * Interface for Drawable GameObjects which implements the draw Method for GameObjects and enables

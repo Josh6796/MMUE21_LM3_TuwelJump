@@ -1,4 +1,4 @@
-package com.example.mmue_lm3.activities;
+package com.example.mmue_lm3;
 
 import android.content.Intent;
 import android.media.AudioManager;
@@ -9,7 +9,6 @@ import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.mmue_lm3.R;
 import com.example.mmue_lm3.events.EventSystem;
 import com.example.mmue_lm3.events.LevelEvent;
 import com.example.mmue_lm3.events.LoseEvent;

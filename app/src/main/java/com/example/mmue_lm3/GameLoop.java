@@ -23,6 +23,7 @@ import com.example.mmue_lm3.gameobjects.EctsItemObject;
 import com.example.mmue_lm3.gameobjects.GameObject;
 import com.example.mmue_lm3.gameobjects.PlatformObject;
 import com.example.mmue_lm3.gameobjects.ProfessorObject;
+import com.example.mmue_lm3.hud.Hud;
 import com.example.mmue_lm3.interfaces.Event;
 import com.example.mmue_lm3.interfaces.EventListener;
 import com.example.mmue_lm3.sprites.DynamicBitmap;
