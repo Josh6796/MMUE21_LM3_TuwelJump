@@ -14,8 +14,11 @@
         <activity android:name=".WinActivity"
             android:noHistory="true" />
         <activity android:name=".HighscoreActivity"/>
-        <activity android:name=".GameActivity"
-            android:noHistory="true" />
+        <activity
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:name=".GameActivity"/>
         <activity android:name=".MenuActivity"/>
         <activity android:name=".VideoActivity"
                 android:noHistory="true" >

@@ -104,6 +104,7 @@ public class GameLoop implements Runnable, EventListener {
         setRunning(true);
 
         while (running) {
+
             // process events
             events();
             //Update game logic

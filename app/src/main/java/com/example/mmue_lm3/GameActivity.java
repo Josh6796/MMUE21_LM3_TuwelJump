@@ -45,12 +45,24 @@ public class GameActivity extends AppCompatActivity implements EventListener {
         audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, audioManager.getStreamVolume(AudioManager.STREAM_MUSIC), 0);
         mediaPlayer = MediaPlayer.create(this, R.raw.background);
         mediaPlayer.setLooping(true);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
         mediaPlayer.start();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+
+        ImageView helpdialog = (ImageView) findViewById(R.id.helpDialog);
+
+        EventSystem.onEvent(new ResumeEvent());
+        isPaused = false;
+        helpdialog.setVisibility(View.INVISIBLE);
 
         Intent intent = getIntent();
         int level = intent.getIntExtra("Level", 0);
@@ -63,6 +75,20 @@ public class GameActivity extends AppCompatActivity implements EventListener {
     @Override
     protected void onPause() {
         super.onPause();
+
+        ImageView helpdialog = (ImageView) findViewById(R.id.helpDialog);
+
+        isPaused = true;
+        EventSystem.onEvent(new PauseEvent());
+        helpdialog.setVisibility(View.VISIBLE);
+        helpdialog.bringToFront();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+
+        mediaPlayer.pause();
     }
 
     @Override
@@ -76,7 +102,9 @@ public class GameActivity extends AppCompatActivity implements EventListener {
     protected void onGameLost(int score) {
         Intent intent = new Intent(this, LoseActivity.class);
         intent.putExtra("Score", score);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
         startActivity(intent);
+        this.finish();
     }
 
     protected void onGameWon(int level, int health, int ects) {
@@ -84,20 +112,16 @@ public class GameActivity extends AppCompatActivity implements EventListener {
         intent.putExtra("Level", level);
         intent.putExtra("Health", health);
         intent.putExtra("Ects", ects);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
         startActivity(intent);
+        this.finish();
     }
 
     public void pauseButtonClicked(View view) {
-        ImageView helpdialog = (ImageView) findViewById(R.id.helpDialog);
         if (isPaused) {
-            EventSystem.onEvent(new ResumeEvent());
-            isPaused = false;
-            helpdialog.setVisibility(View.INVISIBLE);
+            onResume();
         } else {
-            isPaused = true;
-            EventSystem.onEvent(new PauseEvent());
-            helpdialog.setVisibility(View.VISIBLE);
-            helpdialog.bringToFront();
+            onPause();
         }
     }
 
@@ -116,6 +140,15 @@ public class GameActivity extends AppCompatActivity implements EventListener {
         {
             WinEvent e = (WinEvent)event;
             onGameWon(e.getLevel(), e.getHealth(), e.getEcts());
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (isPaused) {
+            onResume();
+        } else {
+            onPause();
         }
     }
 }
