@@ -14,6 +14,7 @@ import android.view.VelocityTracker;
 
 import com.example.mmue_lm3.events.EventSystem;
 import com.example.mmue_lm3.events.LevelEvent;
+import com.example.mmue_lm3.events.ResumeEvent;
 import com.example.mmue_lm3.events.TouchEvent;
 import com.example.mmue_lm3.events.VelocityEvent;
 import com.example.mmue_lm3.interfaces.Event;
@@ -51,7 +52,7 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
             gameMainThread = new Thread(gameLoop);
             gameMainThread.start();
         } else {
-            gameLoop.setPaused(false);
+            EventSystem.onEvent(new ResumeEvent());
         }
     }
 
