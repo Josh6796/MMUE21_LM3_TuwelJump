@@ -66,6 +66,8 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
         } catch (InterruptedException e) {
             Log.e("Error", e.getMessage());
         }
+        
+        EventSystem.unsubscribe(this);
     }
 
     @Override
