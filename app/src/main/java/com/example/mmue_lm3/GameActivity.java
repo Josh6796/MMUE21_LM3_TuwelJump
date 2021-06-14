@@ -33,12 +33,15 @@ public class GameActivity extends AppCompatActivity implements EventListener {
     private boolean isPaused = false;
 
     private MediaPlayer mediaPlayer;
+    private GameSurfaceView gameSurfaceView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EventSystem.subscribe(this);
         setContentView(R.layout.activity_game);
+
+        gameSurfaceView = findViewById(R.id.gameSurfaceView);
 
         // Sounds
         AudioManager audioManager = (AudioManager) getSystemService(GameActivity.AUDIO_SERVICE);
@@ -94,6 +97,7 @@ public class GameActivity extends AppCompatActivity implements EventListener {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        gameSurfaceView.endGame();
         EventSystem.unsubscribe(this);
         mediaPlayer.stop();
         mediaPlayer.release();

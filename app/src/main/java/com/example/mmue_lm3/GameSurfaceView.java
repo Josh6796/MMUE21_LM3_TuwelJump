@@ -46,12 +46,16 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
     }
 
     private void startGame(SurfaceHolder holder) {
-        gameLoop = new GameLoop(holder, this, currentLevel, startHealth, startEcts);
-        gameMainThread = new Thread(gameLoop);
-        gameMainThread.start();
+        if (gameLoop == null) {
+            gameLoop = new GameLoop(holder, this, currentLevel, startHealth, startEcts);
+            gameMainThread = new Thread(gameLoop);
+            gameMainThread.start();
+        } else {
+            gameLoop.setPaused(false);
+        }
     }
 
-    private void endGame() {
+    public void endGame() {
         if (!gameLoop.isRunning())
             return;
 
@@ -84,8 +88,6 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
 
     @Override
     public void surfaceDestroyed(SurfaceHolder holder) {
-        endGame();
-        EventSystem.unsubscribe(this);
     }
 
     @Override

@@ -96,6 +96,10 @@ public class GameLoop implements Runnable, EventListener {
         this.running = running;
     }
 
+    public void setPaused(boolean pause) {
+        this.pause = pause;
+    }
+
     @Override
     public void run() {
         //One time Updates before first frame update is called
